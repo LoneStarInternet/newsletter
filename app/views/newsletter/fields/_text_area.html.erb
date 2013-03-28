@@ -1,0 +1,7 @@
+<tr valign="top">
+   <td width='150'><%= label_tag 'newsletter_piece[field_values]['+field.id.to_s+'][text_area]', "#{field.label}:" %></td>
+   <td><%= text_area_tag 'newsletter_piece[field_values]['+field.id.to_s+'][text_area]', field.value_for_piece(piece), {:cols => 80, :rows => 6} %></td>
+</tr>
+<div class="entry">
+ 
+</div>

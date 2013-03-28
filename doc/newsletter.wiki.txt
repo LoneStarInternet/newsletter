@@ -1,0 +1,130 @@
+=General Requirements=
+Newsletters will be created from newsletter designs, which will allow users to add data to predefined elements such as articles and images where they have no need to know html or use a wysiwyg editor. The design defines what elements exist and where they can be placed in a layout.
+Elements will be sortable/draggable within an area. There will be an archive page and newsletters can be published or hidden from this view as well as sorted. If the Mailing List Manager is also installed, published newsletters will be available as mailable objects when creating a mailing. Currently only an html design can be defined, and a plain text version is available by converting the html of the newsletter.
+
+==Additional RVArt Gallery Needs==
+* Include products from the shopping cart, and possibly an 'override' description of the product.
+* Multiple mailing lists and subcsription options.
+
+=Overview=
+==Newsletter Designs==
+Newsletter designs currently are based on erb designs which are tied together with data elements and an overall layout. Most likely the end user will not be modifying these, but will be handled by a designer/site administrator.
+
+===Basic Configuration===
+Configuration currently is defined with a plugin [[AppConfig]], which pulls application configuration in from the file: "'''config/config.yml'''" in the root of your rails application. Paths and urls in general do NOT have a trailing slash. Here are the applicable settings for newsletter designs:
+* Newsletter Specific
+** '''newsletters_path''' - path to the root of your newsletter design files
+** '''newsletter_asset_path''' - path to where newsletter users where upload assets for their newsletters
+** '''newsletter_path_prefix''' - relative path for newsletter administrative routes, '''site_path/site_url''' are prepended when calculating urls and paths for routes
+* Site wide 
+** '''site_path''' - path relative to your domain name if your project is in a sub url
+** '''site_url''' - full url to your site... will include your '''site_path'''
+
+===Installation or Injection into App===
+
+<pre>
+</pre>
+
+
+===NewsletterDesign===
+This defines the overall structure of the newsletter with an name, erb design, which is stored on the filesystem as '''newsletters_path/designs/[design name with underscores for non-alphanumeric characters]/layout.html.erb'''. And newsletter areas, which are referenced with a render tag, which references the areas name, and the newsletter's name is also available. You may also add an unsubscribe block with the unsubscribe url = #UNSUBSCRIBE_URL# if you are tying into the mailing list manager. Since you won't want to show this block in the main site, you may enclose your unsubscribe block with a conditional based on "'''is_email?'''".
+* Screens
+** (Listing) Newsletter Designs - Add/Edit/Delete newsletter designs
+* Console Snippets for import/export of designs
+<pre>
+#export a design with the 'export' method
+#this creates a file '''newsletters_path/exports/[design name with underscores for non-alphanumeric characters]-export.yaml'''
+NewsletterDesign.first.export
+#import a design from an exported design's YAML file 
+NewsletterDesign.import(filename[,design_name])
+</pre>
+* Data
+** name
+** description
+** html_design (file-based - not in db)
+** has_many: NewsletterAreas - list of areas, so that we know which areas exist in this design other than trying to inspect the design itself
+** has_many: NewsletterElements - building blocks of the design, such as articles, images and paragraphs
+
+Here is an example layout.html.erb, with newsletter areas 'left column' and 'right column'.
+<pre>
+<html>
+<head><title><%= @newsletter_design.name %></title></head>
+<body>
+<table border="0">
+<tr>
+	<td><%= render left_column %></td>
+	<td><%= render right_column %></td>
+</tr>
+</table>
+<% if is_email? %>
+You may unsubscribe from this list by clicking <%= link_to "here", "#UNSUBSCRIBE_URL#" %>.
+<% end %>
+</body>
+</html>
+</pre>
+
+===NewsletterArea===
+This will represent an area of a design, which can hold multiple sortable elements - currently just a dumb container.
+* Data
+** name
+** description
+** has_and_belongs_to_many NewsletterElements
+** belongs_to NewsletterDesign
+** has_many NewsletterPieces 
+
+===NewsletterElement===
+This is a terminal element for display, it has an erb design on the filesystem at '''newsletters_path/designs/[newsletter design name with underscores for non-alphanumeric characters]/newsletter_elements/_[element name with underscores for non-alphanumeric characters].html.erb''' and Fields to hold and modify its data.
+* Data
+** name
+** description
+** html_design (on the filesystem... not db)
+** has_many NewsletterFields
+** has_and_belongs_to_many NewsletterAreas
+** belongs_to NewsletterDesign
+
+===NewsletterField===
+These are data members that can be used in an element. They are polymorphic, and have a model associated with their type that may contain validation logic and defines how their data is stored and views for representation in a form.
+* name
+* description
+* type - polymorphic 
+** :text - string, text field, 
+** :text_area - string, text area, 
+** :inline_asset - url (asset or external) for an inline asset
+** :product - id(int) and type of an object to show, ajaxified search form (autocomplete/form) 
+*** this is in response to needing a way to tie in a product (*future for RVArt)
+* belongs_to NewsletterElement
+* belongs_to NewsletterPiece
+
+===NewsletterAsset===
+Assets that can be linked from pieces, given that they have a field which supports this. This is using the '''attachment_fu''' plugin
+
+===Newsletter===
+These are the actual newsletters which tie actual newsletter data to a newsletter design and its elements. 
+* Screens
+** List Newsletters - lists all newsletters, allows publishing, unpublishing, reordering with drag/drop and links to New & Edit functionality
+** New Newsletter - allows them to enter a name for the newsletter and select a design.
+** Edit (Newsletter) - brings up an editor where they may add "Pieces" to newsletter areas and reorder/edit/remove them in a preview pane.
+** Newsletter Archive - lists published newsletters for public view
+* Data
+** name
+** description
+** subject
+** newsletter_design_id
+** belongs_to :newsletter_design
+** has_and_belongs_to_many :pieces
+
+==Piece==
+An instance of element that is tied to a newsletter in an area, and ties in field values to an elements fields.
+* belongs_to :newsletter_area
+* belongs_to :newsletter_element
+* belongs_to :newsletter
+* has_many :newsletter_field_values
+
+==FieldValue==
+This may be used to save data for a field and a given piece, depending on the field.
+* newsletter_piece_id
+* newsletter_field_id
+* key - varchar - may be used if a field has multiple values to store.
+* value - text
+
+=Creating a Design=

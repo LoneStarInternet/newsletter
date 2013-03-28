@@ -1,0 +1,30 @@
+<% unless params[:editor] %>
+<% area.pieces.by_newsletter(@newsletter).each do |piece| %>
+		<% begin %>
+		<%= render :inline => piece.element.html_text, :locals => piece.locals %>
+		<% rescue => e %>
+		<!-- Error rendering piece: <%=  piece.element.html_text %>/ <%= piece.id %> with data <%=h piece.locals.inspect %>  and template: <%=h piece.element.html_text %> <br/> <%= e.message %><br/> <%= e.backtrace.join(",") %> -->
+		<% end %>
+<% end %>
+<% else %>
+<% div_for area do %>
+	<% area.pieces.by_newsletter(@newsletter).each do |piece| %>
+		<% div_for piece, {:onMouseOver => "\$('modify_piece_#{piece.id}').show()",
+		 				  :onMouseOut => "\$('modify_piece_#{piece.id}').hide()"} do %>
+			<!--Element Template - <%= piece.element.view_path %> -->
+			<%= content_tag :div, link_to("Delete", piece, :confirm => 'Are you sure?', 
+									:method => :delete, :class=> "delete_link") + 
+									" | " + 
+			 					  link_to("Edit", edit_newsletter_piece_path(piece), :target => '_top', :class => "edit_link"),
+								  :id=>"modify_piece_#{piece.id}", :style => "display:none", :class => "piece_tool" %>
+			<% begin %>
+			<%= render :inline => piece.element.html_text, :locals => piece.locals %>
+			<% rescue => e %>
+			Error rendering piece: <%=  piece.element.html_text %>/ <%= piece.id %> with data <%=h piece.locals.inspect %>  and template: <%=h piece.element.html_text %> <br/> <%= e.message %><br/> <%= e.backtrace.join(",") %>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%= sortable_element("area_#{area.id}", :tag=>:div, 
+		:constraint =>  :vertical, :url => sort_newsletter_newsletter_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %>
+<% end %>
+<% end %>

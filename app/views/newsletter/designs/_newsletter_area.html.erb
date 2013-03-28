@@ -1,0 +1,17 @@
+<% div_for newsletter_area do %>
+  <% fields_for 'newsletter_design[area_attributes][]', newsletter_area do |naf| %>
+		<%= naf.text_field :name, :index => nil %> 
+		<% if newsletter_area.new_record? %>
+			<%= link_to_function "Remove", "$(this).up('.newsletter_area').remove()", :class => 'button' %><div class='linkbuttonEnding' style='margin-top: 7px;'></div><br/>
+		<% else %>
+			<%= link_to_function "Remove", "$(this).next('.should_destroy').value = 1; $(this).hide();"+
+			    "$('area_restore_#{newsletter_area.id}').show()", :class => 'button', 
+			    :id =>  "area_remove_#{newsletter_area.id}" %>
+			<%= link_to_function "Restore", "$(this).next('.should_destroy').value = 0; $(this).hide();"+
+			    "$('area_remove_#{newsletter_area.id}').show()", :class => 'button', 
+			    :id =>  "area_restore_#{newsletter_area.id}", :style => 'display:none' %><div class='linkbuttonEnding' style='margin-top: 5px;'></div><br/>
+			<%= naf.hidden_field :id, :index => nil %>
+			<%= naf.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<% title "Newsletter Archive" %>
+<ul style="margin-bottom: 100px;">
+<% @newsletters.published.each do |newsletter| %>
+	<li><%= link_to newsletter.name, public_newsletter_path(newsletter) %></li>
+<% end %>
+</ul>
+
+

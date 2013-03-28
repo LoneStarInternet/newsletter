@@ -1,0 +1,21 @@
+<% form_for(@newsletter) do |f| %>
+  <%= f.error_messages %>
+
+<table cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td><%= f.label :name %> </td>
+    <td><%= f.text_field :name %></td>
+  </tr>
+  <% if @newsletter.design.nil? %>
+  <tr>
+    <td><%= f.label :design %></td>
+    <td><%= f.select :design_id, @designs.collect {|design| [ design.name, design.id ] } %></td>
+  </tr>
+<% end %>
+<tr>
+  <td colspan="2" align="right"><%= f.submit "Save", :class => "button" %><div class="buttonEnding"></div>
+</td>
+</tr>
+</table>
+
+<% end %>

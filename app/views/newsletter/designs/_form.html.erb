@@ -1,0 +1,38 @@
+<% form_for @design do |f| %>
+  <%= f.error_messages %>
+  <table cellspacing='1' cellpadding='0' border='0'>  
+    <tr>
+       <td width='150'><%= f.label :name %></td>
+       <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+       <td width='150'><%= f.label :description %></td>
+       <td><%= f.text_field :description %></td>
+    </tr>
+    <% unless @design.name.blank? %>
+    <tr>
+    	<td width='150'><label>Design Filename</label></td>
+    	<td><%= @design.view_path.gsub(/^#{Conf.newsletters_path}/,'') %></td>
+  	</tr>
+  	<% end %>
+    <tr valign='top'>
+       <td width='150'><%= f.label :html_text %></td>
+       <td><%= f.text_area :html_text %></td>
+    </tr>
+    <tr valign='top'>
+      <td colspan='2'>
+      <div class='newsletter_parts_group'>
+         <h2 style='padding-bottom: 0; margin-bottom: 0; font-size: 10pt; '>Areas</h2>
+         <div id="areas">
+            <%= render :partial => 'newsletter_area', :collection => @design.areas %>
+         </div>
+      	<%= add_newsletter_area_link('Add Area') %><div class='linkbuttonEnding'></div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" colspan="2"><%= f.submit "Submit", :class => 'button' %><div class="buttonEnding"></div></td>
+    </tr>
+  </table>
+    
+<% end %>

@@ -1,0 +1,22 @@
+<% title "Element" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @element.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @element.description %>
+</p>
+<p>
+  <strong>Html Design Text:</strong>
+  <%=h @element.html_design %>
+</p>
+
+<% content_for :page_navigation do %>
+<div>
+  <%= link_to "Edit", edit_newsletter_element_path(@element), :class => 'button' %><div class="linkbuttonEnding"></div> 
+  <%= link_to "Delete", @element, :confirm => 'Are you sure?', :method => :delete, :class => 'button' %><div class="linkbuttonEnding"></div> 
+  <%= link_to "View All", newsletter_design_elements_path(@design), :class => 'button' %><div class="linkbuttonEnding"></div>
+</div>
+<% end %>

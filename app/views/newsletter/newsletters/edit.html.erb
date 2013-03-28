@@ -1,0 +1,37 @@
+<% title "Edit Newsletter" %>
+
+<%= render :partial => 'form' %>
+
+<h3>Design - <%= @newsletter.design.try(:name) %> </h3>
+<% if @newsletter.design %>
+ <table cellpadding="2" cellspacing="0" border="0">
+ <% @newsletter.areas.each do |area| %>
+   <% form_tag new_newsletter_newsletter_piece_path(@newsletter), :method => :get do %>
+      <%= hidden_field_tag 'area_id', area.id %>
+      <tr>
+      <td><%= label_tag 'element_id', "Area: #{area.name.humanize}" %></td>
+      <td><%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name') %></td>
+      <td><%= submit_tag 'Add Element', :class => 'button' %><div class="buttonEnding"></div></td>
+      </tr>
+   <% end %>
+<% end %>
+   </table>
+
+<p><b>Newsletter Window Size: </b>
+<% [[640,480],[800,600],[1024,768],[1280,1024],[1600,1200]].each do |width,height| %>
+	<%= link_to_function "#{width}x#{height}","$('preview').setStyle({height: '#{height}px', width: '#{width}px'})" %>
+<% end %>
+</p>
+<%= content_tag :iframe, @newsletter.name, :id => 'preview', :src => newsletter_newsletter_path(@newsletter, :editor => 1), :width => 800, :height => 600 %>
+
+
+<% end %>
+
+<% content_for :page_navigation do %>
+  <div>
+  <% if Conf.use_show_for_resources %>
+    <%= link_to "Show", @newsletter, :class => 'button' %><div class="linkbuttonEnding"></div>
+  <% end %>
+    <%= link_to "Back", newsletter_newsletters_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+  </div>
+<% end %>

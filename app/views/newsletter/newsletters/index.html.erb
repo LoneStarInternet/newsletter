@@ -1,0 +1,30 @@
+<% title "Newsletters" %>
+<div>
+  <%= link_to "New Newsletter", new_newsletter_newsletter_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+</div>
+
+<table class="list" cellpadding="1" cellspacing="0">
+  <tr class="title">
+    <td>Name</td>
+    <td colspan="3"> </td>
+  </tr>
+  <% for newsletter in @newsletters %>
+    <tr class="<%= cycle('odd','even') %>">
+      <td><%=h newsletter.name %></td>
+	    <% if newsletter.published? %>
+	    <td><%= link_to 'Un&ndash;Publish', unpublish_newsletter_newsletter_path(newsletter), :class=>"button" %><div class="linkbuttonEnding"></div></td>
+	    <% else %><td><%= link_to 'Publish', publish_newsletter_newsletter_path(newsletter), :class=>"button" %><div class="linkbuttonEnding"></div></td>
+	    <% end %>
+      <td><%= link_to "Edit", edit_newsletter_newsletter_path(newsletter), :class => 'button' %><div class="linkbuttonEnding"></div></td>
+      <td><%= link_to "Delete", newsletter, :confirm => 'Are you sure?', :method => :delete, :class => 'button' %><div class="linkbuttonEnding"></div></td>
+    </tr>
+  <% end %>
+</table>
+
+
+<% content_for :page_navigation do %>
+<div>
+  <%= link_to "New Newsletter", new_newsletter_newsletter_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+</div>
+<div><br /><br /><%= will_paginate @newsletters %></div>
+<% end %>

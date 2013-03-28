@@ -1,0 +1,36 @@
+  <tr valign="top">
+     <td colspan="2">
+<div class="newsletter_parts_group">
+	<h2>Asset for <%= field.label %></h2>
+    <table cellpadding="2" cellspacing="0" border="0">
+	<tr>
+      <td colspan="2">Either enter a url to your asset or upload a file.</td>
+    </tr>
+
+    <tr>
+   <td colspan="2">
+      <% unless field.description.blank? %>
+        <%= field.description %>
+      <% end %>
+          <%= image_tag field_value.url unless field_value.url.blank? %>
+   </td>
+    </tr>
+
+  <tr>
+    <td><%= label_tag 'newsletter_piece[field_values]['+field.id.to_s+'][url]', "Url:" %></td>
+    <td><%= text_field_tag 'newsletter_piece[field_values]['+field.id.to_s+'][url]', field_value.url %></td>
+  </tr>
+
+  <tr>
+      <td>
+    <label for="asset">Upload An Asset:</label></td>
+     <td><%= file_field_tag 'newsletter_piece[field_values]['+field.id.to_s+'][uploaded_data]' %>
+   
+      <%= hidden_field_tag 'newsletter_piece[field_values]['+field.id.to_s+'][asset_id]', field_value.asset_id %>
+    </td>
+  </tr>
+
+  </table>
+</div>
+    </td>
+  </tr>

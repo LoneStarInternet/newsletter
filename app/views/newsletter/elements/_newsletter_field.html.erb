@@ -1,0 +1,37 @@
+<% div_for newsletter_field do %>
+  <table border="0" cellpadding="1" cellspacing="0">
+	<% fields_for 'newsletter_element[field_attributes][]', newsletter_field do |f| %>
+	<%= f.error_messages %>
+	<tr vlalign="top">
+		<td width="150"><%= f.label :name %></td>
+		<td><%= f.text_field :name, :index => nil %></td>
+	</tr>    
+	<tr vlalign="top">
+		<td width="150"><%= f.label :label %><br /></td>
+		<td><%= f.text_field :label, :index => nil %></td>
+	</tr>    
+	<tr vlalign="top">
+		<td width="150"><%= f.label :description %><br /></td>
+		<td><%= f.text_field :description, :index => nil %></td>
+	</tr>    
+	<tr vlalign="top">
+		<td width="150"><%= f.label :type %></td>
+		<td><%= select_tag 'newsletter_element[field_attributes][][type]', options_for_select(@field_types.collect{|type| [type.gsub(/Newsletter::Field::/,'').humanize,type]}, newsletter_field.class.name) %></td>
+	</tr>    
+	<tr vlalign="top">
+	  <td align="right" colspan="2">
+	<% if newsletter_field.new_record? %>
+		<%= link_to_function "Remove", "$(this).up('.newsletter_field').remove()", 
+		    :class => 'button' %><div class='linkbuttonEnding'></div>
+	<% else %>
+		<%= link_to_function "Remove", "$(this).next('.should_destroy').value = 1; $(this).hide(); $(this).next('.button').show()", :class => 'button' %>			
+		<%= link_to_function "Restore", "$(this).next('.should_destroy').value = 0; $(this).hide(); $(this).previous('.button').show()", :class => 'button', :style => 'display:none' %><div class='linkbuttonEnding'></div>
+		<%= f.hidden_field :id, :index => nil %>
+		<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+		<% end %>
+	<% end %>
+	<br/><br/><hr/>
+	  </td>
+	</tr>
+	</table>
+<% end %>

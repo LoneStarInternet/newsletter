@@ -1,0 +1,12 @@
+<% title "Edit Element" %>
+
+<%= render :partial => 'form' %>
+
+<% content_for :page_navigation do %>
+  <div>
+  <% if Conf.use_show_for_resources %>
+    <%= link_to "Show", @element, :class => 'button' %><div class="linkbuttonEnding"></div>
+  <% end %>
+    <%= link_to "View All", newsletter_design_elements_path(@design), :class => 'button' %><div class="linkbuttonEnding"></div>
+  </div>
+<% end %>

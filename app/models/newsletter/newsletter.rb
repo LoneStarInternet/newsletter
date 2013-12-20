@@ -17,32 +17,37 @@ module Newsletter
     has_many :pieces, :order => 'sequence', :class_name => 'Newsletter::Piece', 
       :conditions => "#{Conf.newsletter_table_prefix}pieces.deleted_at is null"
   
-    named_scope :published, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.published_at is not null", 
-      :order => "#{Conf.newsletter_table_prefix}newsletters.sequence"}
-    named_scope :active, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.deleted_at is null", 
-      :order => "#{Conf.newsletter_table_prefix}newsletters.published_at desc"}
+    scope :published, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.published_at is not null", 
+      :order => "#{Conf.newsletter_table_prefix}newsletters.created_at desc"}
+    scope :active, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.deleted_at is null", 
+      :order => "#{Conf.newsletter_table_prefix}newsletters.created_at desc"}
   
     validates_presence_of :name
-    validates_presence_of :design
   
     acts_as_list :column => :sequence
 
+    attr_protected :id
+
+    def headlines
+      pieces.select{|piece| piece.respond_to?(:headline)}
+    end
+
     # returns the newsletter's content as plain text
-    def email_text(substitutions={})
+    def email_text
       "Get the new Newsletter from here: " + public_url + "\n" +
-      '-'*30 + "\n\n" + generate_plain_text('email',substitutions)
+      '-'*30 + "\n\n" + generate_plain_text('email')
     end
 
     # returns the newsletter's content as html text with unsubscribe data(this should be encapsulated in an 
     #   "if is_email" block in your design)
-    def email_html(substitutions={})
-      generate('email',substitutions)
+    def email_html
+      generate('email')
     end
   
     # Currently using lynx to generate newsletter as text
-    def generate_plain_text(mode='',substitutions={})
+    def generate_plain_text(mode='')
       IO.popen('lynx -stdin --dump','w+') do |lynx|
-        lynx.write generate(mode,substitutions)
+        lynx.write generate(mode)
         lynx.close_write
         lynx.readlines.join
       end
@@ -74,28 +79,10 @@ module Newsletter
     #   mode: if set to 'email', is_email? will be true as a helper in the designs, for 
     #         useage to not include javascript, show/hide subscription links, etc.
     #   substitutions: data to substitute out of the content such as "UNSUBSCRIBE_URL"
-    def generate(mode='',substitutions={})
-      html_source = fetch(public_url(mode))
-      substitute_values(html_source,substitutions)
+    def generate(mode='')
+      fetch(public_url(mode))
     end
 
-    def substitute_values(html_source,substitutions)
-      substitutions.each_pair do |substitution,value| 
-        if value.blank?
-          html_source.gsub!(/##{substitution}#([^#]*)#/,'\1')
-        else
-          html_source.gsub!(/##{substitution}#[^#]*#/,value.to_s)
-        end
-      end
-      if defined? MailMgr::ContactableRegistry.respond_to?(:valid_contactable_substitutions)
-        MailMgr::ContactableRegistry.valid_contactable_substitutions.
-          reject{|key| substitutions.keys.include?(key)}.each do |substitution|
-          html_source.gsub!(/##{substitution}#([^#]*)#/,'\1')
-        end
-      end
-      html_source
-    end
-  
     # retrieve a newsletter area by name
     def area(name)
       design.areas.by_name(name).first
@@ -135,6 +122,9 @@ module Newsletter
       end
     end
   
-    include MailMgr::MailableRegistry::Mailable if defined? MailMgr::MailableRegistry.respond_to?(:object_id)
+    if defined? MailMgr::MailableRegistry.respond_to?(:object_id)
+      include MailMgr::MailableRegistry::Mailable
+      has_many :mailings, :as => :mailable, :class_name => "MailMgr::Mailing"
+    end
   end
 end

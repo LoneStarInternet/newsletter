@@ -15,7 +15,7 @@ class NewsletterScoped < ActiveRecord::Migration
     rename_table :newsletters, :newsletter_newsletters
     rename_table :newsletter_templates, :newsletter_designs
     conn = ActiveRecord::Base.connection
-    conn.execute("UPDATE `#{Conf.mail_mgr_table_prefix}mailings`
+    conn.execute("UPDATE `mlm_mailings`
       SET mailable_type='Newsletter::Newsletter'
       WHERE mailable_type='Newsletter'")
     ["InlineAsset","Text","TextArea"].each do |type|
@@ -41,7 +41,7 @@ class NewsletterScoped < ActiveRecord::Migration
     rename_table :newsletter_newsletters, :newsletters
     rename_table :newsletter_designs, :newsletter_templates
     conn = ActiveRecord::Base.connection
-    conn.execute("UPDATE `#{Conf.mail_mgr_table_prefix}mailings`
+    conn.execute("UPDATE `mlm_mailings`
       SET mailable_type='Newsletter'
       WHERE mailable_type='Newsletter::Newsletter'")
     ["InlineAsset","Text","TextArea"].each do |type|

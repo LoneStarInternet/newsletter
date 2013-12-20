@@ -12,6 +12,7 @@ module Newsletter
       new_text = filter_eols_to_brs(text,text)
       new_text = filter_email_addresses_to_mailtos(new_text,text)
       new_text = filter_urls_to_links(new_text,text)
+      new_text.html_safe
     end
 
     protected 

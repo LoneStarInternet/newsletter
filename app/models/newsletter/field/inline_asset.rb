@@ -11,6 +11,8 @@ module Newsletter
     has_many :assets, :foreign_key => :field_id, 
       :class_name => 'Newsletter::Asset'
 
+    attr_protected :id
+
     # overridden from main class to choose between a Newsletter::Asset or a given URL
     def value_for_piece(piece)
       Value.new(:url => url_for_piece(piece), :text => get_value(piece,:text), :asset => asset(piece))
@@ -28,18 +30,20 @@ module Newsletter
       if params[:uploaded_data]
         asset = asset(piece)
         if asset && params[:asset_id] == asset.id.to_s
-          asset.update_attributes(:uploaded_data => params[:uploaded_data])
+          asset.image = params[:uploaded_data]
         else
-          asset = assets.build(:uploaded_data => params[:uploaded_data])
+          asset = assets.build
           piece.assets << asset
+          asset.image = params[:uploaded_data]
         end
+        asset.save
       end
     end
 
     # uniformly get URL so we can know whether it has been modified and delete 
     # any asset uploaded
     def url_for_piece(piece)
-      return "#{Conf.site_url}#{asset(piece).public_filename}" unless asset(piece).try(:public_filename).nil?
+      return "#{Conf.site_url}/#{asset(piece).public_filename}" unless asset(piece).try(:public_filename).nil?
       get_value(piece,:url)
     end
 

@@ -7,10 +7,11 @@
 		<% end %>
 <% end %>
 <% else %>
-<% div_for area do %>
+<%= div_for area do %>
 	<% area.pieces.by_newsletter(@newsletter).each do |piece| %>
-		<% div_for piece, {:onMouseOver => "\$('modify_piece_#{piece.id}').show()",
-		 				  :onMouseOut => "\$('modify_piece_#{piece.id}').hide()"} do %>
+		<%= div_for piece, {:onMouseOver => "\$('#modify_piece_#{piece.id}').show()",
+		 				  :onMouseOut => "\$('#modify_piece_#{piece.id}').hide()",
+		 				  :style => "position: relative;"} do %>
 			<!--Element Template - <%= piece.element.view_path %> -->
 			<%= content_tag :div, link_to("Delete", piece, :confirm => 'Are you sure?', 
 									:method => :delete, :class=> "delete_link") + 
@@ -24,7 +25,25 @@
 			<% end %>
 		<% end %>
 	<% end %>
-	<%= sortable_element("newsletter_area_#{area.id}", :tag=>:div, 
-		:constraint =>  :vertical, :url => sort_newsletter_newsletter_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %>
+<script>
+jQuery(document).ready(function() {
+  jQuery("#newsletter_area_<%= area.id %>").sortable({
+    axis: 'y',
+    stop: function (event, ui) {
+        var data = $(this).sortable('serialize');
+
+        // POST to server using $.post or $.ajax
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '<%= sort_newsletter_newsletter_area_path(newsletter_id: @newsletter.id, id: area.id) %>'
+        });
+    }
+  });
+});
+</script>
+
+<!--%= sortable_element("newsletter_area_#{area.id}", :tag=>:div, 
+		:constraint =>  :vertical, :url => sort_newsletter_newsletter_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %-->
 <% end %>
 <% end %>

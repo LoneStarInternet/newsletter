@@ -13,14 +13,17 @@ module Newsletter
     has_many :areas, :order => :name, :class_name => 'Newsletter::Area'
     has_many :elements, :order => :name, :class_name => 'Newsletter::Element'
     belongs_to :updated_by, :class_name => 'User'
-    after_save :save_areas
     after_create :write_design
   
-    attr_accessible :name, :description, :html_text, :area_attributes
+    accepts_nested_attributes_for :areas
 
-    named_scope :active, :conditions => {:deleted_at => nil}
+    attr_accessible :name, :description, :html_text, :areas_attributes
+
+    scope :active, :conditions => {:deleted_at => nil}
   
     validates_presence_of :name
+
+    # attr_protected :id
     #FIXME: make this work with deletable or convert to auditable, and extend it to access destroyed records
     #validates_uniqueness_of :name
 
@@ -81,18 +84,18 @@ module Newsletter
        @html_text = text
     end
   
-    def area_attributes=(area_attributes)
-      area_attributes.each do |attributes|
-        if attributes[:id].blank?
-          Rails.logger.debug "Building Area : #{attributes.inspect}"
-          areas.build(attributes)
-        else
-          Rails.logger.debug "Setting Area data: #{attributes.inspect}"
-          area = areas.detect{|area| area.id == attributes[:id].to_i}
-          area.attributes = attributes
-        end
-      end
-    end
+    # def area_attributes=(area_attributes)
+    #   area_attributes.each do |attributes|
+    #     if attributes[:id].blank?
+    #       Rails.logger.debug "Building Area : #{attributes.inspect}"
+    #       areas.build(attributes)
+    #     else
+    #       Rails.logger.debug "Setting Area data: #{attributes.inspect}"
+    #       area = areas.detect{|area| area.id == attributes[:id].to_i}
+    #       area.attributes = attributes
+    #     end
+    #   end
+    # end
 
   
     def name=(new_name)
@@ -142,16 +145,16 @@ module Newsletter
     end
   
   
-    def save_areas
-      areas.each do |area|
-        if area.should_destroy?
-          Rails.logger.debug "Destroying newsletter area: #{area.inspect}"
-          area.destroy
-        else
-          Rails.logger.debug "Saving newsletter area: #{area.inspect}"
-          area.save
-        end
-      end
-    end
+    # def save_areas
+    #   areas.each do |area|
+    #     if area.should_destroy?
+    #       Rails.logger.debug "Destroying newsletter area: #{area.inspect}"
+    #       area.destroy
+    #     else
+    #       Rails.logger.debug "Saving newsletter area: #{area.inspect}"
+    #       area.save
+    #     end
+    #   end
+    # end
   end
 end

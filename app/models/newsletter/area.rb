@@ -17,13 +17,15 @@ module Newsletter
     belongs_to :updated_by, :class_name => 'User'
   
     attr_accessor :should_destroy
+
+    attr_protected :id
   
     validates_presence_of :name
     #FIXME: make this work with deletable or convert to auditable, and extend it to access destroyed records
     #validates_uniqueness_of :name, :scope => :design_id
   
-    named_scope :active, :conditions => {:deleted_at => nil}
-    named_scope :by_name, lambda {|name| {:conditions => {:name => name}}}
+    scope :active, :conditions => {:deleted_at => nil}
+    scope :by_name, lambda {|name| {:conditions => {:name => name}}}
   
     include Deleteable
   

@@ -2,7 +2,7 @@
 
 <%= render :partial => 'form' %>
 
-<% content_for :page_navigation do %>
+<%= content_for :page_navigation do %>
   <div>
   <% if Conf.use_show_for_resources %>
     <%= link_to "Show", @element, :class => 'button' %><div class="linkbuttonEnding"></div>

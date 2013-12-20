@@ -16,9 +16,13 @@ module Newsletter
     belongs_to :design, :class_name => 'Newsletter::Design'
     belongs_to :updated_by, :class_name => 'User'
   
-    named_scope :by_design, lambda{|design| {:conditions =>{:design_id => design.id}}}
+    scope :by_design, lambda{|design| {:conditions =>{:design_id => design.id}}}
   
     validates_presence_of :name
+
+    accepts_nested_attributes_for :fields
+
+    attr_protected :id
     #FIXME: make this work with deletable or convert to auditable, and extend it to access destroyed records
     #validates_uniqueness_of :name, :scope => :design_id
   
@@ -31,7 +35,7 @@ module Newsletter
     # returns a version of name that is nice for filesytem use
     def name_as_path(this_name=nil)
       this_name = name unless this_name
-      this_name.gsub(/[^a-zA-Z0-9-]/,'_')
+      this_name.gsub(/[^a-zA-Z0-9-]/,'_').downcase
     end
   
     # defines where the file is in the filesystem
@@ -62,20 +66,33 @@ module Newsletter
         super
       end
     end
-  
-    # used to modify Newsletter::Fields in-form
-    def field_attributes=(field_attributes)
-      field_attributes.each do |attributes|
+  # {"0"=>{"name"=>"asdfas", "label"=>"asdfasd", "description"=>"fasdfasdf", 
+  #   "type"=>"Newsletter::Field::TextArea", "_destroy"=>"false", "id"=>"22"},
+  #    "1"=>{"name"=>"asdfasdf", "label"=>"asdfasdf", "description"=>"asdfasdf",
+  #     "type"=>"Newsletter::Field::InlineAsset", "_destroy"=>"false", "id"=>"23"}}
+  #   # # used to modify Newsletter::Fields in-form
+    def fields_attributes=(fields_attributes)
+      @fields_attributes = fields_attributes
+    end
+
+    def save_fields
+      @fields_attributes.each_pair do |index,attributes|
+        should_destroy = ['true','1'].include?attributes.delete(:_destroy)
         if attributes[:id].blank?
+          next if should_destroy
           attributes.delete(:id)
           klass = attributes.delete(:type)
           fields << klass.constantize.new(attributes)
         else
           id = attributes.delete(:id).to_i
-          type = attributes.delete(:type)
-          field = fields.detect{|field| field.id == id}
-          field.update_attributes(attributes)
-          field = Field.morph(field,type) unless field.class.name.eql?(type)
+          if should_destroy
+            fields.where(id: id).limit(1).each(&:destroy)
+          else
+            type = attributes.delete(:type)
+            field = fields.detect{|field| field.id == id}
+            field.update_attributes(attributes)
+            field = Field.morph(field,type) unless field.class.name.eql?(type)
+          end
         end
       end
     end
@@ -136,17 +153,17 @@ module Newsletter
       FileUtils.mv(file_path(@old_name),file_path)
     end
   
-    def save_fields
-      Rails.logger.warn "Fields: #{fields.inspect}"
-      fields.each do |field|
-        if field.should_destroy?
-          Rails.logger.warn "Destroy Field: #{field.inspect}"
-          field.delete
-        else
-          Rails.logger.warn "Save Field: #{field.inspect}"
-          field.save!      
-        end
-      end
-    end
+    # def save_fields
+    #   Rails.logger.warn "Fields: #{fields.inspect}"
+    #   fields.each do |field|
+    #     if field.should_destroy?
+    #       Rails.logger.warn "Destroy Field: #{field.inspect}"
+    #       field.delete
+    #     else
+    #       Rails.logger.warn "Save Field: #{field.inspect}"
+    #       field.save!      
+    #     end
+    #   end
+    # end
   end
 end

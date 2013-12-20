@@ -56,7 +56,7 @@ module Newsletter
   
     def find_newsletter
       return @newsletter = @piece.newsletter unless @piece.nil?
-      @newsletter = Newsletter.find(params[:newsletter_id] || params[:newsletter_piece][:newsletter_id])
+      @newsletter = ::Newsletter::Newsletter.find(params[:newsletter_id] || params[:newsletter_piece][:newsletter_id])
     end
   
     def find_element

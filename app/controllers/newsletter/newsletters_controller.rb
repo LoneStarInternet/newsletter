@@ -3,6 +3,8 @@ module Newsletter
     layout 'admin', :except => "archive"
     skip_before_filter :authorize, :only => ["archive","show"]
     before_filter :find_newsletter, :only => [:publish,:unpublish,:edit,:update,:destroy,:show]
+    #FIXME: why do we need to place this custom code here instead of reopening the class?
+    before_filter :authenticate, :only => [:archive]
   
   
     def sort
@@ -15,7 +17,7 @@ module Newsletter
   
     def archive
       @newsletters = Newsletter.published
-      render :layout => Conf.newsletter_public_layout, :action => 'archive'
+#      render :layout => 'layout', :action => 'archive'
     end
   
     def publish
@@ -37,7 +39,7 @@ module Newsletter
     end
   
     def index
-      @newsletters = Newsletter.active.paginate(:all, :page => params[:page], :order => 'sequence')
+      @newsletters = ::Newsletter::Newsletter.active.order('created_at desc, published_at desc').paginate(:page => params[:page])
     end
   
     def show

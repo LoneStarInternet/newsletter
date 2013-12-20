@@ -24,8 +24,9 @@
 </table>
 
 
-<% content_for :page_navigation do %>
+<%= content_for :page_navigation do %>
 <div>
+  <%= link_to "Back to Design", edit_newsletter_design_path(@design), :class => 'button' %><div class="linkbuttonEnding"></div>
   <%= link_to "New Newsletter Element", new_newsletter_design_element_path(@design), :class => 'button' %><div class="linkbuttonEnding"></div>
 </div>
 <% end %>

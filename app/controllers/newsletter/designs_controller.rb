@@ -22,7 +22,7 @@ module Newsletter
       @design = Design.new(params[:newsletter_design])
       if @design.save
         flash[:notice] = 'Design was successfully created.'
-        redirect_to(@design)
+        redirect_to(edit_newsletter_design_path(@design))
       else
           render :action => "new"
       end
@@ -31,7 +31,7 @@ module Newsletter
     def update
       if @design.update_attributes(params[:newsletter_design])
         flash[:notice] = 'Design was successfully updated.'
-        redirect_to(newsletter_designs_path)
+        redirect_to(edit_newsletter_design_path(@design))
       else
         render :action => "edit"
       end

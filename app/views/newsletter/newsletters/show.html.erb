@@ -1,1 +1,6 @@
+<% content_for :head_content do %>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<% end %>
 <%= render :inline => File.readlines(@newsletter.design.view_path).join, :locals => @newsletter.locals %>

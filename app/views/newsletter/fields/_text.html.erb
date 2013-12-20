@@ -1,4 +1,4 @@
   <tr valign="top">
-     <td width='150'><%= label_tag 'newsletter_piece[field_values]['+field.id.to_s+'][text]', "#{field.label}:" %></td>
-     <td><%= text_field_tag 'newsletter_piece[field_values]['+field.id.to_s+'][text]', field.value_for_piece(piece) %></td>
+     <td width='150'><%= label_tag 'newsletter_piece[field_values_attributes]['+field.id.to_s+'][text]', "#{field.label}:" %></td>
+     <td><%= text_field_tag 'newsletter_piece[field_values_attributes]['+field.id.to_s+'][text]', field.value_for_piece(piece) %></td>
   </tr>

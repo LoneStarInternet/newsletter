@@ -11,8 +11,10 @@ module Newsletter
     set_table_name "#{Conf.newsletter_table_prefix}field_values"
     belongs_to :piece, :class_name => 'Newsletter::Piece'
     belongs_to :field, :class_name => 'Newsletter::Field'
-    named_scope :by_piece, lambda{|piece| {:conditions => {:piece_id => piece.id}}}
-    named_scope :by_field, lambda{|field| {:conditions => {:field_id => field.id}}}
-    named_scope :by_key, lambda{|key| {:conditions => {:key => key}}}
+    scope :by_piece, lambda{|piece| where("piece_id IS NOT NULL AND piece_id=?",piece.try(:id))}
+    scope :by_field, lambda{|field| where("field_id IS NOT NULL AND field_id=?",field.try(:id))}
+    scope :by_key, lambda{|key| where(key: key)}
+
+    attr_protected :id
   end
 end

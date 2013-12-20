@@ -27,6 +27,8 @@ module Newsletter
 =end
       attr_accessor :should_destroy
 
+      attr_protected :id
+      
       include Deleteable
 
       # returns field data so that Newsletter::Design.export(instance) can export itself to a YAML file  
@@ -44,9 +46,7 @@ module Newsletter
       # returns field data so that Newsletter::Design.export(instance) can export itself to a YAML file
       def self.import(element,data)
         return unless data[:type]
-        type = data[:type].to_s
-        klass = ((type =~ /^Newsletter::Field/) ? type.constantize : "Newsletter::Field::#{type}".constantize)
-        field = klass.new(
+        field = data[:type].constantize.new(
           :name => data[:name],
           :label => data[:label],
           :sequence => data[:sequence],
@@ -59,7 +59,7 @@ module Newsletter
 
       # returns a pieces value for a given Newsletter::Field
       def value_for_piece(piece)
-        get_value(piece)
+        get_value(piece).to_s.html_safe
       end
 
       # sets a pieces value for a Newsletter::Field
@@ -104,9 +104,7 @@ module Newsletter
 
       # helper for selecting type of field to use when creating/editing a Newsletter::Field.
       def self.valid_types
-        #return @valid_types if @valid_types
-        @valid_types = ['Newsletter::Field::InlineAsset' , 'Newsletter::Field::Text', 'Newsletter::Field::TextArea']#Field.find_by_sql(
-          #"select distinct type from #{Conf.newsletter_table_prefix}fields").collect{|field| field.class.name}
+        @valid_types = ['Newsletter::Field::Text','Newsletter::Field::TextArea','Newsletter::Field::InlineAsset']
       end
     end
 end

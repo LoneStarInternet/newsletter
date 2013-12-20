@@ -1,4 +1,4 @@
-<% form_for @design do |f| %>
+<%= nested_form_for @design do |f| %>
   <%= f.error_messages %>
   <table cellspacing='1' cellpadding='0' border='0'>  
     <tr>
@@ -24,9 +24,9 @@
       <div class='newsletter_parts_group'>
          <h2 style='padding-bottom: 0; margin-bottom: 0; font-size: 10pt; '>Areas</h2>
          <div id="areas">
-            <%= render :partial => 'newsletter_area', :collection => @design.areas %>
+            <%= f.fields_for :areas %>
          </div>
-      	<%= add_newsletter_area_link('Add Area') %><div class='linkbuttonEnding'></div>
+      	<%= f.link_to_add('Add Area', :areas, {class: 'button'}) %><div class='linkbuttonEnding'></div>
       </div>
       </td>
     </tr>
@@ -35,4 +35,7 @@
     </tr>
   </table>
     
+<% end %>
+<% content_for :head do %>
+  <%= javascript_include_tag '/javascripts/nested_form.js' %>
 <% end %>

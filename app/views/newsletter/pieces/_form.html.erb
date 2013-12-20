@@ -1,6 +1,6 @@
 
 <table cellspacing='1' cellpadding='0' border='0'> 
-<% form_for(@piece,  :html => { :multipart => true }) do |f| %>
+<%= form_for(@piece,  :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 	<% @piece.element.fields.each do |field| %>
 		<!-- Rendering Field: <%= field.name %> <%= field.type %> -->

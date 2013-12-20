@@ -8,7 +8,7 @@ Used to store key-value pairs for a NewsletterPiece's NewsletterFields
 
 module Newsletter
   class FieldValue < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}field_values"
+    self.table_name =  "#{Conf.newsletter_table_prefix}field_values"
     belongs_to :piece, :class_name => 'Newsletter::Piece'
     belongs_to :field, :class_name => 'Newsletter::Field'
     scope :by_piece, lambda{|piece| where("piece_id IS NOT NULL AND piece_id=?",piece.try(:id))}

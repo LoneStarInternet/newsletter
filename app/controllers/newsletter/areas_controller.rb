@@ -7,8 +7,7 @@ module Newsletter
     def sort
       @newsletter = Newsletter.find(params[:newsletter_id])
       @area.pieces.active.by_newsletter(@newsletter).each do | piece |
-        piece.sequence = params["newsletter_piece"].index(piece.id.to_s).to_i+1
-        piece.save
+        piece.update_attribute(:sequence, params["newsletter_piece"].index(piece.id.to_s).to_i+1)
       end
       head :ok
     end

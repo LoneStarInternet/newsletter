@@ -8,7 +8,7 @@ Wrapper for attachment_fu files plugin, and is used by NewsletterPieces to save 
 
 module Newsletter
   class Asset < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}assets"
+    self.table_name =  "#{Conf.newsletter_table_prefix}assets"
     belongs_to :field, :conditions => {:type => 'Newsletter::Field::InlineAsset'}, 
       :class_name => 'Newsletter::Field::InlineAsset'
     belongs_to :piece, :class_name => 'Newsletter::Piece'

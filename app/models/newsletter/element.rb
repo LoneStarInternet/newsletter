@@ -8,7 +8,7 @@ Newsletter::Elements define the way a Newsletter::Piece looks with an erb design
 
 module Newsletter
   class Element < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}elements"
+    self.table_name =  "#{Conf.newsletter_table_prefix}elements"
     has_and_belongs_to_many :areas, :class_name => 'Newsletter::Area',
       :join_table => "#{Conf.newsletter_table_prefix}areas_#{Conf.newsletter_table_prefix}elements"
     has_many :fields, :order => 'sequence', :class_name => 'Newsletter::Field'

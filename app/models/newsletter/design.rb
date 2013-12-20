@@ -9,7 +9,7 @@ Newsletter::Designs define a main layout, with areas to group Elements/Pieces.
 
 module Newsletter
   class Design < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}designs"
+    self.table_name =  "#{Conf.newsletter_table_prefix}designs"
     has_many :areas, :order => :name, :class_name => 'Newsletter::Area'
     has_many :elements, :order => :name, :class_name => 'Newsletter::Element'
     belongs_to :updated_by, :class_name => 'User'

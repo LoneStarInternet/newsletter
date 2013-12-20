@@ -8,7 +8,7 @@ NewsletterPieces are the glue that tie data together to form a piece in an area 
 
 module Newsletter
   class Piece < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}pieces"
+    self.table_name =  "#{Conf.newsletter_table_prefix}pieces"
     belongs_to :newsletter, :class_name => 'Newsletter::Newsletter'
     belongs_to :area, :class_name => 'Newsletter::Area'
     belongs_to :element, :class_name => 'Newsletter::Element'
@@ -52,6 +52,7 @@ module Newsletter
     end
 
     def set_field_values
+      return unless defined?(@field_values_attributes) && @field_values_attributes.present?
       @field_values_attributes.each_pair do |field_id,key_value_pairs|
         field = Field.find(field_id)
         field.set_value_for_piece(self,key_value_pairs)

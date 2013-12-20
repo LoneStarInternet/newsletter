@@ -4,7 +4,7 @@ module Newsletter
     skip_before_filter :authorize, :only => ["archive","show"]
     before_filter :find_newsletter, :only => [:publish,:unpublish,:edit,:update,:destroy,:show]
     #FIXME: why do we need to place this custom code here instead of reopening the class?
-    before_filter :authenticate, :only => [:archive]
+    skip_before_filter :authenticate, :only => [:archive,:show]
   
   
     def sort

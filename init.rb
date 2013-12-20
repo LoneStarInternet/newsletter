@@ -1,12 +1,12 @@
 unless defined?(NewsletterPlugin)
-  unless defined? Deletable.respond_to?(:object_id)
-    require 'deletable'
+  unless defined? Deleteable.respond_to?(:object_id)
+    require 'deleteable'
   end
 
   # Include hook code here
-  require 'mail_mgr/mailable_registry' unless defined? MailMgr::MailableRegistry.respond_to?(:register)
-  if defined? MailMgr::MailableRegistry.respond_to?(:register)
-    MailMgr::MailableRegistry.register('Newsletter::Newsletter',{
+  require 'mail_manager/mailable_registry' unless defined? MailManager::MailableRegistry.respond_to?(:register)
+  if defined? MailManager::MailableRegistry.respond_to?(:register)
+    MailManager::MailableRegistry.register('Newsletter::Newsletter',{
       :find_mailables => :active,
       :name => :name,
       :parts => [
@@ -28,6 +28,8 @@ unless defined?(NewsletterPlugin)
     PATH_PREFIX = '/admin/newsletter'
     # end
     def self.assets_path
+      shared_assets = File.join(Conf.shared_root,'plugin_assets','newsletter','assets')
+      return shared_assets if File.exist?(shared_assets)
       File.join(PLUGIN_ROOT,'assets')
     end
 

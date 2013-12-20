@@ -8,7 +8,7 @@ Areas define what elements can exist in a part of a newleter design. Also used t
 
 module Newsletter
   class Area < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}areas"
+    self.table_name =  "#{Conf.newsletter_table_prefix}areas"
     belongs_to :design, :class_name => 'Newsletter::Design'
     has_and_belongs_to_many :elements, :order => 'name', :join_table => 
       "#{Conf.newsletter_table_prefix}areas_#{Conf.newsletter_table_prefix}elements",

@@ -12,7 +12,7 @@ require 'net/http'
 require 'will_paginate'
 module Newsletter
   class Newsletter < ActiveRecord::Base
-    set_table_name "#{Conf.newsletter_table_prefix}newsletters"
+    self.table_name =  "#{Conf.newsletter_table_prefix}newsletters"
     belongs_to :design, :class_name => 'Newsletter::Design'
     has_many :pieces, :order => 'sequence', :class_name => 'Newsletter::Piece', 
       :conditions => "#{Conf.newsletter_table_prefix}pieces.deleted_at is null"
@@ -122,9 +122,9 @@ module Newsletter
       end
     end
   
-    if defined? MailMgr::MailableRegistry.respond_to?(:object_id)
-      include MailMgr::MailableRegistry::Mailable
-      has_many :mailings, :as => :mailable, :class_name => "MailMgr::Mailing"
+    if defined? MailManager::MailableRegistry.respond_to?(:object_id)
+      include MailManager::MailableRegistry::Mailable
+      has_many :mailings, :as => :mailable, :class_name => "MailManager::Mailing"
     end
   end
 end

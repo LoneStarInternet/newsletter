@@ -4,7 +4,7 @@
 
 <%= content_for :page_navigation do %>
   <div>
-  <% if Conf.use_show_for_resources %>
+  <% if Newsletter.use_show_for_resources %>
     <%= link_to "Show", @design, :class => 'button' %><div class="linkbuttonEnding"></div>
   <% end %>
     <%= link_to "View All", newsletter_designs_path, :class => 'button' %><div class="linkbuttonEnding"></div>

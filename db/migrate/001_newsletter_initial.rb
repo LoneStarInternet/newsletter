@@ -2,7 +2,7 @@ class NewsletterInitial < ActiveRecord::Migration
   def self.up
     table_prefix = 'newsletter_'
     begin
-      table_prefix = Conf.newsletter_table_prefix
+      table_prefix = Newsletter.table_prefix
     rescue
     end
     create_table :"#{table_prefix}designs" do |t|

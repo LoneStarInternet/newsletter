@@ -4,7 +4,7 @@
   <tr class="title">
     <td>Name</td>
     <td>Description</td>
-  <% if Conf.use_show_for_resources %>
+  <% if Newsletter.use_show_for_resources %>
     <td colspan="3"> </td>
   <% else %>
     <td colspan="2"> </td>    
@@ -14,7 +14,7 @@
     <tr class="<%= cycle('odd','even') %>">
       <td><%=h design.name %></td>
       <td><%=h design.description %></td>
-    <% if Conf.use_show_for_resources %>
+    <% if Newsletter.use_show_for_resources %>
       <td><%= link_to "View", design, :class => 'button' %><div class="linkbuttonEnding"></div></td>
     <% end %>
       <td><%= link_to "Edit", edit_newsletter_design_path(design), :class => 'button' %><div class="linkbuttonEnding"></div></td>

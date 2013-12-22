@@ -1,6 +1,6 @@
 module Newsletter 
   class AreasController < ApplicationController
-    layout 'admin'
+    
     before_filter :find_area, :except => [:create, :new, :index]
     before_filter :find_design, :except => [:destroy,:sort]
   

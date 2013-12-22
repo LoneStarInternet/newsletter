@@ -1,0 +1,43 @@
+# build plugin skeleton (and copy into your current old plugin if necessary)
+rails plugin new gem_name -T --mountable --full --dummy-path=spec/test_app
+
+# zeus example:
+# Gemfile: (bundle install)
+gem 'zeus'
+# zeus.json example:
+{
+  "command": "ruby -rubygems -r./engine_plan -eZeus.go",
+
+  "plan": {
+    "boot": {
+      "default_bundle": {
+        "development_environment": {
+          "prerake": {"rake": []},
+          "runner": ["r"],
+          "console": ["c"],
+          "server": ["s"],
+          "generate": ["g"],
+          "destroy": ["d"],
+          "dbconsole": []
+        },
+        "test_environment": {
+          "test_helper": {"test": ["rspec", "testrb"]}
+        }
+      }
+    }
+  }
+}
+# engine_plan.rb(fix test_app if different && ENGINE_PATH)
+require 'zeus/rails'
+
+ROOT_PATH = File.expand_path(Dir.pwd)
+ENV_PATH  = File.expand_path('spec/test_app/config/environment',  ROOT_PATH)
+BOOT_PATH = File.expand_path('spec/test_app/config/boot',  ROOT_PATH)
+APP_PATH  = File.expand_path('spec/test_app/config/application',  ROOT_PATH)
+ENGINE_ROOT = File.expand_path(Dir.pwd)
+ENGINE_PATH = File.expand_path('lib/mail_manager/engine', ENGINE_ROOT)
+
+class EnginePlan < Zeus::Rails
+end
+
+Zeus.plan = EnginePlan.new

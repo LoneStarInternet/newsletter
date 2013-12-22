@@ -8,7 +8,7 @@ NewsletterPieces are the glue that tie data together to form a piece in an area 
 
 module Newsletter
   class Piece < ActiveRecord::Base
-    self.table_name =  "#{Conf.newsletter_table_prefix}pieces"
+    self.table_name =  "#{Newsletter.table_prefix}pieces"
     belongs_to :newsletter, :class_name => 'Newsletter::Newsletter'
     belongs_to :area, :class_name => 'Newsletter::Area'
     belongs_to :element, :class_name => 'Newsletter::Element'

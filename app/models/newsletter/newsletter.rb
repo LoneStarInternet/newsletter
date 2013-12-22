@@ -12,15 +12,15 @@ require 'net/http'
 require 'will_paginate'
 module Newsletter
   class Newsletter < ActiveRecord::Base
-    self.table_name =  "#{Conf.newsletter_table_prefix}newsletters"
+    self.table_name =  "#{Newsletter.table_prefix}newsletters"
     belongs_to :design, :class_name => 'Newsletter::Design'
     has_many :pieces, :order => 'sequence', :class_name => 'Newsletter::Piece', 
-      :conditions => "#{Conf.newsletter_table_prefix}pieces.deleted_at is null"
+      :conditions => "#{Newsletter.table_prefix}pieces.deleted_at is null"
   
-    scope :published, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.published_at is not null", 
-      :order => "#{Conf.newsletter_table_prefix}newsletters.created_at desc"}
-    scope :active, {:conditions => "#{Conf.newsletter_table_prefix}newsletters.deleted_at is null", 
-      :order => "#{Conf.newsletter_table_prefix}newsletters.created_at desc"}
+    scope :published, {:conditions => "#{Newsletter.table_prefix}newsletters.published_at is not null", 
+      :order => "#{Newsletter.table_prefix}newsletters.created_at desc"}
+    scope :active, {:conditions => "#{Newsletter.table_prefix}newsletters.deleted_at is null", 
+      :order => "#{Newsletter.table_prefix}newsletters.created_at desc"}
   
     validates_presence_of :name
   
@@ -69,7 +69,7 @@ module Newsletter
 
     # generates a public url for the newsletter
     def public_url(mode='')
-      "#{Conf.site_url}/newsletters/#{self[:id]}#{mode.blank? ? '' : "/#{mode}"}"
+      "#{Newsletter.site_url}/newsletters/#{self[:id]}#{mode.blank? ? '' : "/#{mode}"}"
     end
   
     # used to generate the newsletter from a model or someplace other than the web stack

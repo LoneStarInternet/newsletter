@@ -8,9 +8,9 @@ Newsletter::Elements define the way a Newsletter::Piece looks with an erb design
 
 module Newsletter
   class Element < ActiveRecord::Base
-    self.table_name =  "#{Conf.newsletter_table_prefix}elements"
+    self.table_name =  "#{Newsletter.table_prefix}elements"
     has_and_belongs_to_many :areas, :class_name => 'Newsletter::Area',
-      :join_table => "#{Conf.newsletter_table_prefix}areas_#{Conf.newsletter_table_prefix}elements"
+      :join_table => "#{Newsletter.table_prefix}areas_#{Newsletter.table_prefix}elements"
     has_many :fields, :order => 'sequence', :class_name => 'Newsletter::Field'
     has_many :pieces, :class_name => 'Newsletter::Piece'
     belongs_to :design, :class_name => 'Newsletter::Design'
@@ -29,7 +29,7 @@ module Newsletter
     # defines the design path for the element as used in a render :partial => (without '_')
     def view_path(this_name=nil)
         this_name = self[:name] unless this_name
-          "#{Conf.newsletters_path}/designs/#{design.name.gsub(/[^a-zA-Z0-9-]/,'_')}/elements/#{name_as_path(this_name)}.html.erb"
+          "#{Newsletter.designs_path}/designs/#{design.name.gsub(/[^a-zA-Z0-9-]/,'_')}/elements/#{name_as_path(this_name)}.html.erb"
     end
   
     # returns a version of name that is nice for filesytem use

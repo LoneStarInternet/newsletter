@@ -9,7 +9,7 @@ Newsletter::Designs define a main layout, with areas to group Elements/Pieces.
 
 module Newsletter
   class Design < ActiveRecord::Base
-    self.table_name =  "#{Conf.newsletter_table_prefix}designs"
+    self.table_name =  "#{Newsletter.table_prefix}designs"
     has_many :areas, :order => :name, :class_name => 'Newsletter::Area'
     has_many :elements, :order => :name, :class_name => 'Newsletter::Element'
     belongs_to :updated_by, :class_name => 'User'
@@ -29,7 +29,7 @@ module Newsletter
 
     # Export a design's data to a YAML file. 
     def export(filename=nil)
-      filename = "#{Conf.newsletters_path}/exports/#{name_as_path}-export.yaml" unless filename
+      filename = "#{Newsletter.designs_path}/exports/#{name_as_path}-export.yaml" unless filename
       FileUtils.mkdir_p(File.dirname(filename))
       File.open(filename,'w') do |file|
         YAML.dump( {
@@ -70,7 +70,7 @@ module Newsletter
   
     # 
     def base_design_path(this_name=nil)
-      "#{Conf.newsletters_path}/designs/#{name_as_path(this_name)}"
+      "#{Newsletter.designs_path}/designs/#{name_as_path(this_name)}"
     end
   
 

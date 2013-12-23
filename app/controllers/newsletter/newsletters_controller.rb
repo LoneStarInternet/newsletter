@@ -1,6 +1,5 @@
 module Newsletter
   class NewslettersController < ApplicationController
-    layout 'admin', :except => "archive"
     skip_before_filter :authorize, :only => ["archive","show"]
     before_filter :find_newsletter, :only => [:publish,:unpublish,:edit,:update,:destroy,:show]
     #FIXME: why do we need to place this custom code here instead of reopening the class?
@@ -17,7 +16,7 @@ module Newsletter
   
     def archive
       @newsletters = Newsletter.published
-#      render :layout => 'layout', :action => 'archive'
+      render :layout => ::Newsletter.archive_layout
     end
   
     def publish
@@ -26,7 +25,7 @@ module Newsletter
       else
         flash[:notice] = @newsletter.errors
       end
-      redirect_to(newsletter_newsletters_path)
+      redirect_to(newsletters_path)
     end
   
     def unpublish
@@ -35,7 +34,7 @@ module Newsletter
       else
         flash[:notice] = @newsletter.errors
       end 
-      redirect_to(newsletter_newsletters_path)
+      redirect_to(newsletters_path)
     end
   
     def index
@@ -43,7 +42,7 @@ module Newsletter
     end
   
     def show
-      return redirect_to(newsletter_archive_path) unless @newsletter.present?
+      return redirect_to(archive_path) unless @newsletter.present?
       newsletter_html = render_to_string :inline => File.readlines(@newsletter.design.view_path).join, 
         :locals => @newsletter.locals
       if params[:mode].eql?('email')
@@ -68,7 +67,7 @@ module Newsletter
       @newsletter = Newsletter.new(params[:newsletter_newsletter])
       if @newsletter.save
         flash[:notice] = 'Newsletter was successfully created.'
-        redirect_to(edit_newsletter_newsletter_path(@newsletter))
+        redirect_to(edit_newsletter_path(@newsletter))
       else
         @designs = Design.active
         render :action => "new"
@@ -78,7 +77,7 @@ module Newsletter
     def update
       if @newsletter.update_attributes(params[:newsletter_newsletter])
         flash[:notice] = 'Newsletter was successfully updated.'
-        redirect_to(edit_newsletter_newsletter_path(@newsletter))
+        redirect_to(edit_newsletter_path(@newsletter))
       else
         @designs = Design.active
         render :action => "edit"
@@ -87,7 +86,7 @@ module Newsletter
 
     def destroy
       @newsletter.destroy
-      redirect_to(newsletter_newsletters_url)
+      redirect_to(newsletters_url)
     end
   
     protected 

@@ -1,7 +1,5 @@
 module Newsletter
-  class FieldsController < ApplicationController
-    layout 'admin'
-  
+  class FieldsController < ApplicationController  
     before_filter :find_field, :except => [:index, :new, :create]
 
     def index
@@ -39,7 +37,7 @@ module Newsletter
 
     def destroy
       @field.destroy
-      redirect_to(newsletter_fields_url)
+      redirect_to(fields_url)
     end
     
     protected

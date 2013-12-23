@@ -43,7 +43,7 @@ module Newsletter
     # uniformly get URL so we can know whether it has been modified and delete 
     # any asset uploaded
     def url_for_piece(piece)
-      return "#{Newsletter.site_url}/#{asset(piece).public_filename}" unless asset(piece).try(:public_filename).nil?
+      return "#{::Newsletter.site_url}/#{asset(piece).public_filename}" unless asset(piece).try(:public_filename).nil?
       get_value(piece,:url)
     end
 

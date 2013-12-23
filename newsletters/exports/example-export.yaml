@@ -171,7 +171,7 @@
   <body>
   <table cellspacing="0" cellpadding="0" style="margin: 0 8px; width: 574px;">
   <tr><td colspan="2" align="center">
-  <%= image_tag "#{Newsletter.site_url}/images/newsletter_header.gif",  {:width=>"564"} %></td></tr>
+  <%= image_tag "#{::Newsletter.site_url}/images/newsletter_header.gif",  {:width=>"564"} %></td></tr>
   <tr bgcolor="#0068b3" cellpadding="2" cellspacing="2"><td style="font-family:arial,sans-serif;font-size:11px;color:#FFFFFF;"cellpadding="2" cellspacing="2">A Professional Employer Organization Newsletter</td><td  align="right" style="font-family:arial,sans-serif;font-size:12px;color:#FFFFFF;" cellpadding="2" cellspacing="2"><%= @newsletter.name %></td></tr>
   </table>
   

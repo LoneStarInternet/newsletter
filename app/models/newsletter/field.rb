@@ -10,7 +10,7 @@ This is a base object and is never directly used, but is used to define differen
 
 module Newsletter
     class Field < ActiveRecord::Base
-      self.table_name =  "#{Newsletter.table_prefix}fields"
+      self.table_name =  "#{::Newsletter.table_prefix}fields"
       belongs_to :element, :class_name => 'Newsletter::Element'
       has_many :field_values, :class_name => 'Newsletter::FieldValue'
       belongs_to :updated_by, :class_name => 'User'

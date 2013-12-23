@@ -15,7 +15,7 @@
       <%= content_tag :div, link_to("Delete", piece, :confirm => 'Are you sure?', 
                   :method => :delete, :class=> "delete_link") + 
                   " | " + 
-                  link_to("Edit", edit_newsletter_piece_path(piece), :target => '_top', :class => "edit_link"),
+                  link_to("Edit", edit_piece_path(piece), :target => '_top', :class => "edit_link"),
                   :id=>"modify_piece_#{piece.id}", :style => "display:none", :class => "piece_tool" %>
       <% begin %>
       <%= render :inline => piece.element.html_text, :locals => piece.locals %>
@@ -25,6 +25,6 @@
     <% end %>
   <% end %>
 <!--  = sortable_element("area_#{area.id}", :tag=>:div, 
-    :constraint =>  :vertical, :url => sort_newsletter_newsletter_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %> -->
+    :constraint =>  :vertical, :url => sort_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %> -->
 <% end %>
 <% end %>

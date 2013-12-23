@@ -8,7 +8,7 @@ Wrapper for attachment_fu files plugin, and is used by NewsletterPieces to save 
 
 module Newsletter
   class Asset < ActiveRecord::Base
-    self.table_name =  "#{Newsletter.table_prefix}assets"
+    self.table_name =  "#{::Newsletter.table_prefix}assets"
     belongs_to :field, :conditions => {:type => 'Newsletter::Field::InlineAsset'}, 
       :class_name => 'Newsletter::Field::InlineAsset'
     belongs_to :piece, :class_name => 'Newsletter::Piece'
@@ -25,7 +25,7 @@ module Newsletter
     end
 
     def self.build_public_dirname(id)
-      "#{Newsletter.asset_path}/#{("%08d" %id)[-8,4]}/#{("%08d" %id)[-4,4]}"
+      "#::Newsletter.asset_path}/#{("%08d" %id)[-8,4]}/#{("%08d" %id)[-4,4]}"
     end
   end
 end

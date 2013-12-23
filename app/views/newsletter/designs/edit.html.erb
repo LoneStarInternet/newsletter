@@ -4,11 +4,11 @@
 
 <%= content_for :page_navigation do %>
   <div>
-  <% if Newsletter.use_show_for_resources %>
+  <% if::Newsletter.use_show_for_resources %>
     <%= link_to "Show", @design, :class => 'button' %><div class="linkbuttonEnding"></div>
   <% end %>
-    <%= link_to "View All", newsletter_designs_path, :class => 'button' %><div class="linkbuttonEnding"></div>
-    <%= link_to 'Manage Elements', newsletter_design_elements_path(@design),
+    <%= link_to "View All", designs_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to 'Manage Elements', design_elements_path(@design),
   		 :class => 'button' %><div class="linkbuttonEnding"></div>
   </div>
 <% end %>

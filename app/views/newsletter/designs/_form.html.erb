@@ -12,7 +12,7 @@
     <% unless @design.name.blank? %>
     <tr>
     	<td width='150'><label>Design Filename</label></td>
-    	<td><%= @design.view_path.gsub(/^#{Newsletter.designs_path}/,'') %></td>
+    	<td><%= @design.view_path.gsub(/^#{::Newsletter.designs_path}/,'') %></td>
   	</tr>
   	<% end %>
     <tr valign='top'>

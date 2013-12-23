@@ -1,12 +1,16 @@
+require 'net/http'
+require 'will_paginate'
+require 'acts_as_list'
+
 module Newsletter
   mattr_accessor :table_prefix, :designs_path, :site_url,
-   :site_path, :layout, :use_show_for_resources, :asset_path
+   :site_path, :layout, :archive_layout, :use_show_for_resources, :asset_path
   class Engine < ::Rails::Engine
     isolate_namespace Newsletter
-    initializer "MailManager.config" do |app|
-      if File.exist?(File.join(Rails.root,'config','mail_manager.yml'))
-        require 'mail_manager/config'
-        MailManager.initialize_with_config(MailManager::Config.initialize!)
+    initializer "Newsletter.config" do |app|
+      if File.exist?(File.join(Rails.root,'config','newsletter.yml'))
+        require 'newsletter/config'
+        Newsletter.initialize_with_config(Newsletter::Config.initialize!)
       end
       config.generators do |g|
         g.test_framework :rspec, :fixture => false
@@ -26,6 +30,7 @@ module Newsletter
     Newsletter.site_url ||= conf.site_url || default_site_url rescue default_site_url
     Newsletter.site_path ||= conf.site_path || '/' rescue '/'
     Newsletter.layout ||= conf.layout || 'application' rescue 'application'
+    Newsletter.layout ||= conf.layout || 'application' rescue 'application'    
     Newsletter.use_show_for_resources ||= conf.use_show_for_resources || false rescue false
     Newsletter.asset_path ||= conf.asset_path || 'newsletter_assets' rescue 'newsletter_assets'
   end

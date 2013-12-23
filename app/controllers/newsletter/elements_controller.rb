@@ -1,6 +1,5 @@
 module Newsletter
   class ElementsController < ApplicationController
-    layout 'admin'
     before_filter :find_element, :except => [:new,:create,:index]
     before_filter :find_design
     before_filter :find_fields, :except => [:new,:create,:index]
@@ -27,7 +26,7 @@ module Newsletter
       respond_to do |format|
         if @element.save
           flash[:notice] = 'Element was successfully created.'
-          format.html { redirect_to(newsletter_design_elements_path(@design)) }
+          format.html { redirect_to(design_elements_path(@design)) }
           format.xml  { render :xml => @element, :status => :created, :location => @element }
         else
           format.html { render :action => "new" }
@@ -40,7 +39,7 @@ module Newsletter
       respond_to do |format|
         if @element.update_attributes(params[:newsletter_element])
           flash[:notice] = 'Element was successfully updated.'
-          format.html { redirect_to(newsletter_design_elements_path(@design)) }
+          format.html { redirect_to(design_elements_path(@design)) }
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
@@ -51,7 +50,7 @@ module Newsletter
 
     def destroy
       @element.destroy
-      redirect_to(newsletter_design_elements_path(@design))
+      redirect_to(design_elements_path(@design))
     end
   
     protected

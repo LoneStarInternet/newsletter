@@ -47,7 +47,7 @@ module Newsletter
 
     def destroy
       @newsletter_area.destroy
-      redirect_to(newsletter_areas_url)
+      redirect_to(areas_url)
     end
   
     protected

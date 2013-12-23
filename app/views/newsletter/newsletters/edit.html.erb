@@ -6,7 +6,7 @@
 <% if @newsletter.design %>
  <table cellpadding="2" cellspacing="0" border="0">
  <% @newsletter.areas.each do |area| %>
-   <%= form_tag new_newsletter_newsletter_piece_path(@newsletter), :method => :get do %>
+   <%= form_tag new_newsletter_piece_path(@newsletter), :method => :get do %>
       <%= hidden_field_tag 'area_id', area.id %>
       <tr>
       <td><%= label_tag 'element_id', "Area: #{area.name.humanize}" %></td>
@@ -22,16 +22,16 @@
 	<%= link_to_function "#{width}x#{height}","$('#preview').css({height: '#{height}px', width: '#{width}px'})" %>
 <% end %>
 </p>
-<%= content_tag :iframe, @newsletter.name, :id => 'preview', :src => newsletter_newsletter_path(@newsletter, :editor => 1), :width => 800, :height => 600 %>
+<%= content_tag :iframe, @newsletter.name, :id => 'preview', :src => newsletter_path(@newsletter, :editor => 1), :width => 800, :height => 600 %>
 
 
 <% end %>
 
 <%= content_for :page_navigation do %>
   <div>
-  <% if Newsletter.use_show_for_resources %>
+  <% if::Newsletter.use_show_for_resources %>
     <%= link_to "Show", @newsletter, :class => 'button' %><div class="linkbuttonEnding"></div>
   <% end %>
-    <%= link_to "Back", newsletter_newsletters_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to "Back", newsletters_path, :class => 'button' %><div class="linkbuttonEnding"></div>
   </div>
 <% end %>

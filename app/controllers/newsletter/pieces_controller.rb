@@ -28,7 +28,7 @@ module Newsletter
       @piece = Piece.new(params[:newsletter_piece])
       if @piece.save
         flash[:notice] = 'Piece was successfully created.'
-        redirect_to(edit_newsletter_newsletter_path(@newsletter))
+        redirect_to(edit_newsletter_path(@newsletter))
       else
         render :action => "new"
       end
@@ -37,7 +37,7 @@ module Newsletter
     def update
       if @piece.update_attributes(params[:newsletter_piece])
         flash[:notice] = 'Piece was successfully updated.'
-        redirect_to(edit_newsletter_newsletter_path(@newsletter))
+        redirect_to(edit_newsletter_path(@newsletter))
       else
         render :action => "edit"
       end
@@ -45,7 +45,7 @@ module Newsletter
 
     def destroy
       @piece.destroy
-      redirect_to(newsletter_newsletter_path(@newsletter,:editor=>1))
+      redirect_to(newsletter_path(@newsletter,:editor=>1))
     end
   
     protected 

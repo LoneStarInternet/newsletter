@@ -10,6 +10,7 @@ Newsletter also registers itself to be Mailable through the List Manager of Mail
 
 module Newsletter
   class Newsletter < ActiveRecord::Base
+    Rails.logger.info "Loading Newsletter Object"
     self.table_name =  "#{::Newsletter.table_prefix}newsletters"
     belongs_to :design, :class_name => 'Newsletter::Design'
     has_many :pieces, :order => 'sequence', :class_name => 'Newsletter::Piece', 
@@ -119,10 +120,6 @@ module Newsletter
         response.error!
       end
     end
-  
-    if defined? MailManager::MailableRegistry.respond_to?(:object_id)
-      include MailManager::MailableRegistry::Mailable
-      has_many :mailings, :as => :mailable, :class_name => "MailManager::Mailing"
-    end
+
   end
 end

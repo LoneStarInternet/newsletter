@@ -25,7 +25,7 @@ module Newsletter
     end
 
     def self.build_public_dirname(id)
-      "#::Newsletter.asset_path}/#{("%08d" %id)[-8,4]}/#{("%08d" %id)[-4,4]}"
+      "#{::Newsletter.asset_path}/#{("%08d" %id)[-8,4]}/#{("%08d" %id)[-4,4]}"
     end
   end
 end

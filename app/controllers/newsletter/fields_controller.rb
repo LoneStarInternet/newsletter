@@ -1,5 +1,5 @@
 module Newsletter
-  class FieldsController < ApplicationController  
+  class FieldsController < ::Newsletter::ApplicationController  
     before_filter :find_field, :except => [:index, :new, :create]
 
     def index
@@ -17,7 +17,7 @@ module Newsletter
     end
 
     def create
-      @field = Field.new(params[:newsletter_field])
+      @field = Field.new(params[:field])
       if @field.save
         flash[:notice] = 'NewsletterField was successfully created.'
         redirect_to(@field)  
@@ -27,7 +27,7 @@ module Newsletter
     end
 
     def update
-      if @field.update_attributes(params[:newsletter_field])
+      if @field.update_attributes(params[:field])
         flash[:notice] = 'Field was successfully updated.'
         redirect_to(@field)
       else

@@ -1,7 +1,7 @@
 module Newsletter
-  class NewslettersController < ApplicationController
+  class NewslettersController < ::Newsletter::ApplicationController
     skip_before_filter :authorize, :only => ["archive","show"]
-    before_filter :find_newsletter, :only => [:publish,:unpublish,:edit,:update,:destroy,:show]
+    before_filter :find_newsletter, :only => [:editor,:publish,:unpublish,:edit,:update,:destroy,:show]
     #FIXME: why do we need to place this custom code here instead of reopening the class?
     skip_before_filter :authenticate, :only => [:archive,:show]
   
@@ -42,7 +42,7 @@ module Newsletter
     end
   
     def show
-      return redirect_to(archive_path) unless @newsletter.present?
+      return redirect_to(main_app.newsletter_archive_path) unless @newsletter.present?
       newsletter_html = render_to_string :inline => File.readlines(@newsletter.design.view_path).join, 
         :locals => @newsletter.locals
       if params[:mode].eql?('email')
@@ -52,6 +52,13 @@ module Newsletter
         #no substitutions
         render :text => newsletter_html
       end
+    end
+
+    def editor
+      params[:editor] = '1'
+      newsletter_html = render_to_string :inline => File.readlines(@newsletter.design.view_path).join, 
+        :locals => @newsletter.locals
+      render :text => newsletter_html
     end
 
     def new
@@ -64,7 +71,7 @@ module Newsletter
     end
 
     def create
-      @newsletter = Newsletter.new(params[:newsletter_newsletter])
+      @newsletter = Newsletter.new(params[:newsletter])
       if @newsletter.save
         flash[:notice] = 'Newsletter was successfully created.'
         redirect_to(edit_newsletter_path(@newsletter))
@@ -75,7 +82,7 @@ module Newsletter
     end
 
     def update
-      if @newsletter.update_attributes(params[:newsletter_newsletter])
+      if @newsletter.update_attributes(params[:newsletter])
         flash[:notice] = 'Newsletter was successfully updated.'
         redirect_to(edit_newsletter_path(@newsletter))
       else

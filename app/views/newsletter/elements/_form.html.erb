@@ -31,7 +31,7 @@
       	<div class='newsletter_parts_group' style='margin-top: 10px; padding: 0 5px 5px 15px; border: thin dashed black; background-color: #eee'>
            <h2 style='padding-bottom: 0; margin-bottom: 0; font-size: 10pt; '>Areas</h2>
         	<% @design.areas.each do |area| %>
-        	 <%= check_box_tag 'newsletter_element[area_ids][]', area.id, @element.areas.include?(area) %><%= area.name %><br/>
+        	 <%= check_box_tag 'element[area_ids][]', area.id, @element.areas.include?(area) %><%= area.name %><br/>
         	<% end %>
       	</div>
       	<%= hidden_field_tag :design_id, @design.id %>

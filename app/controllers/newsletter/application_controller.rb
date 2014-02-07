@@ -1,12 +1,16 @@
 require 'dynamic_form'
 require 'nested_form'
 class Newsletter::ApplicationController < ActionController::Base
-  layout ::Newsletter.layout
-  helper_method :title, :use_show_for_resources?, :site_url
+  layout 'newsletter/application'
+  helper_method :title, :use_show_for_resources?, :site_url, :show_title?
   
   def title(value=nil)
     @title = value if value.present?
     @title
+  end
+
+  def show_title?
+    true
   end
 
   def use_show_for_resources?

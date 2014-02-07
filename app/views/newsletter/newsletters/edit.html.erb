@@ -22,7 +22,7 @@
 	<%= link_to_function "#{width}x#{height}","$('#preview').css({height: '#{height}px', width: '#{width}px'})" %>
 <% end %>
 </p>
-<%= content_tag :iframe, @newsletter.name, :id => 'preview', :src => newsletter_path(@newsletter, :editor => 1), :width => 800, :height => 600 %>
+<%= content_tag :iframe, @newsletter.name, :id => 'preview', :src => editor_newsletter_path(@newsletter), :width => 800, :height => 600 %>
 
 
 <% end %>

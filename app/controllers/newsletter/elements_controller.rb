@@ -1,5 +1,5 @@
 module Newsletter
-  class ElementsController < ApplicationController
+  class ElementsController < ::Newsletter::ApplicationController
     before_filter :find_element, :except => [:new,:create,:index]
     before_filter :find_design
     before_filter :find_fields, :except => [:new,:create,:index]
@@ -20,7 +20,7 @@ module Newsletter
     end
 
     def create
-      @element = Element.new(params[:newsletter_element])
+      @element = Element.new(params[:element])
       @element.design = @design
 
       respond_to do |format|
@@ -37,7 +37,7 @@ module Newsletter
     
     def update
       respond_to do |format|
-        if @element.update_attributes(params[:newsletter_element])
+        if @element.update_attributes(params[:element])
           flash[:notice] = 'Element was successfully updated.'
           format.html { redirect_to(design_elements_path(@design)) }
           format.xml  { head :ok }

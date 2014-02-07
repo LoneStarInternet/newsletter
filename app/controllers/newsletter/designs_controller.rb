@@ -1,6 +1,6 @@
 require 'nested_form'
 module Newsletter
-  class DesignsController < ApplicationController
+  class DesignsController < ::Newsletter::ApplicationController
     before_filter :find_design, :except => [:new, :create, :index]
 
     def index
@@ -19,7 +19,7 @@ module Newsletter
     end
 
     def create
-      @design = Design.new(params[:newsletter_design])
+      @design = Design.new(params[:design])
       if @design.save
         flash[:notice] = 'Design was successfully created.'
         redirect_to(edit_design_path(@design))
@@ -29,7 +29,7 @@ module Newsletter
     end
 
     def update
-      if @design.update_attributes(params[:newsletter_design])
+      if @design.update_attributes(params[:design])
         flash[:notice] = 'Design was successfully updated.'
         redirect_to(edit_design_path(@design))
       else

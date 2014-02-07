@@ -1,5 +1,5 @@
 module Newsletter
-  class PiecesController < ApplicationController
+  class PiecesController < ::Newsletter::ApplicationController
     layout 'admin'
     before_filter :find_piece, :except => [:new,:create,:index]
     before_filter :find_newsletter
@@ -25,7 +25,7 @@ module Newsletter
     end
 
     def create
-      @piece = Piece.new(params[:newsletter_piece])
+      @piece = Piece.new(params[:piece])
       if @piece.save
         flash[:notice] = 'Piece was successfully created.'
         redirect_to(edit_newsletter_path(@newsletter))
@@ -35,7 +35,7 @@ module Newsletter
     end
 
     def update
-      if @piece.update_attributes(params[:newsletter_piece])
+      if @piece.update_attributes(params[:piece])
         flash[:notice] = 'Piece was successfully updated.'
         redirect_to(edit_newsletter_path(@newsletter))
       else
@@ -56,17 +56,17 @@ module Newsletter
   
     def find_newsletter
       return @newsletter = @piece.newsletter unless @piece.nil?
-      @newsletter = ::Newsletter::Newsletter.find(params[:newsletter_id] || params[:newsletter_piece][:newsletter_id])
+      @newsletter = ::Newsletter::Newsletter.find(params[:newsletter_id] || params[:piece][:newsletter_id])
     end
   
     def find_element
       return @element = @piece.element unless @piece.nil?
-      @element = Element.find(params[:element_id] || params[:newsletter_piece][:element_id])
+      @element = Element.find(params[:element_id] || params[:piece][:element_id])
     end
   
     def find_area
       return @area = @piece.area unless @piece.nil?
-      @area = Area.find(params[:area_id] || params[:newsletter_piece][:area_id])
+      @area = Area.find(params[:area_id] || params[:piece][:area_id])
     end
   end
 end

@@ -27,7 +27,7 @@
 	<% end %>
 <script>
 jQuery(document).ready(function() {
-  jQuery("#newsletter_area_<%= area.id %>").sortable({
+  jQuery("#area_<%= area.id %>").sortable({
     axis: 'y',
     stop: function (event, ui) {
         var data = $(this).sortable('serialize');
@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 });
 </script>
 
-<!--%= sortable_element("newsletter_area_#{area.id}", :tag=>:div, 
+<!--%= sortable_element("area_#{area.id}", :tag=>:div, 
 		:constraint =>  :vertical, :url => sort_area_path(:id=>area.id,:newsletter_id=>@newsletter.id)) %-->
 <% end %>
 <% end %>

@@ -5,7 +5,7 @@ class CarrierWaveForAssets < ActiveRecord::Migration
       table_prefix = ::Newsletter.table_prefix
     rescue
     end
-    rename_column :"#{table_prefix}newsletter_assets", :filename, :image
+    rename_column :"#{table_prefix}assets", :filename, :image
   end
 
   def down
@@ -14,6 +14,6 @@ class CarrierWaveForAssets < ActiveRecord::Migration
       table_prefix = ::Newsletter.table_prefix
     rescue
     end
-    rename_column :"#{table_prefix}newsletter_assets", :image, :filename
+    rename_column :"#{table_prefix}assets", :image, :filename
   end
 end

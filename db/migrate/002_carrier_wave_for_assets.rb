@@ -1,9 +1,19 @@
 class CarrierWaveForAssets < ActiveRecord::Migration
   def up
-    rename_column :newsletter_assets, :filename, :image
+    table_prefix = 'newsletter_'
+    begin
+      table_prefix = ::Newsletter.table_prefix
+    rescue
+    end
+    rename_column :"#{table_prefix}newsletter_assets", :filename, :image
   end
 
   def down
-    rename_column :newsletter_assets, :image, :filename
+    table_prefix = 'newsletter_'
+    begin
+      table_prefix = ::Newsletter.table_prefix
+    rescue
+    end
+    rename_column :"#{table_prefix}newsletter_assets", :image, :filename
   end
 end

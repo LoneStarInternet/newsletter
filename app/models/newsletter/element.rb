@@ -66,16 +66,9 @@ module Newsletter
         super
       end
     end
-  # {"0"=>{"name"=>"asdfas", "label"=>"asdfasd", "description"=>"fasdfasdf", 
-  #   "type"=>"Newsletter::Field::TextArea", "_destroy"=>"false", "id"=>"22"},
-  #    "1"=>{"name"=>"asdfasdf", "label"=>"asdfasdf", "description"=>"asdfasdf",
-  #     "type"=>"Newsletter::Field::InlineAsset", "_destroy"=>"false", "id"=>"23"}}
-  #   # # used to modify Newsletter::Fields in-form
-    def fields_attributes=(fields_attributes)
-      @fields_attributes = fields_attributes
-    end
 
     def save_fields
+      return true unless @fields_attributes.present?
       @fields_attributes.each_pair do |index,attributes|
         should_destroy = ['true','1'].include?attributes.delete(:_destroy)
         if attributes[:id].blank?

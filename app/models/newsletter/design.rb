@@ -7,7 +7,7 @@ Newsletter::Designs define a main layout, with areas to group Elements/Pieces.
 
 =end
 
-module Newsletter
+module ::Newsletter
   class Design < ActiveRecord::Base
     self.table_name =  "#{::Newsletter.table_prefix}designs"
     has_many :areas, :order => :name, :class_name => 'Newsletter::Area'
@@ -49,6 +49,7 @@ module Newsletter
     def self.import(filename,design_name=nil)
       raise "You must give a filename to import!" unless filename
       data = YAML.load_file(filename)
+      design = nil
       transaction do 
         data[:name] = design_name if design_name
         design = Design.create!(:name => data[:name], 
@@ -61,6 +62,7 @@ module Newsletter
           Element.import(design,element_data)
         end
       end
+      design
     end
 
     # returns path to newsletter design for use in views and is the same for actual file

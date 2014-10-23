@@ -22,7 +22,6 @@ module Newsletter
     scope :by_area, lambda {|area| {:conditions => {:area_id => area.id, :deleted_at => nil}}}
     scope :by_newsletter, lambda {|newsletter| {:conditions => {:newsletter_id => newsletter.id, :deleted_at => nil}}}
 
-    # accepts_nested_attributes_for :field_values
     attr_accessor :field_values_attributes
 
     attr_protected :id

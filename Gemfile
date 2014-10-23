@@ -15,12 +15,13 @@ gem "jquery-rails"
 
 # Testing Gems
 gem "rspec-rails", "~>2.14"
+gem "cucumber-rails", require: false
 gem "factory_girl_rails", "~>4.3"
+gem 'poltergeist'
 gem "faker"
 gem "sqlite3"
-gem 'foreman'
 gem 'database_cleaner'
-gem 'guard-rspec'
-gem 'guard-livereload'
-gem 'zeus'
 gem 'pry-rails'
+gem 'spring'
+gem 'spring-commands-rspec'
+gem 'spring-commands-cucumber'

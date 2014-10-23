@@ -1,0 +1,10 @@
+<hr />
+<h3>
+<% unless link.url.blank? %>
+<%= link_to headline, link.url %>
+<% else %>
+<%=h headline %>
+<% end %>
+</h3>
+
+<p><%= filter(article_excerpt) %> <nobr><%= link_to('Read More', link.url) unless link.url.blank? %></nobr></p>

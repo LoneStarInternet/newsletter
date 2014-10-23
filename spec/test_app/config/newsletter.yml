@@ -1,8 +1,8 @@
 --- 
 common:
-  site_url: http://newsletter.lvh.me
+  site_url: http://newsletter.lvh.me:4447
   table_prefix: news_
-  designs_path: <%= "#{Rails.root}/newsletters" %>
+  designs_path: <%= "#{Rails.root}/designs" %>
   use_show_for_resources: false
   asset_path: newsletter_assets
   site_path: /

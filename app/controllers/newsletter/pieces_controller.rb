@@ -1,6 +1,5 @@
 module Newsletter
   class PiecesController < ::Newsletter::ApplicationController
-    layout 'admin'
     before_filter :find_piece, :except => [:new,:create,:index]
     before_filter :find_newsletter
     before_filter :find_element

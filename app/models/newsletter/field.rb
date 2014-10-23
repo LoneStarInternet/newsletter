@@ -109,7 +109,3 @@ module Newsletter
     end
 end
 
-require 'newsletter/field/inline_asset'
-require 'newsletter/field/text'
-require 'newsletter/field/text_area'
-

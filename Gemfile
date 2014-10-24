@@ -14,6 +14,7 @@ gem "jquery-rails"
 # your gem to rubygems.org.
 
 # Testing Gems
+gem 'mysql2'
 gem "rspec-rails", "~>2.14"
 gem "cucumber-rails", require: false
 gem "factory_girl_rails", "~>4.3"

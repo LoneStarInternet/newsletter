@@ -18,3 +18,4 @@ tmp
 *.sqlite3
 log
 *.log
+spec/test_app/designs

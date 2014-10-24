@@ -1,0 +1,28 @@
+credentials: &credentials
+  encoding: utf8
+  adapter: mysql2
+  username: newsletter
+  password: newsletter_pass
+  host: localhost
+  reconnect: true
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *credentials
+  database: newsletter_development 
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  <<: *credentials
+  database: newsletter_test
+
+# production:
+#   <<: *credentials
+#   database: newsletter
+#   host: localhost
+
+cucumber:
+  <<: *test

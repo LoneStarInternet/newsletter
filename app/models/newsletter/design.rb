@@ -72,7 +72,7 @@ module ::Newsletter
   
     # 
     def base_design_path(this_name=nil)
-      "#{::Newsletter.designs_path}/designs/#{name_as_path(this_name)}"
+      "#{::Newsletter.designs_path}/#{name_as_path(this_name)}"
     end
   
 

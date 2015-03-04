@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Newsletter templating and management system.}
   gem.homepage      = "http://ireach.com"
 
-  gem.add_dependency "rails", "~>3.2"
+  gem.add_dependency "rails", "~>4.2"
   gem.add_dependency "mini_magick"
   gem.add_dependency "will_paginate"
   gem.add_dependency 'carrierwave'

@@ -15,11 +15,11 @@ Gem::Specification.new do |gem|
   gem.homepage      = "http://ireach.com"
 
   gem.add_dependency "rails", "~>3.2"
-  gem.add_dependency "mini_magick", "~>3.8"
+  gem.add_dependency "mini_magick", "~>4.1"
   gem.add_dependency "will_paginate", "~>3.0"
   gem.add_dependency 'carrierwave', "~>0.10" 
   gem.add_dependency "dynamic_form", "~>1.1"
-  gem.add_dependency 'nested_form', "~>3.2"
+  gem.add_dependency 'nested_form', "~>0.3"
   gem.add_dependency 'acts_as_list', "~>0.5"
   gem.add_dependency 'cancancan', "~>1.9"
 

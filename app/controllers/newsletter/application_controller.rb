@@ -1,9 +1,12 @@
 require 'dynamic_form'
 require 'nested_form'
-class Newsletter::ApplicationController < ActionController::Base
+class Newsletter::ApplicationController < ApplicationController 
   layout 'newsletter/application'
   helper_method :title, :use_show_for_resources?, :site_url, :show_title?
-  
+  load_and_authorize_resource if respond_to? :load_and_authorize_resource
+
+  before_filter :authenticate_user! if respond_to? :authenticate_user!
+
   def title(value=nil)
     @title = value if value.present?
     @title

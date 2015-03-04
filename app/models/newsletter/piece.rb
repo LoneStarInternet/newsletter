@@ -42,6 +42,7 @@ module Newsletter
     end
 
     def newsletter
+      return nil unless newsletter_id.present?
       @newsletter ||= ::Newsletter::Newsletter.find(newsletter_id)
     end
     

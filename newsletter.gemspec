@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "dynamic_form", "~>1.1"
   gem.add_dependency 'nested_form'
   gem.add_dependency 'acts_as_list'
+  gem.add_dependency 'cancancan'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

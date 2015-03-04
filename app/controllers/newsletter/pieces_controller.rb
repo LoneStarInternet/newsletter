@@ -50,21 +50,23 @@ module Newsletter
     protected 
   
     def find_piece 
-      @piece = Piece.find_by_id(params[:id])
+      return @piece if @piece.newsletter.present?
+      return nil unless params[:id].present?
+      @piece ||= Piece.find_by_id(params[:id])
     end
   
     def find_newsletter
-      return @newsletter = @piece.newsletter unless @piece.nil?
+      return @newsletter = find_piece.newsletter unless find_piece.nil?
       @newsletter = ::Newsletter::Newsletter.find(params[:newsletter_id] || params[:piece][:newsletter_id])
     end
   
     def find_element
-      return @element = @piece.element unless @piece.nil?
+      return @element = find_piece.element unless find_piece.nil?
       @element = Element.find(params[:element_id] || params[:piece][:element_id])
     end
   
     def find_area
-      return @area = @piece.area unless @piece.nil?
+      return @area = find_piece.area unless find_piece.nil?
       @area = Area.find(params[:area_id] || params[:piece][:area_id])
     end
   end

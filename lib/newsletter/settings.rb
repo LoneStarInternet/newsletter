@@ -41,8 +41,8 @@ class Newsletter::Settings
       $stderr.puts "Missing Configuration: either define ::Conf with proper values or create a config/newsletter.yml with rake newsletter:default_app_config"
     end
     c = ::Newsletter::Settings.new
-    c.use_file!("#{Rails.root}/config/newsletter.yml")
-    c.use_file!("#{Rails.root}/config/newsletter.local.yml")
+    c.use_file!(standard_file)
+    c.use_file!(local_file)
     c.use_section!(Rails.env)
     c
   end

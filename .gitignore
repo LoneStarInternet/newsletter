@@ -19,3 +19,4 @@ tmp
 log
 *.log
 spec/test_app/designs
+spec/test_app/config/database.yml

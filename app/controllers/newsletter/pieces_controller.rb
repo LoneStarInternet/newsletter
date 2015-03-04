@@ -50,7 +50,7 @@ module Newsletter
     protected 
   
     def find_piece 
-      return @piece if @piece.newsletter.present?
+      return @piece if @piece.try(:newsletter_id).present?
       return nil unless params[:id].present?
       @piece ||= Piece.find_by_id(params[:id])
     end

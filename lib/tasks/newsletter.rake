@@ -41,7 +41,8 @@ namespace :newsletter do
   task :import_example_design do     
     Rails.logger.warn "Importing Example Newsletter Design"
     Newsletter::Design.import(
-      'vendor/plugins/newsletter/newsletters/exports/example-export.yaml')
+      File.join(Newsletter::PLUGIN_ROOT,'designs','exports','example-export.yaml')
+    )
   end
   desc "Add defaults to config/newsletter.yml"
   task :default_app_config, :table_prefix do |t,args|

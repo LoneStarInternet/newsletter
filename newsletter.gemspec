@@ -9,6 +9,7 @@ Gem::Specification.new do |gem|
   gem.version       = Newsletter::VERSION
   gem.authors       = ["Lone Star Internet"]
   gem.email         = ["biz@lone-star.net"]
+  gem.license       = ['MIT']
   gem.description   = %q{Newsletter templating and management system.}
   gem.summary       = %q{Newsletter templating and management system.}
   gem.homepage      = "http://ireach.com"

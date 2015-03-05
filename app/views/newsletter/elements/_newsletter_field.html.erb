@@ -22,10 +22,10 @@
 	  <td align="right" colspan="2">
 	<% if newsletter_field.new_record? %>
 		<%= link_to_function "Remove", "$(this).up('.newsletter_field').remove()", 
-		    :class => 'button' %><div class='linkbuttonEnding'></div>
+		    :class => 'button' %>
 	<% else %>
 		<%= link_to_function "Remove", "$(this).next('.should_destroy').value = 1; $(this).hide(); $(this).next('.button').show()", :class => 'button' %>			
-		<%= link_to_function "Restore", "$(this).next('.should_destroy').value = 0; $(this).hide(); $(this).previous('.button').show()", :class => 'button', :style => 'display:none' %><div class='linkbuttonEnding'></div>
+		<%= link_to_function "Restore", "$(this).next('.should_destroy').value = 0; $(this).hide(); $(this).previous('.button').show()", :class => 'button', :style => 'display:none' %>
 		<%= f.hidden_field :id, :index => nil %>
 		<%= f.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
 		<% end %>

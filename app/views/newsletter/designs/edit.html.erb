@@ -5,10 +5,10 @@
 <%= content_for :page_navigation do %>
   <div>
   <% if::Newsletter.use_show_for_resources %>
-    <%= link_to "Show", @design, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to "Show", @design, :class => 'button' %>
   <% end %>
-    <%= link_to "View All", designs_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to "View All", designs_path, :class => 'button' %>
     <%= link_to 'Manage Elements', design_elements_path(@design),
-  		 :class => 'button' %><div class="linkbuttonEnding"></div>
+  		 :class => 'button' %>
   </div>
 <% end %>

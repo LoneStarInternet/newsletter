@@ -11,7 +11,7 @@
       <tr>
       <td><%= label_tag 'element_id', "Area: #{area.name.humanize}" %></td>
       <td><%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name') %></td>
-      <td><%= submit_tag 'Add Element', :class => 'button' %><div class="buttonEnding"></div></td>
+      <td><%= submit_tag 'Add Element', :class => 'button' %></td>
       </tr>
    <% end %>
 <% end %>
@@ -30,8 +30,8 @@
 <%= content_for :page_navigation do %>
   <div>
   <% if::Newsletter.use_show_for_resources %>
-    <%= link_to "Show", @newsletter, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to "Show", @newsletter, :class => 'button' %>
   <% end %>
-    <%= link_to "Back", newsletters_path, :class => 'button' %><div class="linkbuttonEnding"></div>
+    <%= link_to "Back", newsletters_path, :class => 'button' %>
   </div>
 <% end %>

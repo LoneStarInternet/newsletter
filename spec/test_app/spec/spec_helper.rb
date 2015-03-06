@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'capybara/rspec'
 require 'capybara/rails'
+require File.expand_path("../../../../lib/debugging", __FILE__)
 #require 'rack_session_access/capybara'
 Capybara.server_port = Newsletter.site_url.split(/:/).last
 Capybara.app_host = Newsletter.site_url

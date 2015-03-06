@@ -6,6 +6,7 @@ require File.expand_path("../../spec/test_app/config/environment", __FILE__)
 require 'database_cleaner'
 require 'rspec/rails'
 require 'capybara/poltergeist'
+load 'lib/debugging.rb'
 Capybara.app_host = Newsletter.site_url
 # require 'rspec/autorun'
 `rake db:schema:load`

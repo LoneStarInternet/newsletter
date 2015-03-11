@@ -11,8 +11,6 @@ module Newsletter
     has_many :assets, :foreign_key => :field_id, 
       :class_name => 'Newsletter::Asset'
 
-    attr_protected :id
-
     # overridden from main class to choose between a Newsletter::Asset or a given URL
     def value_for_piece(piece)
       Value.new(:url => url_for_piece(piece), :text => get_value(piece,:text), :asset => asset(piece))

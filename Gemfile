@@ -15,7 +15,8 @@ gem "jquery-rails"
 
 # Testing Gems
 gem 'mysql2'
-gem "rspec-rails", "~>2.14"
+gem "rspec-rails", "~>3.2"
+gem "rspec-activemodel-mocks"
 gem "cucumber-rails", require: false
 gem "factory_girl_rails", "~>4.3"
 gem 'poltergeist'

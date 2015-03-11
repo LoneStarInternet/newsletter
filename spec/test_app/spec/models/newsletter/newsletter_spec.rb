@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Newsletter::Newsletter do
+RSpec.describe Newsletter::Newsletter do
   include Capybara::DSL
   before(:each) do
     @design = import_design

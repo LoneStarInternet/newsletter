@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Newsletter generation' do
+RSpec.feature 'Newsletter generation' do
   before(:each) do
     @design = import_design
     @newsletter = FactoryGirl.create(:newsletter, design: @design)

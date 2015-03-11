@@ -55,7 +55,7 @@ namespace :newsletter do
     File.open('config/newsletter.yml','w') do |file|
       file.write YAML.dump({
         'common' => {
-          'newsletters_path' => '<%= "#{RAILS_ROOT}/newsletters" %>',
+          'newsletters_path' => '<%= "#{Rails.root}/newsletters" %>',
           'asset_path' =>  'public/newsletter_assets',
           'newsletter_path_prefix' =>  '/admin',
           'newsletter_table_prefix' =>  args.table_prefix

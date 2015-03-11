@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Newsletter::Element do
+RSpec.describe Newsletter::Element do
 end

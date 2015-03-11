@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Newsletter::Design do
+RSpec.describe Newsletter::Design do
   before(:each) do 
     @design = import_design(nil,"My Design")
   end

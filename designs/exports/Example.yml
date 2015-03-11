@@ -39,7 +39,7 @@
   align=\"right\"><tr><td>\r\n<%= render right_column %>\r\n</td></tr></table></td>\r\n</tr>\r\n<%
   if is_email? %>\r\n<tr><td><hr /><p class=\"footer\" align=\"center\"><font color=\"#aaaaaa\">To
   remove your address from this newsletter list, please click <%= link_to \"Here\",
-  '#UNSUBSCRIBE_URL#' %>.</font></p></td></tr>\r\n<% end %>\r\n<tr><td><hr /><p class=\"footer\"
+  '#UNSUBSCRIBE_URL##' %>.</font></p></td></tr>\r\n<% end %>\r\n<tr><td><hr /><p class=\"footer\"
   align=\"center\"><font color=\"#555555\"><b>My Company, Inc.</b> <span class=\"bullet\">&#8226;</span>
   123 Test Road <span class=\"bullet\">&#8226;</span>  Austin, TX 78230 p:210.495.1171
   <span class=\"bullet\">&#8226;</span> f:555.555.1244 <span class=\"bullet\">&#8226;</span>

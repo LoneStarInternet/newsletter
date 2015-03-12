@@ -1,21 +1,16 @@
 <% title "Edit Newsletter" %>
-
+<label>Design</label>
+<div style="font-size: 11pt; padding-top: 5px;"><%= @newsletter.design.name %> </div><br />
 <%= render :partial => 'form' %>
-
-<h3>Design - <%= @newsletter.design.name %> </h3>
 <% if @newsletter.design %>
- <table cellpadding="2" cellspacing="0" border="0">
  <% @newsletter.areas.each do |area| %>
    <%= form_tag new_newsletter_piece_path(@newsletter), :method => :get do %>
       <%= hidden_field_tag 'area_id', area.id %>
-      <tr>
-      <td><%= label_tag 'element_id', "Area: #{area.name.humanize}" %></td>
-      <td><%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name') %></td>
-      <td><%= submit_tag 'Add Element', :class => 'button' %></td>
-      </tr>
+      <%= label_tag 'element_id', "Area: #{area.name.humanize}" %>
+      <%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name'), :style=>'margin-right: 10px;' %>
+      <%= submit_tag 'Add Element', :class => 'button' %><br />
    <% end %>
 <% end %>
-   </table>
 
 <p><b>Newsletter Window Size: </b>
 <% [[640,480],[800,600],[1024,768],[1280,1024],[1600,1200]].each do |width,height| %>

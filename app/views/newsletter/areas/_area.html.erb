@@ -14,7 +14,7 @@
 		 				  :style => "position: relative;"} do %>
 			<!--Element Template - <%= piece.element.view_path %> -->
 			<%= content_tag :div, link_to("Delete", piece, :confirm => 'Are you sure?', 
-									:method => :delete, :class=> "delete_link") + 
+									:method => :delete, :class=> "delete_link", :target => '_top') + 
 									" | " + 
 			 					  link_to("Edit", edit_piece_path(piece), :target => '_top', :class=> "edit_link"),
 								  :id=>"modify_piece_#{piece.id}",:style => "display:none", :class => "piece_tool" %>

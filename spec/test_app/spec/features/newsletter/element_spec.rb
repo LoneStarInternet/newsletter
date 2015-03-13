@@ -7,6 +7,7 @@ RSpec.describe 'Element management', type: :feature do
   end
 
   it "creates an element with valid attributes", js: true do
+    pending
     #visit newsletter.edit_design_path(@design)
     ['Text','Textarea','Inlineasset'].each do |type|
       visit "/newsletter/designs/#{@design.id}/edit"

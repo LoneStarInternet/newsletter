@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = "http://ireach.com"
 
   gem.add_dependency "rails", "~>3.2"
+  gem.add_dependency "jquery-ui-rails"
   gem.add_dependency "mini_magick", "~>4.1"
   gem.add_dependency "will_paginate", "~>3.0"
   gem.add_dependency 'carrierwave', "~>0.10" 

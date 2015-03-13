@@ -1,26 +1,15 @@
 <%= nested_form_for @element do |f| %>
   <%= f.error_messages %>
-  <table cellspacing='1' cellpadding='0' border='0'>  
-    <tr valign="top">
-       <td width='150'><%= f.label :name %></td>
-       <td><%= f.text_field :name %></td>
-    </tr>
-    <tr valign="top">
-       <td width='150'><%= f.label :description %></td>
-       <td><%= f.text_field :description %></td>
-    </tr>
+       <%= f.label :name %>
+       <%= f.text_field :name %><br />
+       <%= f.label :description %>
+       <%= f.text_field :description %><br />
     <% unless @element.name.blank? %>
-    <tr valign="top">
-    	<td width='150'><label>Design Filename</label></td>
-    	<td><%= @element.file_path.gsub(/^#{::Newsletter.designs_path}/,'') %></td>
-  	</tr>
+    	<label>Design Filename</label>
+    	     <div style="padding-top: 7px";><%= @element.file_path.gsub(/^#{::Newsletter.designs_path}/,'') %></div><br />
   	<% end %>
-    <tr valign="top">
-       <td width='150'><%= f.label :html_text %></td>
-       <td><%= f.text_area :html_text %></td>
-    </tr>
-    <tr valign="top">
-      <td colspan="2">
+       <%= f.label :html_text %>
+       <%= f.text_area :html_text %><br />
         <div class='newsletter_parts_group' style='margin-top: 10px; padding: 0 5px 5px 15px; border: thin dashed black; background-color: #eee'>
            <h2 style='font-size: 10pt; '>Fields</h2>
         		<div id="newsletter_fields">
@@ -35,11 +24,6 @@
         	<% end %>
       	</div>
       	<%= hidden_field_tag :design_id, @design.id %>
-    	</td>
-    </tr>
-    <tr>
-      <td align="right" colspan="2"><%= f.submit "Submit", :class => 'button' %>
-    </tr>
-  </table>
+      <div style="width: 500px; text-align: right;"><%= f.submit "Submit", :class => 'button' %></div>
 
 <% end %>

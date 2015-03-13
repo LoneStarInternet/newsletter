@@ -1,5 +1,4 @@
 
-<table cellspacing='1' cellpadding='0' border='0'> 
 <%= form_for(@piece,  :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 	<% @piece.element.fields.each do |field| %>
@@ -7,13 +6,8 @@
 		<%= render :partial => field.form_partial_path, :locals => { :piece => @piece, :field => field, :field_value => field.value_for_piece(@piece) } %>
       
 	<% end %>
-  <tr>
-    <td colspan="2" align="right">
 	<%= f.hidden_field :element_id %>
 	<%= f.hidden_field :area_id %>
 	<%= f.hidden_field :newsletter_id %>
     <%= f.submit "Submit", :class => 'button' %>
-    </td>
-  </tr>
 <% end %>
-</table>

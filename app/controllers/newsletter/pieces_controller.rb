@@ -44,7 +44,7 @@ module Newsletter
 
     def destroy
       @piece.destroy
-      redirect_to(newsletter_path(@newsletter,:editor=>1))
+      redirect_to(edit_newsletter_path(@newsletter))
     end
   
     protected 

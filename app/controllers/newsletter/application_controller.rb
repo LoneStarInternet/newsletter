@@ -1,19 +1,18 @@
 require 'dynamic_form'
 require 'nested_form'
+require 'cancan'
 class Newsletter::ApplicationController < ApplicationController 
-  layout 'newsletter/application'
-  helper_method :title, :use_show_for_resources?, :site_url, :show_title?
-  load_and_authorize_resource if respond_to? :load_and_authorize_resource
-
-  before_filter :authenticate_user! if respond_to? :authenticate_user!
+  layout Newsletter.layout
+  helper_method :title, :use_show_for_resources?, :site_url
+  load_and_authorize_resource
 
   def title(value=nil)
-    @title = value if value.present?
-    @title
-  end
-
-  def show_title?
-    true
+    if value.nil?
+      @page_title
+    else
+      @page_title = value
+      "<h1>#{@page_title}</h1>".html_safe
+    end
   end
 
   def use_show_for_resources?

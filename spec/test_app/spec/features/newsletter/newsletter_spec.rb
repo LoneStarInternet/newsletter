@@ -20,5 +20,17 @@ RSpec.feature 'Newsletter generation' do
     visit "/newsletters/#{@newsletter.id}/email" 
     expect(page.body).not_to include('<script')
   end
-  
+
+  it "allows you to edit its name" do
+    new_name = nil
+    begin ;new_name=Faker::Company.name; end while(new_name.eql?(@newsletter.name)) 
+    expect(new_name).not_to eq(@newsletter.name)
+    visit "/newsletter/newsletters/#{newsletter.id}/edit" 
+    fill_in "Name", with: new_name
+    click_button "Save"
+    Debugging::wait_until_success do
+      @newsletter.reload
+      expect(@newsletter.name).to eq(new_name)
+    end
+  end
 end

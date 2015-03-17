@@ -7,7 +7,7 @@ Newsletter::Engine.routes.draw do
       get :editor
     end
     collection do
-      get :short
+      get :sort
     end
     resources :pieces, :only => [:index,:new,:create]
   end
@@ -21,7 +21,7 @@ Newsletter::Engine.routes.draw do
   match '/newsletters/:id/:mode' => 'newsletters#show', :method => :get, :as => :public_newsletter_mode
   match '/newsletters/:id/public' => 'newsletters#show', :method => :get, :as => :public_newsletter
   match '/newsletters/:id' => 'newsletters#show', :method => :get, :as => :newsletter
-  match '/newsletters' => 'newsletters#index', :method => :get, :as => :newsletter
+  match '/newsletters' => 'newsletters#index', :method => :get, :as => :newsletters
   root :to => 'newsletters#index'
 end
 

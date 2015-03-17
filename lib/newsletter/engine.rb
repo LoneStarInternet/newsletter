@@ -41,27 +41,31 @@ module Newsletter
     end
   end
 
+  def self.authorized_for_roles?(user,roles=[])
+    user_roles = if ::Newsletter.roles_method.present?
+      user.send(::Newsletter.roles_method)
+    elsif user.respond_to?(:roles)
+      user.roles
+    elsif user.respond_to?(:role)
+      [user.role]
+    else
+      []
+    end
+    user_roles = [user_roles] unless user_roles.is_a?(Array)
+    roles.detect{|role| user_role.include?(role)}.present?
+  end
+
   def self.authorized?(user, object=nil)
     if object.eql?(::Newsletter::Design)
-      if ::Newsletter.designs_require_authentication 
-        if ::Newsletter.design_authorized_roles.present? 
-          ::Newsletter.design_authorized_roles.include?(user.try(:role))
-        else
-          user.present?
-        end
-      else
-        true
-      end
+      return true unless ::Newsletter.designs_require_authentication 
+      return false if user.blank?
+      return true unless ::Newsletter.design_authorized_roles.present? 
+      authorized_for_roles?(user, ::Newsletter.design_authorized_roles)
     elsif object.eql?(::Newsletter::Newsletter)
-      if ::Newsletter.newsletters_require_authentication 
-        if ::Newsletter.newsletter_authorized_roles.present? 
-          ::Newsletter.newsletter_authorized_roles.include?(user.try(:role))
-        else
-          user.present?
-        end
-      else
-        true
-      end
+      return true unless ::Newsletter.newsletters_require_authentication 
+      return false if user.blank?
+      return true unless ::Newsletter.newsletter_authorized_roles.present? 
+      authorized_for_roles?(user, ::Newsletter.newsletter_authorized_roles)
     else
       false
     end

@@ -11,11 +11,12 @@ Gem::Specification.new do |gem|
   gem.email         = ["biz@lone-star.net"]
   gem.licenses      = ['MIT']
   gem.description   = %q{Newsletter templating and management system.}
-  gem.summary       = %q{Newsletter templating and management system.}
+  gem.summary       = %q{Newsletter templating and management system which allows a designer to create templates that are email-friendly and allows a user to create newsletters with little html/css knowhow.}
   gem.homepage      = "http://ireach.com"
 
   gem.add_dependency "rails", "~>3.2"
-  gem.add_dependency "jquery-ui-rails"
+  gem.add_dependency "jquery-rails", "~>3.1"
+  gem.add_dependency "jquery-ui-rails", "~>5.0"
   gem.add_dependency "mini_magick", "~>4.1"
   gem.add_dependency "will_paginate", "~>3.0"
   gem.add_dependency 'carrierwave', "~>0.10" 

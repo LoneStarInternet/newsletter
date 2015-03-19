@@ -1,0 +1,26 @@
+export RAILS_ENV=test
+
+# RUN FOR SQLITE
+
+cp config/database.sqlite.yml config/database.yml
+
+rm db/test.sqlite3
+spring rake db:schema:load
+
+export SQLITE_SUCCESS=0
+
+DBADAPTER=sqlite bundle exec rspec spec && export SQLITE_SUCCESS=1
+
+#RUN FOR MYSQL
+cp config/database.local.yml config/database.yml
+
+mysqladmin -f drop newsletter_test
+mysqladmin -f create newsletter_test
+spring rake db:schema:load
+
+export MYSQL_SUCCESS=0
+
+DBADAPTER=mysql bundle exec rspec spec && export MYSQL_SUCCESS=1
+
+if [ $MYSQL_SUCCESS -eq 0 ] ; then exit 1; fi
+if [ $SQLITE_SUCCESS -eq 0 ] ; then exit 1; fi

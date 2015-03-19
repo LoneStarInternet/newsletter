@@ -7,12 +7,12 @@ RSpec.describe 'Element management', type: :feature do
   end
 
   it "creates an element with valid attributes", js: true do
-    pending
     #visit newsletter.edit_design_path(@design)
     ['Text','Textarea','Inlineasset'].each do |type|
+      begin
       visit "/newsletter/designs/#{@design.id}/edit"
-      click_link "Manage Elements"
-      click_link "New Newsletter Element"
+      click_link "Manage Elements", match: :first
+      click_link "New Newsletter Element", match: :first
       fill_in "Name", with: "Bobo's #{type} Element"
       fill_in "Html text", with: "<%= bobo_text %>"
       click_link "Add Field"
@@ -32,6 +32,9 @@ RSpec.describe 'Element management', type: :feature do
         text_field = element.fields.first
         expect(text_field.name).to eq 'bobo_text'
         expect(text_field.label).to eq 'Bobo Text'
+      end
+      rescue Exception, TimeoutError => e
+        binding.pry
       end
     end
   end

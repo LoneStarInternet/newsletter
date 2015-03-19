@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :newsletter, class: Newsletter::Newsletter do
-    name {Faker::Lorem.words}
+    name {Faker::Company.name}
     description {Faker::Lorem.paragraphs}
     association :design
     pieces do |newsletter|

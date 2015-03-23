@@ -2,6 +2,7 @@
 *.rbc
 *.swp
 *.DS_Store
+*.local.yml
 .bundle
 .config
 .yardoc

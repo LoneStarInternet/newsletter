@@ -15,3 +15,7 @@
 //= require jquery-ui
 //= require jquery_nested_form
 //= require_tree .
+
+jQuery(document).ready(function(){
+  jquery(document).tooltip();
+});

@@ -17,5 +17,5 @@
 //= require_tree .
 
 jQuery(document).ready(function(){
-  jquery(document).tooltip();
+  jQuery(document).tooltip();
 });

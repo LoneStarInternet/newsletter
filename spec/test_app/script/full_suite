@@ -1,0 +1,34 @@
+export RAILS_ENV=test
+spring stop
+# RUN FOR SQLITE
+
+cp config/database.sqlite.yml config/database.yml
+
+rm db/test.sqlite3
+spring rake db:schema:load
+
+export SQLITE_SUCCESS=0
+export CUC_SQLITE_SUCCESS=0
+
+DBADAPTER=sqlite bundle exec rspec spec && export SQLITE_SUCCESS=1
+DBADAPTER=sqlite bundle exec cucumber features && export CUC_SQLITE_SUCCESS=1
+
+#RUN FOR MYSQL
+cp config/database.local.yml config/database.yml
+
+mysqladmin -f drop newsletter_test
+mysqladmin -f create newsletter_test
+spring rake db:schema:load
+
+export MYSQL_SUCCESS=0
+export CUCMYSQL_SUCCESS=0
+
+DBADAPTER=mysql bundle exec rspec spec && export MYSQL_SUCCESS=1
+DBADAPTER=mysql bundle exec cucumber features && export CUC_MYSQL_SUCCESS=1
+
+unset RAILS_ENV
+
+if [ $MYSQL_SUCCESS -eq 0 ] ; then echo "Rspec Mysql Failed" && exit 1; fi
+if [ $SQLITE_SUCCESS -eq 0 ] ; then  echo "Rspec SQLite Failed" && exit 1; fi
+if [ $CUC_MYSQL_SUCCESS -eq 0 ] ; then  echo "Cucumber Mysql Failed" && exit 1; fi
+if [ $CUC_SQLITE_SUCCESS -eq 0 ] ; then  echo "Cucumber SQLite Failed" && exit 1; fi

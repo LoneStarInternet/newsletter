@@ -12,6 +12,7 @@
             <%= f.text_area :html_text %><br />
       <div class='newsletter_parts_group'>
          <h2 style='padding-bottom: 0; margin-bottom: 0; font-size: 10pt; '>Areas</h2>
+         The HTML code field above should contain &lt;%= render [your_area_name] %&gt; for each area you create.<br/>
          <div id="areas">
             <%= f.fields_for :areas %>
          </div>

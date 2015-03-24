@@ -12,6 +12,13 @@
        <%= f.text_area :html_text %><br />
         <div class='newsletter_parts_group' style='margin-top: 10px; padding: 0 5px 5px 15px; border: thin dashed black; background-color: #eee'>
            <h2 style='font-size: 10pt; '>Fields</h2>
+           The HTML code field above should contain (at the least):
+            <ul>
+              <li>&lt;%= [field_name] %&gt; for each Text field.</li>
+              <li>&lt;%= filter([field_name]) %&gt; for each Textarea.</li>
+              <li>&lt;%= image_tag([field_name]) %&gt; for each Inlineasset that will contain an image.</li>
+              <li>&lt;%= link_to([field_name]) %&gt; for each Inlineasset that will contain a link.</li>
+            </ul>
         		<div id="newsletter_fields">
         			<%= f.fields_for :fields %>
         		</div>

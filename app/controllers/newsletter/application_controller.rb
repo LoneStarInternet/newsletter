@@ -1,10 +1,10 @@
 require 'dynamic_form'
 require 'nested_form'
 require 'cancan'
-class Newsletter::ApplicationController < ApplicationController 
+class Newsletter::ApplicationController < ::ApplicationController 
   layout Newsletter.layout
   helper_method :title, :use_show_for_resources?, :site_url
-  load_resource
+  load_and_authorize_resource
 
   # set page title from view
   # returns the set string encased in an <h1>
@@ -30,4 +30,5 @@ class Newsletter::ApplicationController < ApplicationController
   rescue
     "#{default_url_options[:protocol]||'http'}://#{default_url_options[:domain]}"
   end
+
 end

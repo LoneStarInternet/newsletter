@@ -3,6 +3,7 @@
 *.swp
 *.DS_Store
 *.local.yml
+*structure.sql
 .bundle
 .config
 .yardoc

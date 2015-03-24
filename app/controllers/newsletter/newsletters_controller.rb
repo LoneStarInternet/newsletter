@@ -1,5 +1,7 @@
 module Newsletter
   class NewslettersController < ::Newsletter::ApplicationController
+    helper_method :newsletter
+
     def sort
       Newsletter.all.each do | newsletter |
         newsletter.sequence = params["newsletters"].index(newsletter.id.to_s)+1
@@ -56,7 +58,7 @@ module Newsletter
     end
 
     def new
-      @newsletter = Newsletter.new
+      @newsleter = Newsletter.new
       @designs = Design.active
     end
 
@@ -89,5 +91,6 @@ module Newsletter
       @newsletter.destroy
       redirect_to(newsletters_url)
     end
+
   end
 end

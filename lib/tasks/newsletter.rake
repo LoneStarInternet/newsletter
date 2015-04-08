@@ -3,40 +3,6 @@ ENV["Rails.env"] ||= "development"
 require "#{Rails.root}/config/environment"
 
 namespace :newsletter do 
-  desc "Create Newsletter LSI Auth Menus"
-  task :create_auth_menus do
-    Rails.logger.warn "Creating Newsletter LSI Auth Menus"
-    parent_menu = 'Newsletter'
-    AdminMenu.create_or_find(
-      :description=>'Newsletter',
-      :path=>'admin/newsletter/newsletters',
-      :admin_menu_id=>nil,
-      :menu_order=>1,
-      :is_visible=>1,
-      :auth_all=>1)
-    AdminMenu.create_or_find(
-      :description=>'Newsletters',
-      :path=>'admin/newsletter/newsletters',
-      :admin_menu_id=>AdminMenu.find_by_description('Newsletter').id,
-      :menu_order=>1,
-      :is_visible=>1,
-      :auth_all=>1)
-    AdminMenu.create_or_find(
-      :description=>'Newsletter General Auth',
-      :path=>'admin/newsletter',
-      :admin_menu_id=>nil,
-      :menu_order=>0,
-      :is_visible=>0,
-      :auth_all=>1)
-    AdminMenu.create!(
-      :description=>'Designs',
-      :path=>'admin/newsletter/designs',
-      :admin_menu_id=>AdminMenu.find_by_description('Newsletter').id,
-      :menu_order=>1,
-      :is_visible=>1,
-      :auth_all=>1)
-  end
-
   desc "Import Example Newsletter Design"
   task :import_example_design do     
     Rails.logger.warn "Importing Example Newsletter Design"
@@ -55,10 +21,18 @@ namespace :newsletter do
     File.open('config/newsletter.yml','w') do |file|
       file.write YAML.dump({
         'common' => {
-          'newsletters_path' => '<%= "#{Rails.root}/newsletters" %>',
-          'asset_path' =>  'public/newsletter_assets',
-          'newsletter_path_prefix' =>  '/admin',
-          'newsletter_table_prefix' =>  args.table_prefix
+          'site_url' => 'http://example.com',
+          'layout' => 'newsletter/application',
+          'archive_layout' => 'layout',
+          'use_show_for_resources' => false,
+          'designs_require_authentication' => false,
+          'design_authorized_roles' => [],
+          'newsletters_require_authentication' => false,
+          'newsletter_authorized_roles' => [],
+          'designs_path' => '<%= #{File.join(Rails.root,'designs')} %>',
+          'asset_path' =>  'newsletter_assets',
+          'path_prefix' =>  '/admin',
+          'table_prefix' =>  args.table_prefix
         }
       }.deep_merge(app_config))
     end

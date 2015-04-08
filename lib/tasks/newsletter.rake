@@ -29,7 +29,7 @@ namespace :newsletter do
           'design_authorized_roles' => [],
           'newsletters_require_authentication' => false,
           'newsletter_authorized_roles' => [],
-          'designs_path' => '<%= #{File.join(Rails.root,'designs')} %>',
+          'designs_path' => '<%= File.join(Rails.root,'designs') %>',
           'asset_path' =>  'newsletter_assets',
           'path_prefix' =>  '/admin',
           'table_prefix' =>  args.table_prefix

@@ -22,10 +22,12 @@ module Newsletter
   mattr_accessor :use_show_for_resources
   # path to the newsletter assets (will be used for asset uploads)
   mattr_accessor :asset_path
+  mattr_accessor :show_title
   mattr_accessor :designs_require_authentication
   mattr_accessor :design_authorized_roles
   mattr_accessor :newsletters_require_authentication
   mattr_accessor :newsletter_authorized_roles
+  mattr_accessor :roles_method
   class Engine < ::Rails::Engine
     isolate_namespace Newsletter
     initializer "Newsletter.config" do |app|
@@ -55,7 +57,7 @@ module Newsletter
       []
     end
     user_roles = [user_roles] unless user_roles.is_a?(Array)
-    roles.detect{|role| user_role.include?(role)}.present?
+    roles.detect{|role| user_roles.map(&:to_sym).map(&:to_s).include?(role.to_s)}.present?
   end
 
   def self.authorized?(user, object=nil)
@@ -124,10 +126,12 @@ module Newsletter
     ::Newsletter.archive_layout ||= conf.archive_layout || 'application' rescue 'application'    
     ::Newsletter.use_show_for_resources ||= conf.use_show_for_resources || false rescue false
     ::Newsletter.asset_path ||= conf.asset_path || 'newsletter_assets' rescue 'newsletter_assets'
+    ::Newsletter.show_title ||= conf.show_title || true rescue true
     ::Newsletter.designs_require_authentication ||= conf.designs_require_authentication || false rescue false
     ::Newsletter.newsletters_require_authentication ||= conf.newsletters_require_authentication || false rescue false
     ::Newsletter.design_authorized_roles ||= conf.design_authorized_roles || [] rescue []
     ::Newsletter.newsletter_authorized_roles ||= conf.newsletter_authorized_roles || [] rescue []
+    ::Newsletter.roles_method ||= conf.roles_method || '' rescue ''
   end
 end
 

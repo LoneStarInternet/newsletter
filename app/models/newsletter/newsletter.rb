@@ -27,6 +27,7 @@ module Newsletter
 
     attr_protected :id
 
+    # returns any piece that is a headline
     def headlines
       pieces.select{|piece| piece.respond_to?(:headline)}
     end
@@ -52,6 +53,7 @@ module Newsletter
       end
     end
 
+    # whether or not the newsletter will show on the archives page
     def published?
       !published_at.nil?
     end
@@ -82,7 +84,7 @@ module Newsletter
       fetch(public_url(mode))
     end
 
-    # retrieve a newsletter area by name
+    # retrieve a newsletter area by name - for use in render/views
     def area(name)
       design.areas.by_name(name).first
     end
@@ -97,27 +99,27 @@ module Newsletter
       variables
     end
   
+    # :nodoc sets a pieces attributes coming from the form
+    # FIXME: this is probably covered by rails 3 accepts_attributes_for, but we 
+    # will change when we go to 4 anyways
     def piece_attributes=(piece_attributes)
       piece_attributes.each do |attributes|
         pieces.build(attributes)
       end
     end
   
+    # helper to get areas for newsletter
     def areas
       design.try(:areas).to_a
     end
-  
+    
+    # fetch a url and return the body
     def fetch(uri_str, limit = 10)
-      # You should choose better exception.
-      Rails.logger.debug "Fetching #{uri_str}"
-      raise ArgumentError, 'HTTP redirect too deep' if limit == 0
-
-      response = Net::HTTP.get_response(URI.parse(uri_str))
-      case response
-      when Net::HTTPSuccess     then response.body
-      when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+      uri = URI.parse(uri_str)
+      if uri.scheme.eql?('file')
+        File.binread(uri_str.gsub(%r#^file://#,''))
       else
-        response.error!
+        uri.read
       end
     end
 

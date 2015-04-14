@@ -24,3 +24,4 @@ log
 *.log
 spec/test_app/designs
 spec/test_app/config/database.yml
+spec/test_app/public/newsletter_assets

@@ -25,12 +25,31 @@ RSpec.feature 'Newsletter generation' do
     new_name = nil
     begin ;new_name=Faker::Company.name; end while(new_name.eql?(@newsletter.name)) 
     expect(new_name).not_to eq(@newsletter.name)
-    visit "/newsletter/newsletters/#{newsletter.id}/edit" 
+    visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
     fill_in "Name", with: new_name
     click_button "Save"
     Debugging::wait_until_success do
       @newsletter.reload
       expect(@newsletter.name).to eq(new_name)
+    end
+  end
+
+  it "allows you to edit a pieces", js: true do
+    visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
+    piece = @newsletter.pieces.first
+    current_url = piece.locals[:image].url
+    new_url = Faker::Internet.url 
+
+    within_frame 'preview' do
+      find(:css, "#piece_#{piece.id}").hover()
+      find(:css, "#piece_#{piece.id} .edit_link").click()
+    end
+
+    fill_in "Url:", with: new_url
+    click_button "Submit"
+    Debugging::wait_until_success do
+      piece = Newsletter::Piece.find(piece.id)
+      expect(piece.locals[:image].url).to eq new_url
     end
   end
 end

@@ -17,6 +17,10 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
     # added by script/generate pickle path
+    when /newsletter named "([^"]+)"'s new piece page$/
+      newsletter_name = $1
+      newsletter = Newsletter::Newsletter.where(name: newsletter_name).first
+      "/newsletter/newsletters/#{newsletter.id}/pieces/new"
 
     when /^the (.+?) page$/                                         # translate to named route
       routing.send("#{$1.downcase.gsub(' ','_')}_path")

@@ -15,3 +15,10 @@ Feature: Newsletter Management
     Then a newsletter named "Bobo's first Newsletter" should exist
      And that newsletter should have the design named "Bobo's Design"
     
+  Scenario: Edit a newsletter
+   Given a newsletter named "Bobo's first Newsletter" exists
+    When I go to the newsletters page
+     And I follow "Edit"
+     And I fill in "Name" with "Bobo's Great Newsletter"
+     And I press "Save"
+    Then a newsletter named "Bobo's Great Newsletter" should exist

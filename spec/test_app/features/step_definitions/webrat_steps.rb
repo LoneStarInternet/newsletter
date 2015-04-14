@@ -4,11 +4,11 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 # http://github.com/brynary/webrat
 
 Given /^I am on (.+)$/ do |page_name|
-  visit path_to(page_name,newsletter)
+  visit path_to(page_name,news)
 end
 
 When /^I go to (.+)$/ do |page_name|
-  visit path_to(page_name,newsletter)
+  visit path_to(page_name,news)
 end
 
 When /^I press "([^\"]*)"$/ do |button|
@@ -21,6 +21,10 @@ end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field, :with => value) 
+end
+
+Then(/^I fill in "(.*?)" with the file "(.*?)"$/) do |field_name, filename|
+  fill_in field_name, with: "file://spec/support/files/#{filename}" 
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
@@ -111,5 +115,5 @@ Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
-  URI.parse(current_url).path.should == path_to(page_name,newsletter)
+  URI.parse(current_url).path.should == path_to(page_name,news)
 end

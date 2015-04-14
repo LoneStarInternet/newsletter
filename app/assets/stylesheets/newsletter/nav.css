@@ -1,0 +1,68 @@
+.line
+{	color: #d9eabd;
+	width:160px;
+	background: #d9eabd;
+	border:none;
+	height:1px;
+	margin:4px 0;
+	
+}
+
+#menu {font-size: 10pt;
+  float: left;
+  padding-left: 3px;
+  padding-bottom: 10px;
+  margin: 0 5px 5px 0;
+/*border-right: 1px solid #fdba59;
+  border-bottom: 1px solid #fdba59;*/
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  line-height: 12pt;
+  color: #000000;
+  width:176px;
+  background: #8fc23f; /* Old browsers */
+  background: -moz-linear-gradient(top, #8fc23f 0%, #b2d57b 50%, #fffffe 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8fc23f), color-stop(50%,#b2d57b), color-stop(100%,#fffffe)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #8fc23f 0%,#b2d57b 50%,#fffffe 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #8fc23f 0%,#b2d57b 50%,#fffffe 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #8fc23f 0%,#b2d57b 50%,#fffffe 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #8fc23f 0%,#b2d57b 50%,#fffffe 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc23f', endColorstr='#fffffe',GradientType=0 ); /* IE6-9 */
+}
+
+#menu a:link {  color: #000000; text-decoration: none; }
+#menu a:visited {  color: #000000; text-decoration: none; }
+#menu a:active {  color: #000000; text-decoration: none; }
+#menu a:hover {  color: #Fc6; text-decoration: none; }
+
+#menu ul {
+  padding-left: 10px;
+  list-style: outside none none;
+}
+
+#menu ul li {
+  border-bottom: 1px solid #fff;
+}
+
+#menu ul li ul {
+  padding-left: 20px;
+  list-style: outside none none;
+}
+
+#menu ul li ul li {font-size: 9pt;
+   font-family: helvetica, arial, sans-serif;
+   font-weight: bold;
+   line-height: 12pt;
+   color: #a42529;
+   border: none;
+   
+}
+#menu ul li ul li a:link {  color:#C18100; text-decoration: none; }
+#menu ul li ul li a:visited {  color:#a42529; text-decoration: none; }
+#menu ul li ul li a:hover {  color:#FC6; text-decoration: none; }
+
+.table-bk { 
+	background: url(/assets/newsletter/menuMain.gif) no-repeat top right;
+   padding-top: 20px;
+   padding-left:3px;
+}

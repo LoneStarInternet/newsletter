@@ -1,0 +1,21 @@
+credentials: &credentials
+  encoding: utf8
+  adapter: postgresql
+  username: newsletter
+  password: newsletter_pass
+  host: localhost
+  reconnect: true
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *credentials 
+  database: mail_manager_development
+ 
+test:
+  <<: *credentials 
+  database: mail_manager_test
+ 
+production:
+  <<: *credentials 
+  database: mail_manager

@@ -4,11 +4,11 @@
 <%= render :partial => 'form' %>
 <% if @newsletter.design %>
  <% @newsletter.areas.each do |area| %>
-   <%= form_tag new_newsletter_piece_path(@newsletter), :method => :get do %>
+   <%= form_tag new_newsletter_piece_path(@newsletter), :method => :get, :id => "add_element_for_area_#{area.id}" do %>
       <%= hidden_field_tag 'area_id', area.id %>
       <%= label_tag 'element_id', "Area: #{area.name.humanize}" %>
       <%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name'), :style=>'margin-right: 10px;' %>
-      <%= submit_tag 'Add Element', :class => 'button' %><br />
+      <%= submit_tag 'Add Element', :class => 'button', :id => "add_element_#{area.id}" %><br />
    <% end %>
 <% end %>
 

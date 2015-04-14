@@ -25,6 +25,9 @@ gem 'spring'
 gem 'spring-commands-rspec'
 gem 'spring-commands-cucumber'
 gem 'quiet_assets'
+if ENV['POSTGRES']
+  gem 'pg'
+end
 
 # Testing Gems
 group :test do

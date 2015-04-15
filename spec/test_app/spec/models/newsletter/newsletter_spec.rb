@@ -122,6 +122,6 @@ EOT
   protected
 
   def remove_file_links_from_text(text)
-    text.gsub(%r#file:///.*$#m,'')
+    text.gsub(%r#file://.*$#m,'')
   end
 end

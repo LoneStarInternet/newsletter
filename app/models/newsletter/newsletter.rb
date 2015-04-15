@@ -96,6 +96,7 @@ module Newsletter
       design.areas.each do |area|
         variables[area.name.to_sym] = area
       end
+      variables[:title] = self.name
       variables
     end
   

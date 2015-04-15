@@ -10,7 +10,7 @@ en:
 
     attributes:
       newsletter/design:
-        name: "Newsletter name"
+        name: "Name"
         description: "Description"
         html_text: "HTML code"
       newsletter/element:

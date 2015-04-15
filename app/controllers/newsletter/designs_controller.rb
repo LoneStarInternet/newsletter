@@ -3,6 +3,8 @@ module Newsletter
   class DesignsController < ::Newsletter::ApplicationController
     before_filter :find_design, :except => [:new, :create, :index]
 
+    include DeleteableActions
+
     def index
       @designs = Design.find(:all)
     end
@@ -38,7 +40,7 @@ module Newsletter
     end
 
     def destroy
-      @design.destroy
+      @design.delete
       redirect_to(designs_url)
     end
     

@@ -2,6 +2,9 @@ module Deleteable
 
   def self.included(receiver)
     receiver.extend ClassMethods
+    receiver.class_eval do
+      default_scope where("deleted_at IS NULL")
+    end
   end
 
   def is_deleted?
@@ -17,15 +20,8 @@ module Deleteable
   end
 
   module ClassMethods
-    def find(*args)
-      if args[0] == (:exclusive_scope)
-        args.shift
-        super
-      else
-        with_scope(:find => {:conditions => ["#{table_name}.deleted_at is null"]}) do
-          super
-        end
-      end
+    def deleted
+      unscoped.where("deleted_at IS NOT NULL")
     end
   end
 
@@ -37,14 +33,16 @@ module DeleteableActions
   end
 
   def destroy
-    thing = controller_name.singularize.split('_').collect{|string| string.capitalize}.join.constantize.find(params[:id])
+    thing = self.class.name.gsub(/s?Controller$/,'').constantize.find(params[:id])
     thing.delete
-    redirect_to(eval("#{controller_name}_path(derailed_params)"))
+    redirect_to(action: :index)
   end
 
+  # :nocov: - not currently supported
   def undelete
-    thing = controller_name.singularize.split('_').collect{|string| string.capitalize}.join.constantize.find(:exclusive_scope,params[:id])
+    thing = self.class.name.gsub(/s?Controller$/,'').constantize.find(params[:id])
     thing.undelete
-    redirect_to(eval("#{controller_name}_path(derailed_params)"))
+    redirect_to(action: :index)
   end
+  # :nocov:
 end

@@ -9,3 +9,4 @@ common:
   layout: newsletter/application
 test:
   site_url: http://newsletter.lvh.me:4447
+  designs_path: <%= "#{Rails.root}/tmp" %>

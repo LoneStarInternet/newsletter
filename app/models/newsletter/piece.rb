@@ -1,5 +1,5 @@
 =begin rdoc
-Author::    Chris Hauboldt (mailto:biz@lnstar.com)
+Aduthor::    Chris Hauboldt (mailto:biz@lnstar.com)
 Copyright:: 2009 Lone Star Internet Inc.
 
 NewsletterPieces are the glue that tie data together to form a piece in an area of a design.
@@ -24,7 +24,10 @@ module Newsletter
 
     attr_accessor :field_values_attributes
 
+    #attr_accessible :field_values_attributes, :newsletter_id, :element_id, :area_id
     attr_protected :id
+
+    #validates_presence_of :newsletter, :element, :area, :field_values
     
     # returns locals to be used in its Newsletter::Element design
     def locals
@@ -32,25 +35,51 @@ module Newsletter
       @locals = Hash.new
       fields.each do |field|
         @locals[field.name.to_sym] = field.value_for_piece(self)
-        define_getter_for_locals(field.name.to_sym) unless respond_to?(field.name.to_sym)
       end
       @locals
     end
 
+    # returns a pieces fields
     def fields
       element.try(:fields).try(:uniq) || []
     end
 
-    def newsletter
-      return nil unless newsletter_id.present?
-      @newsletter ||= ::Newsletter::Newsletter.find(newsletter_id)
-    end
-    
     # used to save out a piece's fields, since they are inline in a piece's form  
     def field_values_attributes=(values)
       @field_values_attributes = values
     end
 
+    # whether it can respond to a 'method' in its locals hash
+    def respond_to?(my_method,use_private=false)
+      return true if super
+      if locals.keys.include?(my_method.to_sym)
+        true
+      else
+        false
+      end
+    end
+
+    # respond for its named methods for its element's template
+    # these values will be in its locals hash
+    def method_missing(*args)
+      if args.length == 1 and locals.has_key?(args[0].to_sym)
+        locals[args[0].to_sym]
+      else
+        super
+      end
+    end
+
+    # :nodoc override save for transaction to set its field values
+    def save(*args)
+      transaction do 
+        set_field_values
+        super
+      end
+    end  
+
+    protected
+
+    # sets the piece's field values after a save
     def set_field_values
       return unless defined?(@field_values_attributes) && @field_values_attributes.present?
       @field_values_attributes.each_pair do |field_id,key_value_pairs|
@@ -59,38 +88,5 @@ module Newsletter
       end
     end
 
-    def respond_to?(my_method,use_private=false)
-      return true if super
-      if locals.keys.include?(my_method.to_sym)
-        define_getter_for_locals(my_method)
-        true
-      else
-        false
-      end
-    end
-
-    def method_missing(*args)
-      if args.length == 1 and locals.has_key?(args[0].to_sym)
-        define_getter_for_locals(args[0])
-      else
-        super
-      end
-    end
-
-    def save(*args)
-      transaction do 
-        set_field_values
-        super
-      end
-    end  
-
-    private
-    def define_getter_for_locals(key)
-      class_eval %Q|
-      def #{key}
-        locals[:#{key}]
-      end|
-      eval key.to_s
-    end
   end
 end

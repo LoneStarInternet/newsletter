@@ -22,3 +22,11 @@ Feature: Newsletter Management
      And I fill in "Name" with "Bobo's Great Newsletter"
      And I press "Save"
     Then a newsletter named "Bobo's Great Newsletter" should exist
+
+  Scenario: View a newsletter on the archive page
+   Given a newsletter named "Bobo's first Newsletter" exists
+    When I go to the newsletters page
+     And I follow "Publish"
+     And I go to the newsletter archive page
+     And I follow "Bobo's first Newsletter"
+    Then I should see "Bobo's first Newsletter"

@@ -17,6 +17,8 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
     # added by script/generate pickle path
+    when /the newsletter archive page/
+      "/newsletters/archive"
     when /newsletter named "([^"]+)"'s new piece page$/
       newsletter_name = $1
       newsletter = Newsletter::Newsletter.where(name: newsletter_name).first

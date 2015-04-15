@@ -1,4 +1,3 @@
-
 <%= form_for(@piece,  :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 	<% @piece.element.fields.each do |field| %>

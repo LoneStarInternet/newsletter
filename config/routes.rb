@@ -9,7 +9,7 @@ Newsletter::Engine.routes.draw do
     collection do
       get :sort
     end
-    resources :pieces, :only => [:index,:new,:create]
+    resources :pieces, :only => [:new]
   end
   resources :pieces, :only => [:edit,:create,:update,:destroy]
   resources :designs do

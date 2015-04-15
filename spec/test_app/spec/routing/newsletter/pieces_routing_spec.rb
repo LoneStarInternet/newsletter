@@ -13,7 +13,7 @@ RSpec.describe Newsletter::PiecesController, :type => :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/newsletters/1/pieces").to route_to("newsletter/pieces#create", newsletter_id: "1")
+      expect(:post => "/pieces").to route_to("newsletter/pieces#create")
     end
 
     it "routes to #update" do

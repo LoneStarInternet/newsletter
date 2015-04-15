@@ -104,6 +104,7 @@ module Newsletter
         ::Newsletter::Piece,
         ::Newsletter::FieldValue
       ]
+      can :archive, ::Newsletter::Newsletter
     EOT
   end
 

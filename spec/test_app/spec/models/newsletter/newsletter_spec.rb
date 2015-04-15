@@ -35,7 +35,7 @@ RSpec.describe Newsletter::Newsletter do
       email_text = @newsletter.email_text
       expect(email_text.strip).not_to eq ''
       expect(remove_file_links_from_text(email_text)).to eq remove_file_links_from_text(<<EOT)
-Get the new Newsletter from here: http://newsletter.lvh.me:4447/newsletters/1
+Get the new Newsletter from here: http://newsletter.lvh.me:4447/newsletters/#{@newsletter.id}
 ------------------------------
 
 #{@newsletter.generate_plain_text('email')}

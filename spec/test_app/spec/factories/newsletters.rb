@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :newsletter, class: Newsletter::Newsletter do
     name {Faker::Company.name}
-    description {Faker::Lorem.paragraphs(1)[0..254]}
+    description {Faker::Lorem.paragraphs(1)[0..125]}
     association :design
     pieces do |newsletter|
       left_area = newsletter.design.areas.where(name: 'left_column').first

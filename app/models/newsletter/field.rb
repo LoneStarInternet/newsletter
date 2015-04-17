@@ -27,7 +27,8 @@ module Newsletter
 =end
       attr_accessor :should_destroy
 
-      attr_protected :id
+      attr_accessible :name, :type, :element_id, :label, :sequence, :is_required, 
+        :description, :updated_by
       
       include Deleteable
 

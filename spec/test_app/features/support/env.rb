@@ -4,7 +4,41 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require 'simplecov'
+pwd = File.expand_path( File.dirname(__FILE__) )
+SimpleCov.root(File.join(pwd,'..','..','..','..'))
+SimpleCov.command_name 'cucumber-' + ENV['DBADAPTER'].to_s
+SimpleCov.start('rails') do
+  adapters.delete(:root_filter)
+  add_filter do |src|
+    !(src.filename =~ /^#{SimpleCov.root}/)
+  end
+  add_filter do |src|
+    src.filename =~ /test_app/
+  end
+end
 require 'cucumber/rails'
+require 'factory_girl_rails'
+
+require 'capybara/poltergeist'
+require 'capybara/rspec'
+require 'capybara/rails'
+require File.join(pwd,'..','..',"lib","debugging")
+#require 'rack_session_access/capybara'
+Capybara.server_port = Newsletter.site_url.split(/:/).last
+Capybara.app_host = Newsletter.site_url
+
+Capybara.default_driver = :rack_test
+Capybara.register_driver :poltergeist do |app|
+  options = {
+    inspector: 'open',
+    debug: false,
+    phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes'],
+    js_errors: false
+  }
+  Capybara::Poltergeist::Driver.new(app, options)
+end
+Capybara.javascript_driver = :poltergeist
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -27,6 +61,8 @@ require 'cucumber/rails'
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.

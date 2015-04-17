@@ -1,0 +1,25 @@
+en:
+  activerecord:
+    models:
+      newsletter/design:
+        one: "Design"
+        other: "Designs"
+      newsletter/element:
+        one: "Element"
+        other: "Elements"
+
+    attributes:
+      newsletter/design:
+        name: "Name"
+        description: "Description"
+        html_text: "HTML code"
+      newsletter/element:
+        html_text: "HTML code"
+
+    errors:
+
+  navigation:
+
+  helpers:
+
+  messages:

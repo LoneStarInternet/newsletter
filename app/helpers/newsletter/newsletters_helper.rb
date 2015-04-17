@@ -1,9 +1,5 @@
 module Newsletter
   module NewslettersHelper
-    def render_area
-      render @newsletter.design.areas.by_newsletter(@newsletter)
-    end
-
     def is_email?
       params[:mode].eql?('email')
     end
@@ -18,7 +14,7 @@ module Newsletter
     protected 
     def filter_eols_to_brs(text,orig_text)
       return '' if text.blank?
-      return '' if orig_text =~ /<br\s*\/>/i
+      return text if orig_text =~ /<br\s*\/>/i
       text.gsub(/(\r\n|\r|\n)/,'<br/>')
     end
 

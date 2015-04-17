@@ -1,0 +1,202 @@
+---
+:name: Example Design
+:html_text: ! "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html
+  xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\"
+  content=\"text/html; charset=utf-8\" />\r\n<style type=\"text/css\">\r\nh1{font-family:
+  Arial Black, Arial, Helvetica, sans-serif; color: #333333; font-size:22px; margin:0;
+  padding: 0 0 10px 0; }\r\nh2{font-family: Arial Black, Arial, Helvetica, sans-serif;
+  color: #333333; font-size:17px; margin:0; padding: 7px 0 0 0;}\r\nh3 {font-family:
+  Arial Black, Arial, Helvetica, sans-serif; color: #0068b3; font-size:9pt; margin:0;
+  padding: 0;}\r\np {font-family: Arial, Helvetica, sans-serif; color: #333333; font-size:8.5pt;
+  margin-top:4px; margin-bottom:4px;}\r\np.right{font-family: Arial, Helvetica, sans-serif;
+  color: #333333; font-size:9.5pt; margin:0 0 15px 0; padding: 0; line-height:1.2em;}\r\na{text-decoration:none;
+  color: #0068b3;}\r\na:hover {color: #7fc348;}\r\n.footer {font-size:7pt;}\r\np a
+  {font-size: 6pt; font-weight: bold;}\r\np.right a {font-size: 7pt;}\r\nhr{color:
+  #7fc348; margin:5px 0; height: 1px; padding: 0;}\r\n.bullet {color: #7fc348; font-weight:
+  bold; height: 5px;}\r\np.pullquote {color: #333333; background:url(<%= asset_path(
+  \"images/pullquote_bg.gif\") %>) repeat-x ; margin:0; padding: 15px; text-align:center;
+  font-style: italic; font-size: 7pt;}\r\np.pullquote a { color: #333333;}\r\np.pullquote
+  a:hover {color: #0068b3;}\r\n  .wrappertable {\r\n\twidth: 574px;\r\n\tmargin: 0
+  8px;\r\n  }\r\n   .leftcoltable {\r\n\twidth: 227px;\r\n  } \r\n  .rightcoltable
+  {\r\n\twidth: 347px;\r\n\tpadding-left: 15px;\r\n  }\r\n@media only screen and (max-device-width:
+  600px) {\r\n  .wrappertable {\r\n\twidth: 95%;\r\n  }\r\n   .leftcoltable {\r\n\twidth:
+  100%;\r\n  }\r\n  .rightcoltable {\r\n\twidth: 100%;\r\n  }\r\n}\r\n</style>\r\n<%=
+  render partial: 'head' %>\r\n</head>\r\n<body>\r\n<table cellspacing=\"0\" cellpadding=\"0\"
+  class=\"wrappertable\">\r\n<tr><td colspan=\"2\" align=\"center\">\r\n<h1>Newsletter
+  Header Image or Name</h1></td></tr>\r\n<tr bgcolor=\"#0068b3\" cellpadding=\"2\"
+  cellspacing=\"2\"><td style=\"font-family:arial,sans-serif;font-size:11px;color:#FFFFFF;\"cellpadding=\"2\"
+  cellspacing=\"2\">Your Tagline or Newsletter Description</td><td  align=\"right\"
+  style=\"font-family:arial,sans-serif;font-size:12px;color:#FFFFFF;\" cellpadding=\"2\"
+  cellspacing=\"2\"><%= @newsletter.name %></td></tr>\r\n</table>\r\n\r\n<table cellspacing=\"0\"
+  cellpadding=\"0\" class=\"wrappertable\">\r\n<tr valign=\"top\">\r\n<td><table cellspacing=\"0\"
+  cellpadding=\"0\" class=\"leftcoltable\" align=\"left\"><tr><td>\r\n<h2>In This
+  Issue</h2>\r\n<!-- Left Column -->\r\n<%= render left_column %>\r\n<hr />\r\n<h3><%=
+  link_to \"Newsletter Archives\", \"#{::Newsletter.site_url}/newsletters/archive\",
+  :target => '_blank' %></h3>\r\n<p>If you missed a previous release or simply want
+  to review an article of interest, all our newsletters have been archived. <%= link_to
+  \"Read More\", \"#{::Newsletter.site_url}/newsletters/archive\" %></p>\r\n</td></tr></table>\r\n<!--Right
+  Column-->\r\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"rightcoltable\"
+  align=\"right\"><tr><td>\r\n<%= render right_column %>\r\n</td></tr></table></td>\r\n</tr>\r\n<%
+  if is_email? %>\r\n<tr><td><hr /><p class=\"footer\" align=\"center\"><font color=\"#aaaaaa\">To
+  remove your address from this newsletter list, please click <%= link_to \"Here\",
+  '#UNSUBSCRIBE_URL##' %>.</font></p></td></tr>\r\n<% end %>\r\n<tr><td><hr /><p class=\"footer\"
+  align=\"center\"><font color=\"#555555\"><b>My Company, Inc.</b> <span class=\"bullet\">&#8226;</span>
+  123 Test Road <span class=\"bullet\">&#8226;</span>  Austin, TX 78230 p:210.495.1171
+  <span class=\"bullet\">&#8226;</span> f:555.555.1244 <span class=\"bullet\">&#8226;</span>
+  toll free: 1.800.555.5555</font></p></td></tr>\r\n</table>\r\n</body>\r\n</html>"
+:description: This is the simple newsletter template.
+:areas:
+- :name: left_column
+  :description: This will house the elements of the 'left_column'
+- :name: right_column
+  :description: This will house the elements of the 'right_column'
+:elements:
+- :name: Left Column Article
+  :description: Has a heading, an excerpt, and a Read More link
+  :html_text: ! '<hr />
+
+    <h3>
+
+    <% unless link.url.blank? %>
+
+    <%= link_to headline, link.url %>
+
+    <% else %>
+
+    <%=h headline %>
+
+    <% end %>
+
+    </h3>
+
+
+    <p><%= filter(article_excerpt) %> <nobr><%= link_to(''Read More'', link.url) unless
+    link.url.blank? %></nobr></p>
+
+'
+  :areas:
+  - :name: left_column
+    :description: This will house the elements of the 'left_column'
+  :fields:
+  - :name: article_excerpt
+    :label: Article Excerpt
+    :sequence: 
+    :is_required: 
+    :description: Article Excerpt
+    :type: Newsletter::Field::TextArea
+  - :name: link
+    :label: Read More Link
+    :sequence: 
+    :is_required: 
+    :description: Read More Link
+    :type: Newsletter::Field::InlineAsset
+  - :name: headline
+    :label: Headline
+    :sequence: 
+    :is_required: 
+    :description: Headline
+    :type: Newsletter::Field::Text
+- :name: Left Column Image
+  :description: Image that is formatted for the left column
+  :html_text: ! '<hr />
+
+    <p><%= image_tag image.url, {:width=>"220", :alt=>image.text } %></p>
+
+'
+  :areas:
+  - :name: left_column
+    :description: This will house the elements of the 'left_column'
+  :fields:
+  - :name: image
+    :label: Image
+    :sequence: 1
+    :is_required: true
+    :description: image formatted for left column
+    :type: Newsletter::Field::InlineAsset
+- :name: Right column article
+  :description: RIght Column Article
+  :html_text: ! '<h1><%= headline %></h1>
+
+    <p class="right">
+
+    <%= image_tag(image.url, {:width=>"174", :vspace=>"5", :hspace=>"10", :align=>"left",
+    :alt => image.text} ) unless image.url.blank? %>
+
+    <%= filter(article_excerpt) %>
+
+    <nobr><%= link_to(''Read More'', link.url) unless link.url.blank? %></nobr></p>'
+  :areas:
+  - :name: right_column
+    :description: This will house the elements of the 'right_column'
+  :fields:
+  - :name: headline
+    :label: Headline
+    :sequence: 
+    :is_required: 
+    :description: Headline
+    :type: Newsletter::Field::Text
+  - :name: image
+    :label: Image
+    :sequence: 
+    :is_required: 
+    :description: Article Image
+    :type: Newsletter::Field::InlineAsset
+  - :name: link
+    :label: Read More Link
+    :sequence: 
+    :is_required: 
+    :description: Read More Link
+    :type: Newsletter::Field::InlineAsset
+  - :name: article_excerpt
+    :label: Article Excerpt
+    :sequence: 
+    :is_required: 
+    :description: Article Excerpt
+    :type: Newsletter::Field::TextArea
+- :name: Right Column Headline
+  :description: Headline for use in the right column!
+  :html_text: <h1><%= headline %></h1>
+  :areas:
+  - :name: right_column
+    :description: This will house the elements of the 'right_column'
+  :fields:
+  - :name: headline
+    :label: Headline
+    :sequence: 
+    :is_required: 
+    :description: Headline
+    :type: Newsletter::Field::Text
+- :name: Right Column Image
+  :description: Image for use in the right column
+  :html_text: ! '<%= image_tag image.url,  {:width=>"320", :alt=>image.text, :style=>"margin:0;
+    padding: 15px 0 0 0;"} %>'
+  :areas:
+  - :name: right_column
+    :description: This will house the elements of the 'right_column'
+  :fields:
+  - :name: image
+    :label: Image
+    :sequence: 
+    :is_required: 
+    :description: Right Column Image
+    :type: Newsletter::Field::InlineAsset
+- :name: Right Column Paragraph
+  :description: paragraph for use in the right column, may contain a link
+  :html_text: ! "<p class=\"right\">\n\t<%= filter(body) %> <%= link_to 'Read More',
+    link.url unless link.url.blank? %>\n</p>"
+  :areas:
+  - :name: right_column
+    :description: This will house the elements of the 'right_column'
+  :fields:
+  - :name: link
+    :label: Link
+    :sequence: 
+    :is_required: 
+    :description: Link
+    :type: Newsletter::Field::InlineAsset
+  - :name: body
+    :label: Body
+    :sequence: 
+    :is_required: 
+    :description: Body
+    :type: Newsletter::Field::TextArea

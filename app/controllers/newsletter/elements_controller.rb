@@ -55,21 +55,21 @@ module Newsletter
   
     protected
     def find_element
-      @element = Element.find_by_id(params[:id])
+      @element ||= Element.find_by_id(params[:id])
     end
   
     def find_design
-      return @design = @element.design if @element
-      @design = Design.find_by_id(params[:design_id])
+      return @design ||= @element.design if @element && @element.design.present?
+      @design ||= Design.find_by_id(params[:design_id])
     end
   
     def find_fields
-      return @fields = @element.fields if @element
-      [Field.new]
+      return @fields ||= @element.fields if @element && @element.fields.present?
+      @fields ||= [Field.new]
     end
   
     def find_field_types
-      @field_types = Field.valid_types
+      @field_types ||= Field.valid_types
     end
   end
 end

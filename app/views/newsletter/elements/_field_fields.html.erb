@@ -1,27 +1,13 @@
 <%= div_for f.object do %>
-  <table border="0" cellpadding="1" cellspacing="0">
 	<%= f.error_messages %>
-	<tr vlalign="top">
-		<td width="150"><%= f.label :name %></td>
-		<td><%= f.text_field :name%></td>
-	</tr>    
-	<tr vlalign="top">
-		<td width="150"><%= f.label :label %><br /></td>
-		<td><%= f.text_field :label %></td>
-	</tr>    
-	<tr vlalign="top">
-		<td width="150"><%= f.label :description %><br /></td>
-		<td><%= f.text_field :description %></td>
-	</tr>    
-	<tr vlalign="top">
-		<td width="150"><%= f.label :type %></td>
-		<td><%= f.select :type, options_for_select(@field_types.collect{|type| [type.gsub(/Newsletter::Field::/,'').humanize,type]}, f.object.class.name) %></td>
-	</tr>    
-	<tr vlalign="top">
-	  <td align="right" colspan="2">
-	  <%= f.link_to_remove "Remove", {class: 'button'} %><div class='linkbuttonEnding'>
-	<br/><br/><hr/>
-	  </td>
-	</tr>
-	</table>
+		<%= f.label :name %>
+		<%= f.text_field :name%><br />
+		<%= f.label :label %>
+		<%= f.text_field :label %><br />
+		<%= f.label :description %>
+		<%= f.text_field :description %><br />
+		<%= f.label :type %>
+		<%= f.select :type, options_for_select(@field_types.collect{|type| [type.gsub(/Newsletter::Field::/,'').humanize,type]}, f.object.class.name) %>
+	  <%= f.link_to_remove "Remove", {class: 'button', style: 'margin-left: 130px;'} %>
+    <hr>
 <% end %>

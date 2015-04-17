@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :newsletter, class: Newsletter::Newsletter do
-    name {Faker::Lorem.words}
-    description {Faker::Lorem.paragraphs}
+    name {Faker::Company.name}
+    description {Faker::Lorem.paragraphs(1)[0..125]}
     association :design
     pieces do |newsletter|
       left_area = newsletter.design.areas.where(name: 'left_column').first
@@ -16,10 +16,10 @@ FactoryGirl.define do
       #right_area = newsletter.design.areas.where(name: 'right_column').first
       
       [ ::Newsletter::Piece.new(
-        area: left_area,
-        element: left_image_element,
+        area_id: left_area.id,
+        element_id: left_image_element.id,
         field_values_attributes: { image_field.id => {
-          url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwNmnMYLBp2Sw9vg-snbZ_GKONKo_WY0f3S1ETL2era2DZKKqD'
+          url: Faker::Internet.url 
         }}
       )]
     end

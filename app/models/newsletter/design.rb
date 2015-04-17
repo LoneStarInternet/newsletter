@@ -21,7 +21,7 @@ module ::Newsletter
 
     scope :active, :conditions => {:deleted_at => nil}
   
-    validates_presence_of :name
+    validates :name, presence: true, uniqueness: true
 
     # attr_protected :id
     #FIXME: make this work with deletable or convert to auditable, and extend it to access destroyed records
@@ -121,6 +121,7 @@ module ::Newsletter
     end
   
     include Deleteable
+
     protected
     def read_design
       File.readlines(view_path).join

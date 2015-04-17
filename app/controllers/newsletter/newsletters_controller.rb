@@ -1,11 +1,7 @@
 module Newsletter
   class NewslettersController < ::Newsletter::ApplicationController
-    skip_before_filter :authorize, :only => ["archive","show"]
-    before_filter :find_newsletter, :only => [:editor,:publish,:unpublish,:edit,:update,:destroy,:show]
-    #FIXME: why do we need to place this custom code here instead of reopening the class?
-    skip_before_filter :authenticate, :only => [:archive,:show]
-  
-  
+    helper_method :newsletter
+
     def sort
       Newsletter.all.each do | newsletter |
         newsletter.sequence = params["newsletters"].index(newsletter.id.to_s)+1
@@ -62,7 +58,7 @@ module Newsletter
     end
 
     def new
-      @newsletter = Newsletter.new
+      @newsleter = Newsletter.new
       @designs = Design.active
     end
 
@@ -95,10 +91,6 @@ module Newsletter
       @newsletter.destroy
       redirect_to(newsletters_url)
     end
-  
-    protected 
-    def find_newsletter
-      @newsletter = Newsletter.find_by_id(params[:id])
-    end
+
   end
 end

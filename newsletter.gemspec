@@ -9,19 +9,21 @@ Gem::Specification.new do |gem|
   gem.version       = Newsletter::VERSION
   gem.authors       = ["Lone Star Internet"]
   gem.email         = ["biz@lone-star.net"]
-  gem.license       = ['MIT']
+  gem.licenses      = ['MIT']
   gem.description   = %q{Newsletter templating and management system.}
-  gem.summary       = %q{Newsletter templating and management system.}
+  gem.summary       = %q{Newsletter templating and management system which allows a designer to create templates that are email-friendly and allows a user to create newsletters with little html/css knowhow.}
   gem.homepage      = "http://ireach.com"
 
-  gem.add_dependency "rails", "~>4.2"
-  gem.add_dependency "mini_magick"
-  gem.add_dependency "will_paginate"
-  gem.add_dependency 'carrierwave'
+  gem.add_dependency "rails", "~>3.2"
+  gem.add_dependency "jquery-rails", "~>3.1"
+  gem.add_dependency "jquery-ui-rails", "~>5.0"
+  gem.add_dependency "mini_magick", "~>4.1"
+  gem.add_dependency "will_paginate", "~>3.0"
+  gem.add_dependency 'carrierwave', "~>0.10" 
   gem.add_dependency "dynamic_form", "~>1.1"
-  gem.add_dependency 'nested_form'
-  gem.add_dependency 'acts_as_list'
-  gem.add_dependency 'cancancan'
+  gem.add_dependency 'nested_form', "~>0.3"
+  gem.add_dependency 'acts_as_list', "~>0.5"
+  gem.add_dependency 'cancancan', "~>1.9"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

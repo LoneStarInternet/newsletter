@@ -167,4 +167,11 @@ EOT
       end
     end
   end
+  it "paginates when there are a lot of them" do
+    50.times{import_design(nil,Faker::Company.bs)}
+    visit "/newsletter/designs"
+    expect(page.body).to match /Next/
+    expect(page.body).to match /Previous/
+    click_link "Next"
+  end
 end

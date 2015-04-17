@@ -6,7 +6,8 @@ module Newsletter
     include DeleteableActions
 
     def index
-      @designs = Design.find(:all)
+      @designs = Design.order(:name).paginate(page: (params[:page] || 1), 
+        per_page: (params[:per_page] || 30))
     end
 
     def show

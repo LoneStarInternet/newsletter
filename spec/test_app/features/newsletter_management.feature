@@ -30,3 +30,10 @@ Feature: Newsletter Management
      And I go to the newsletter archive page
      And I follow "Bobo's first Newsletter"
     Then I should see "Bobo's first Newsletter"
+
+  Scenario: Newsletters have pagination
+   Given 50 newsletters exist
+    When I go to the newsletters page
+    Then I should see "Previous"
+     And I should see "Next"
+    When I follow "Next"

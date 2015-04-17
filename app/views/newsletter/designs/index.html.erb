@@ -26,6 +26,7 @@
 
 <%= content_for :page_navigation do %>
 <div>
+  <%= will_paginate @designs %>
   <%= link_to "New Design", new_design_path, :class => 'button' %>
 </div>
 <% end %>

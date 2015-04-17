@@ -17,3 +17,8 @@ Given(/^a newsletter named "(.*?)" exists with design named "(.*?)"$/) do |news_
   FactoryGirl.create(:newsletter, name: news_name, design: design)
 end
 
+Given(/^(\d+) newsletters exist$/) do |count|
+  design = import_design(nil,Faker::Company.bs)
+  count.to_i.times{FactoryGirl.create(:newsletter, design: design)}
+end
+

@@ -59,8 +59,9 @@ module Newsletter
       end
 
       # returns a pieces value for a given Newsletter::Field
-      def value_for_piece(piece)
-        get_value(piece).to_s.html_safe
+      def value_for_piece(piece,safe=true)
+        return get_value(piece).to_s.html_safe if safe
+        get_value(piece).to_s
       end
 
       # sets a pieces value for a Newsletter::Field

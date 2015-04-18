@@ -52,4 +52,30 @@ RSpec.feature 'Newsletter generation' do
       expect(piece.locals[:image].url).to eq new_url
     end
   end
+
+  it "doesn't break when you put double quotes in a piece text field", js: true do
+    visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
+    area = @newsletter.area('right_column')
+    element = area.elements.detect{|e| e.name.eql?('Right Column Headline')}
+    field = element.fields.first
+    @newsletter.pieces << Newsletter::Piece.new({
+      area_id: area.id,
+      element_id: element.id,
+      field_values_attributes: {
+        field.id => {
+          text: '"bunk" is good!'
+        }
+      }
+    })
+    piece = @newsletter.pieces.last
+    visit "/newsletter/newsletters/#{@newsletter.id}/edit"
+
+    within_frame 'preview' do
+      find(:css, "#piece_#{piece.id}").hover()
+      find(:css, "#piece_#{piece.id} .edit_link").click()
+    end
+
+    expect(find(:css, "#piece_field_values_attributes_#{field.id}_text")[:value]).to eq\
+      '"bunk" is good!'
+  end
 end

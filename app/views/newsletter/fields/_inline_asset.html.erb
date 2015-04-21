@@ -8,7 +8,7 @@
           <%= image_tag field_value.url %><br />
      <% end %>
     <%= label_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', "Url:" %>
-    <%= text_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', field_value.url, :style=>'width: 608px;' %><br />
+    <%= text_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', field_value.url, :style=>'width: 590px;' %><br />
     <label for="asset">Upload An Asset:</label>
     <%= file_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][uploaded_data]' %>
     <%= hidden_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][asset_id]', field_value.asset_id %>

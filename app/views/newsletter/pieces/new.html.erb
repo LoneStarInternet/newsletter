@@ -1,4 +1,4 @@
-<%= title "New #{ @piece.element.name }" %>
+<%= title "New #{ @piece.element.name } in Area: #{ @piece.area.name.humanize }" %>
 <p><%= @piece.element.description %></p>
 <%= render :partial => 'form' %>
 

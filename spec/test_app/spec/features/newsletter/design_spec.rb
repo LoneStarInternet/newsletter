@@ -89,6 +89,8 @@ EOT
           expect(@left_area_text_field.description).to eq \
             "My Paragraph is a text area for you!"
           expect(@left_area_text_field.label).to eq "My Paragraph"
+          click_link "Edit"
+          expect(page).to have_content "Edit Element '#{@left_area_text.name}'"
           click_link "Back to Design"
         end
         and_it "can create an element with a text field in the right area" do

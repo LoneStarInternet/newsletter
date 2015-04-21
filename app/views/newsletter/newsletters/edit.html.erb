@@ -24,9 +24,6 @@
 
 <%= content_for :page_navigation do %>
   <div>
-  <% if::Newsletter.use_show_for_resources %>
-    <%= link_to "Show", @newsletter, :class => 'button' %>
-  <% end %>
     <%= link_to "Back", newsletters_path, :class => 'button' %>
   </div>
 <% end %>

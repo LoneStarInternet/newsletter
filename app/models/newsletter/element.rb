@@ -61,35 +61,6 @@ module Newsletter
       @html_text = text
     end
   
-    def update_attributes(params={})
-      transaction do 
-        super
-      end
-    end
-
-    def save_fields
-      return true unless @fields_attributes.present?
-      @fields_attributes.each_pair do |index,attributes|
-        should_destroy = ['true','1'].include?attributes.delete(:_destroy)
-        if attributes[:id].blank?
-          next if should_destroy
-          attributes.delete(:id)
-          klass = attributes.delete(:type)
-          fields << klass.constantize.new(attributes)
-        else
-          id = attributes.delete(:id).to_i
-          if should_destroy
-            fields.where(id: id).limit(1).each(&:destroy)
-          else
-            type = attributes.delete(:type)
-            field = fields.detect{|field| field.id == id}
-            field.update_attributes(attributes)
-            field = Field.morph(field,type) unless field.class.name.eql?(type)
-          end
-        end
-      end
-    end
-  
     # returns field data so that Newsletter::Design.export(instance) can export itself to a YAML file  
     def export_fields
       { :name => name,
@@ -121,7 +92,6 @@ module Newsletter
         move_design_on_name_change
         write_design
         super
-        save_fields
       end
     end
   
@@ -146,17 +116,5 @@ module Newsletter
       FileUtils.mv(file_path(@old_name),file_path)
     end
   
-    # def save_fields
-    #   Rails.logger.warn "Fields: #{fields.inspect}"
-    #   fields.each do |field|
-    #     if field.should_destroy?
-    #       Rails.logger.warn "Destroy Field: #{field.inspect}"
-    #       field.delete
-    #     else
-    #       Rails.logger.warn "Save Field: #{field.inspect}"
-    #       field.save!      
-    #     end
-    #   end
-    # end
   end
 end

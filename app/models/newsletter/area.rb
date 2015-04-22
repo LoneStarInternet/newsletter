@@ -43,8 +43,5 @@ module Newsletter
       area.save
     end
   
-    def should_destroy?
-      should_destroy.to_i == 1
-    end
   end
 end

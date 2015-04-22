@@ -12,44 +12,6 @@ module Newsletter
       head :ok
     end
   
-    def index
-      @areas = Area.find(:all)
-    end
-
-    def show
-    end
-
-    def new
-      @newsletter_area = Area.new
-    end
-
-    def edit
-    end
-
-    def create
-      @newsletter_area = Area.new(params[:area])
-      if @newsletter_area.save
-        flash[:notice] = 'Area was successfully created.'
-          redirect_to(@newsletter_area)
-      else
-          render :action => "new"
-      end
-    end
-
-    def update
-      if @newsletter_area.update_attributes(params[:area])
-        flash[:notice] = 'Area was successfully updated.'
-        redirect_to(@newsletter_area) 
-      else
-        render :action => "edit"
-      end
-    end
-
-    def destroy
-      @newsletter_area.destroy
-      redirect_to(areas_url)
-    end
-  
     protected
   
     def find_design

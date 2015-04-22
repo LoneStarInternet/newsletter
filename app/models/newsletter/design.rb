@@ -86,20 +86,6 @@ module ::Newsletter
        @html_text = text
     end
   
-    # def area_attributes=(area_attributes)
-    #   area_attributes.each do |attributes|
-    #     if attributes[:id].blank?
-    #       Rails.logger.debug "Building Area : #{attributes.inspect}"
-    #       areas.build(attributes)
-    #     else
-    #       Rails.logger.debug "Setting Area data: #{attributes.inspect}"
-    #       area = areas.detect{|area| area.id == attributes[:id].to_i}
-    #       area.attributes = attributes
-    #     end
-    #   end
-    # end
-
-  
     def name=(new_name)
       return if self[:name].eql?(new_name)
       @old_name = self[:name] unless @old_name
@@ -146,18 +132,5 @@ module ::Newsletter
         file.write html_text
       end
     end
-  
-  
-    # def save_areas
-    #   areas.each do |area|
-    #     if area.should_destroy?
-    #       Rails.logger.debug "Destroying newsletter area: #{area.inspect}"
-    #       area.destroy
-    #     else
-    #       Rails.logger.debug "Saving newsletter area: #{area.inspect}"
-    #       area.save
-    #     end
-    #   end
-    # end
   end
 end

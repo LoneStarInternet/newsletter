@@ -25,8 +25,6 @@ module Newsletter
         ["name=? and element_id=? and id!=? and deleted_at is null", field.element_id,
         field.id]).nil? }
 =end
-      attr_accessor :should_destroy
-
       attr_accessible :name, :type, :element_id, :label, :sequence, :is_required, 
         :description, :updated_by
       
@@ -92,11 +90,6 @@ module Newsletter
         return type.constantize.new(field.attributes) if field.new_record?
         field.update_attribute('type',type)
         Field.find(field.id)
-      end
-
-      # used in figuring out whether to destroy a field as we are editing fields inside an element form
-      def should_destroy?
-        should_destroy.to_i == 1
       end
 
       # find the partial to display a form for creating a Newsletter::Piece

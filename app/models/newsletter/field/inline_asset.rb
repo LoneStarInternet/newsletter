@@ -53,6 +53,21 @@ module Newsletter
     # fields
     class Value
       attr_accessor :url, :text, :asset, :asset_id
+      def is_image?
+        if asset.present?
+          asset.is_image?
+        else
+          is_image_by_extension?
+        end
+      end
+
+      def is_image_by_extension?
+        extension = File.extname(url).gsub(/^\./,'')
+        [ 'bmp', 'cod', 'gif', 'ief', 'jpe', 'jpeg', 'jpg', 'png',
+          'jfif', 'svg', 'tif', 'tiff'
+        ].include?(extension.downcase)
+      end
+
       def initialize(params)
         @url = params[:url]
         @text = params[:text]

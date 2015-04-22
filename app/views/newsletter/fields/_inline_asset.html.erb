@@ -4,7 +4,7 @@
       <% unless field.description.blank? %>
         <%= field.description %><br />
       <% end %>
-      <% unless field_value.url.blank? %>
+      <% if field_value.url.present? && field_value.is_image? %>
           <%= image_tag field_value.url, id: "piece_field_values_image_#{field.id}" %><br />
      <% end %>
     <%= label_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', "Url:" %>

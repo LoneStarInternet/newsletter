@@ -27,5 +27,11 @@ module Newsletter
     def self.build_public_dirname(id)
       "#{::Newsletter.asset_path}/#{("%08d" %id)[-8,4]}/#{("%08d" %id)[-4,4]}"
     end
+
+    def is_image?
+      image.content_type.include?('image')
+    rescue => e
+      false
+    end
   end
 end

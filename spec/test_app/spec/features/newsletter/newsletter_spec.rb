@@ -57,11 +57,13 @@ RSpec.feature 'Newsletter generation' do
     Newsletter::AssetUploader.enable_processing = true
     visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
     area = @newsletter.area('left_column')
+    element = area.elements.detect{|e| e.name.eql?('Left Column Article')}
+    field = element.fields.detect{|f| f.name.eql?('link')}
     select "Left Column Article", from: "Area: Left column" 
     click_button "add_element_#{area.id}"
     fill_in "Article Excerpt:", with: Faker::Lorem.paragraphs.join("\n\n")
     fill_in "Headline:", with: Faker::Company.bs.split(/ /).map(&:capitalize).join(" ")
-    find(:css, "#piece_field_values_attributes_2_uploaded_data").set(
+    find(:css, "#piece_field_values_attributes_#{field.id}_uploaded_data").set(
       Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, 
       '/spec/support/files/iReach_logo.gif'))).path
     )

@@ -34,7 +34,7 @@ RSpec.feature 'Newsletter generation' do
     end
   end
 
-  it "allows you to edit a pieces", js: true do
+  it "allows you to edit a piece", js: true do
     visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
     piece = @newsletter.pieces.first
     current_url = piece.locals[:image].url
@@ -51,6 +51,43 @@ RSpec.feature 'Newsletter generation' do
       piece = Newsletter::Piece.find(piece.id)
       expect(piece.locals[:image].url).to eq new_url
     end
+  end
+
+  it "allows you to remove an inline asset from a piece", js: true do
+    Newsletter::AssetUploader.enable_processing = true
+    visit "/newsletter/newsletters/#{@newsletter.id}/edit" 
+    area = @newsletter.area('left_column')
+    select "Left Column Article", from: "Area: Left column" 
+    click_button "add_element_#{area.id}"
+    fill_in "Article Excerpt:", with: Faker::Lorem.paragraphs.join("\n\n")
+    fill_in "Headline:", with: Faker::Company.bs.split(/ /).map(&:capitalize).join(" ")
+    find(:css, "#piece_field_values_attributes_2_uploaded_data").set(
+      Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, 
+      '/spec/support/files/iReach_logo.gif'))).path
+    )
+    click_button "Submit"
+
+    @newsletter = Newsletter::Newsletter.find(@newsletter.id)
+    piece = @newsletter.pieces.last
+    file_location = piece.locals[:link].asset.image.to_s
+    expect(File.exist?(file_location)).to be true
+
+    within_frame 'preview' do
+      find(:css, "#piece_#{piece.id}").hover()
+      find(:css, "#piece_#{piece.id} .edit_link").click()
+    end
+
+    field = piece.fields.detect{|f| f.name.eql?('link')}
+    within(:css, "#piece_field_values_attributes_#{field.id}") do
+      click_link "Delete Asset"
+    end
+    click_button "Submit"
+    @newsletter = Newsletter::Newsletter.find(@newsletter.id)
+    piece = @newsletter.pieces.last
+    expect(piece.locals[:link].asset).to be nil
+    expect(File.exist?(file_location)).to be false
+
+    Newsletter::AssetUploader.enable_processing = false
   end
 
   it "doesn't break when you put double quotes in a piece text field", js: true do

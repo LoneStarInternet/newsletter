@@ -1,15 +1,16 @@
-<div class="newsletter_parts_group">
+<div class="newsletter_parts_group" id="piece_field_values_attributes_<%= field.id %>">
 	<h2>Asset for <%= field.label %></h2>
       Either enter a url to your asset or upload a file.<br />
       <% unless field.description.blank? %>
         <%= field.description %><br />
       <% end %>
       <% unless field_value.url.blank? %>
-          <%= image_tag field_value.url %><br />
+          <%= image_tag field_value.url, id: "piece_field_values_image_#{field.id}" %><br />
      <% end %>
     <%= label_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', "Url:" %>
     <%= text_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][url]', field_value.url, :style=>'width: 608px;' %><br />
     <label for="asset">Upload An Asset:</label>
     <%= file_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][uploaded_data]' %>
     <%= hidden_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][asset_id]', field_value.asset_id %>
+    <%= link_to "Delete Asset", "#", onclick: "if(confirm('Are you sure?')) {jQuery('#piece_field_values_image_#{field.id}').hide(); jQuery('#piece_field_values_attributes_#{field.id}_url').val('')}; return false;", class: "button" %>
 </div>

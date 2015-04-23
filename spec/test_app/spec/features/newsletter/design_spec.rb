@@ -154,6 +154,17 @@ EOT
       end
     end
   end
+  it "can sort an element's fields" do
+    pending "Not tested"
+    design = import_design
+    element = design.elements.detect{|e| e.name.eql?('Left Column Article')}
+    visit "/newsletter/designs/#{design.id}/edit"
+    click_link "Manage Elements"
+    within(:css, "#element_1") do
+      click_link "Edit"
+    end
+    raise "Not Tested"
+  end
   it "paginates when there are a lot of them" do
     50.times{import_design(nil,Faker::Company.bs)}
     visit "/newsletter/designs"

@@ -11,7 +11,7 @@
   <% end %>
   </tr>
   <% for element in @elements %>
-    <tr class="<%= cycle('odd','even') %>">
+    <tr class="<%= cycle('odd','even') %>" id="element_<%= element.id %>">
       <td><%=h element.name %></td>
       <td><%=h element.description %></td>
     <% if::Newsletter.use_show_for_resources %>

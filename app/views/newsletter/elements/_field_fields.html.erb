@@ -8,6 +8,7 @@
 		<%= f.text_field :description %><br />
 		<%= f.label :type %>
 		<%= f.select :type, options_for_select(@field_types.collect{|type| [type.gsub(/Newsletter::Field::/,'').humanize,type]}, f.object.class.name) %>
+		<%= f.hidden_field :sequence, {class: 'sequence'} %>
 	  <%= f.link_to_remove "Remove", {class: 'button', style: 'margin-left: 130px;'} %>
     <hr>
 <% end %>

@@ -15,6 +15,8 @@ module Newsletter
       has_many :field_values, :class_name => 'Newsletter::FieldValue'
       belongs_to :updated_by, :class_name => 'User'
 
+      acts_as_list :scope => :element, :column => :sequence
+
       validates_presence_of :name
 =begin
       FIXME: make this work with deletable or convert to auditable, and extend it to access destroyed records

@@ -21,8 +21,27 @@
             </ul>
         		<div id="newsletter_fields">
         			<%= f.fields_for :fields %>
+        		  <%= f.link_to_add('Add Field', :fields, {class: 'button add_field'}) %>
         		</div>
-        		<%= f.link_to_add('Add Field', :fields, {class: 'button'}) %>
+<%= content_for :head do %>
+<script>
+jQuery(document).ready(function() {
+  jQuery("#newsletter_fields").sortable({
+    axis: 'y',
+    stop: function (event, ui) {
+      var sequence = 1;
+      jQuery('#newsletter_fields .fields input.sequence').each(function(){
+          jQuery(this).val(sequence);
+          sequence += 1;
+      });
+    } 
+  });
+  jQuery('.add_field').click(function() {
+    jQuery( "#newsletter_fields" ).sortable( "refresh" );
+  });
+});
+</script>
+<% end %>
       	</div>
       	<div class='newsletter_parts_group' style='margin-top: 10px; padding: 0 5px 5px 15px; border: thin dashed black; background-color: #eee'>
            <h2 style='padding-bottom: 0; margin-bottom: 0; font-size: 10pt; '>Areas</h2>

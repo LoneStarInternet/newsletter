@@ -7,7 +7,7 @@
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/le-frog/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
   <%= javascript_include_tag "newsletter/application" %>
   <%= csrf_meta_tags %>
-  <%= content_for :head %>
+  <%= yield :head %>
 </head>
 <div id="top"><%= image_tag "newsletter/iReach_logo.gif", width: "269", height:"85", style: "float: left;" %><%= image_tag "newsletter/TopCenter.gif", width: "435", height: "85", style: "float: left;" %><%= image_tag "newsletter/TopRight.gif", width: "62", height: "85", style: "float: right;" %>&nbsp;</div>
 <div style="background-color: #fff;">

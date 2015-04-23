@@ -11,7 +11,7 @@
   <% end %>
   </tr>
   <% for design in @designs %>
-    <tr class="<%= cycle('odd','even') %>">
+    <tr class="<%= cycle('odd','even') %>" id="design_<%= design.id %>">
       <td><%=h design.name %></td>
       <td><%=h design.description %></td>
     <% if::Newsletter.use_show_for_resources %>

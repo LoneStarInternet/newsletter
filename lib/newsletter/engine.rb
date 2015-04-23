@@ -12,22 +12,30 @@ module Newsletter
   mattr_accessor :designs_path
   # the fully qualified url of site i.e. http://www.example.com
   mattr_accessor :site_url
-  # the path to the site '/' if its at the root or /blarg if the rails app is at a subpath
+  # the path to the site '/' if its at the root or /blarg if the rails engine is at a subpath defaults to '/admin'
   mattr_accessor :site_path
   # the default layout for the administration of newsletters
   mattr_accessor :layout
   # layout for the newsletter archive
   mattr_accessor :archive_layout
-  # whether or not to redirect to the 'show' page of something after editing/creating or go to the 'index'
-  mattr_accessor :use_show_for_resources
   # path to the newsletter assets (will be used for asset uploads)
   mattr_accessor :asset_path
-  mattr_accessor :show_title
+  # designs_require_authentication: whether you need to log in to manage designs(recommended)
   mattr_accessor :designs_require_authentication
+  # design_authorized_roles: array of role names that can manage designs
   mattr_accessor :design_authorized_roles
+  # newsletters_require_authentication: whether you need to log in to manage newsletters(everyone can currently see them.. devise your own abilities if you want to require login for these)
   mattr_accessor :newsletters_require_authentication
+  # newsletter_authorized_roles: array of role names that can manage newsletters
   mattr_accessor :newsletter_authorized_roles
+  # roles_method: the method which gives a list of role names for the 'current_user' of the app, if it answers with an array of names as strings with 'roles' or a string with 'role' this doesn't have to be set
   mattr_accessor :roles_method
+
+  # the following 2 will probably be deprecated soon
+  # whether or not to redirect to the 'show' page of something after editing/creating or go to the 'index'
+  mattr_accessor :use_show_for_resources
+  # provides a view helper for whether to show a title in a layout/template
+  mattr_accessor :show_title
   class Engine < ::Rails::Engine
     isolate_namespace Newsletter
     initializer "Newsletter.config" do |app|

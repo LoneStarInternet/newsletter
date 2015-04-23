@@ -52,7 +52,7 @@ module ::Newsletter
       design = nil
       transaction do 
         data[:name] = design_name if design_name
-        design = Design.create!(:name => data[:name], 
+        design = Design.create(:name => data[:name], 
           :html_text => data[:html_text],
           :description => data[:description])
         data[:areas].each do |area_data|
@@ -62,6 +62,7 @@ module ::Newsletter
           Element.import(design,element_data)
         end
       end
+      raise "Error importing design: #{design.errors.full_messages.join("\n  ")}" unless design.valid?
       design
     end
 
@@ -74,8 +75,6 @@ module ::Newsletter
     def base_design_path(this_name=nil)
       "#{::Newsletter.designs_path}/designs/#{name_as_path(this_name)}"
     end
-  
-
 
     def html_text
       return @html_text if @html_text

@@ -17,6 +17,8 @@ en:
         html_text: "HTML code"
 
     errors:
+      messages:
+        record_invalid: "record is invalid"
 
   navigation:
 

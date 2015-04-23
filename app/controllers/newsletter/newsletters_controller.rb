@@ -39,22 +39,12 @@ module Newsletter
   
     def show
       return redirect_to(main_app.newsletter_archive_path) unless @newsletter.present?
-      newsletter_html = render_to_string :inline => File.readlines(@newsletter.design.view_path).join, 
-        :locals => @newsletter.locals
-      if params[:mode].eql?('email')
-        #mailer handles substitutions
-        render :text => newsletter_html
-      else
-        #no substitutions
-        render :text => newsletter_html
-      end
+      render layout: false
     end
 
     def editor
       params[:editor] = '1'
-      newsletter_html = render_to_string :inline => File.readlines(@newsletter.design.view_path).join, 
-        :locals => @newsletter.locals
-      render :text => newsletter_html
+      render :show, layout: false
     end
 
     def new

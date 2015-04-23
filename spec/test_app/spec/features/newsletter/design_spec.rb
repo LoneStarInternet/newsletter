@@ -3,29 +3,13 @@ require 'rails_helper'
 RSpec.feature Newsletter::Design do 
   let(:left_area_only_layout) {
     <<EOT
-<html>
-<head>
-  <title><%= title %></title> 
-  <%= render partial: 'newsletter/newsletters/head' %>
-</head>
-<body>
   <%= render left_area %>
-</body>
-</html>
 EOT
   }
   let(:full_layout) {
     <<EOT
-<html>
-<head>
-  <title><%= title %></title> 
-  <%= render partial: 'newsletter/newsletters/head' %>
-</head>
-<body>
   <%= render left_area %>
   <%= render right_area %>
-</body>
-</html>
 EOT
   }
   context "a new design" do

@@ -80,7 +80,9 @@ module ::Newsletter
 
     # returns the image filenames inside a design
     def images
-      Dir.glob(File.join(images_path,'*.*')).map{|f| File.basename(f)}
+      Dir.glob(File.join(images_path,'*.*')).map{|f| File.basename(f)} || []
+    rescue => e
+      []
     end
 
     # returns the images as an array of base64 encoded strings
@@ -104,9 +106,10 @@ module ::Newsletter
     end
 
     # imports images from array of base64 encoded images
-    def import_images(images)
+    def import_images(image_imports)
+      image_imports ||= []
       FileUtils.mkdir_p(images_path)
-      images.each do |image|
+      image_imports.each do |image|
         File.binwrite(File.join(images_path,image[:name]),
           Base64.decode64(image[:data])
         )

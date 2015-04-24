@@ -72,6 +72,10 @@ module Newsletter
     def public_url(mode='')
       "#{::Newsletter.site_url}/newsletters/#{self[:id]}#{mode.blank? ? '' : "/#{mode}"}"
     end
+
+    def image_uri(filename)
+      File.join(design.images_path.gsub(/.*public\//,'/'), filename)
+    end
   
     # used to generate the newsletter from a model or someplace other than the web stack
     #   FIXME: There has to be a better way, where railsy stuff works ... erb doesn't seem 

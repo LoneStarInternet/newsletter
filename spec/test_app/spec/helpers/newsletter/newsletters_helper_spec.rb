@@ -53,4 +53,12 @@ RSpec.describe Newsletter::NewslettersHelper, :type => :helper do
       expect(filter(text)).to eq text
     end
   end
+  describe "#design_image" do
+    it "returns an image tag for design's image directory" do
+      design = import_design
+      newsletter = FactoryGirl.create(:newsletter, design: design)
+      expect(design_image('newsletter_header.png',width: '100',class: 'neat_image')).to \
+        eq(%Q|<img src="images/My_Design/newsletter_header.png" width="100" class="neat_image"/>|)
+    end
+  end
 end

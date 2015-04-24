@@ -11,6 +11,14 @@ module Newsletter
       new_text.html_safe
     end
 
+    def design_image(image_filename, options={})
+      options_text = ''
+      options.each_pair do |key,value|
+        options_text << %Q| #{key}="#{h value}"|
+      end
+      %Q|<img src="#{h @newsletter.image_uri(image_filename)}"#{options_text}/>|.html_safe
+    end
+
     protected 
     def filter_eols_to_brs(text,orig_text)
       return '' if text.blank?

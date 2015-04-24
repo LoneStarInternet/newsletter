@@ -14,9 +14,9 @@ module Newsletter
     def design_image(image_filename, options={})
       options_text = ''
       options.each_pair do |key,value|
-        options_text << %Q| #{key}="#{h value}"|
+        options_text << %Q| #{key}="#{ERB::Util.html_escape value}"|
       end
-      %Q|<img src="#{h @newsletter.image_uri(image_filename)}"#{options_text}/>|.html_safe
+      %Q|<img src="#{ERB::Util.html_escape @newsletter.image_uri(image_filename)}"#{options_text}/>|.html_safe
     end
 
     protected 

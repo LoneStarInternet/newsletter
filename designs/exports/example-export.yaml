@@ -22,7 +22,7 @@
   100%;\r\n  }\r\n  .rightcoltable {\r\n\twidth: 100%;\r\n  }\r\n  .left_col_img {\r\n\twidth:
   95%;\r\n  }\r\n  .right_col_img {\r\n\twidth: 95%;\r\n  }\r\n  .header_img {\r\n\twidth:
   100%;\r\n  }\r\n}\r\n</style>\r\n<center>\r\n<table cellspacing=\"0\" cellpadding=\"0\"
-  class=\"wrappertable\" width=\"587\">\r\n<tr><td colspan=\"2\" align=\"center\"><%= design_image(\"newsletter_header.png\", width: \"587\", class: \"header_img\"></td></tr>\r\n<tr
+  class=\"wrappertable\" width=\"587\">\r\n<tr><td colspan=\"2\" align=\"center\"><%= design_image(\"newsletter_header.png\", width: \"587\", class: \"header_img\") %></td></tr>\r\n<tr
   bgcolor=\"#0068b3\" cellpadding=\"2\" cellspacing=\"2\"><td style=\"font-family:arial,sans-serif;font-size:11px;color:#FFFFFF;\"cellpadding=\"2\"
   cellspacing=\"2\">&nbsp;Your Tagline or Newsletter Description</td><td  align=\"right\"
   style=\"font-family:arial,sans-serif;font-size:12px;color:#FFFFFF;\" cellpadding=\"2\"

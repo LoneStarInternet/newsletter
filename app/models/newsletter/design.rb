@@ -37,7 +37,8 @@ module ::Newsletter
           :html_text => html_text,
           :description => description,
           :areas => areas.collect{|area| area.export_fields}, 
-          :elements => elements.collect{|element| element.export_fields}
+          :elements => elements.collect{|element| element.export_fields},
+          :images => base64_encoded_images
         },file)
       end
     end
@@ -61,6 +62,7 @@ module ::Newsletter
         data[:elements].each do |element_data|
           Element.import(design,element_data)
         end
+        design.import_images(data[:images])
       end
       raise "Error importing design: #{design.errors.full_messages.join("\n  ")}" unless design.valid?
       design
@@ -68,12 +70,47 @@ module ::Newsletter
 
     # returns path to newsletter design for use in views and is the same for actual file
     def view_path(this_name=nil)
-      "#{base_design_path(this_name)}/layout.html.erb"
+      File.join(base_design_path(this_name),'layout.html.erb')
     end
   
-    # 
+    # returns the path to the base of the design's files
     def base_design_path(this_name=nil)
-      "#{::Newsletter.designs_path}/designs/#{name_as_path(this_name)}"
+      File.join(::Newsletter.designs_path,'designs',name_as_path(this_name))
+    end
+
+    # returns the image filenames inside a design
+    def images
+      Dir.glob(File.join(images_path,'*.*')).map{|f| File.basename(f)}
+    end
+
+    # returns the images as an array of base64 encoded strings
+    def base64_encoded_images
+      images.map {|image| {
+        name: image,
+        data: Base64.encode64(File.binread(File.join(images_path,image)))
+      }}
+    end
+
+    # returns where a design's images should go, can override for 'old_name'
+    def images_path(the_name=nil)
+      the_name ||= name
+      File.join('public','images',name_as_path(the_name)) 
+    end
+
+    # move a design's images on name change
+    def move_images
+      return unless @old_name && @old_name != name
+      FileUtils.mv(images_path(@old_name),images_path)
+    end
+
+    # imports images from array of base64 encoded images
+    def import_images(images)
+      FileUtils.mkdir_p(images_path)
+      images.each do |image|
+        File.binwrite(File.join(images_path,image[:name]),
+          Base64.decode64(image[:data])
+        )
+      end
     end
 
     def html_text
@@ -123,6 +160,7 @@ module ::Newsletter
     def move_design_on_name_change
       return unless @old_name and File.exists?(view_path(@old_name))
       FileUtils.mv(base_design_path(@old_name),base_design_path)
+      move_images(@old_name, name)
     end
 
     def write_design

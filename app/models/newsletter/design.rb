@@ -70,11 +70,13 @@ module ::Newsletter
 
     # returns path to newsletter design for use in views and is the same for actual file
     def view_path(this_name=nil)
+      this_name ||= name
       File.join(base_design_path(this_name),'layout.html.erb')
     end
   
     # returns the path to the base of the design's files
     def base_design_path(this_name=nil)
+      this_name ||= name
       File.join(::Newsletter.designs_path,'designs',name_as_path(this_name))
     end
 

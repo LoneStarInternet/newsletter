@@ -13,7 +13,7 @@
 <div style="background-color: #fff;">
   <div id="menu">
     <ul>
-      <li><span onClick="$('#setup_submenu').toggle();return false">Setup</span>
+      <li><span onClick="$('#setup_submenu').toggle();return false" style="cursor: pointer;">Setup</span>
         <ul id='setup_submenu' <%= ' style="display:none"'.html_safe unless request.path =~ %r#/newsletter/designs|setup# %>>
           <%= content_tag(:li, link_to('Newsletter Designs', news.designs_path)) if can?(:manage, Newsletter::Design) %>
         </ul>

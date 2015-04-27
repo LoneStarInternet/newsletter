@@ -10,10 +10,8 @@
   padding: 0; line-height:1.2em;}\r\na{text-decoration:none; color: #0068b3;}\r\na:hover
   {color: #7fc348;}\r\n.footer {font-size:7pt;}\r\np a {font-size: 6pt; font-weight:
   bold;}\r\np.right a {font-size: 7pt;}\r\nhr{color: #7fc348; margin:5px 0; height:
-  1px; padding: 0;}\r\n.bullet {color: #7fc348; font-weight: bold; height: 5px;}\r\np.pullquote
-  {color: #333333; background:url(<%= asset_path( \"images/pullquote_bg.gif\") %>)
-  repeat-x ; margin:0; padding: 15px; text-align:center; font-style: italic; font-size:\r\n7pt;}\r\np.pullquote
-  a { color: #333333;}\r\np.pullquote a:hover {color: #0068b3;}\r\n  .wrappertable
+  1px; padding: 0;}\r\n.bullet {color: #7fc348; font-weight: bold; height: 5px;}\r\n
+  .wrappertable
   {\r\n\twidth: 587px;\r\n\tmargin: 0 8px;\r\n  }\r\n   .leftcoltable {\r\n\twidth:
   227px;\r\n  } \r\n  .rightcoltable {\r\n\twidth: 347px;\r\n  }\r\n  .left_col_img
   {\r\n\twidth: 220px;\r\n  }\r\n  .right_col_img {\r\n\twidth: 320px;\r\n  }\r\n

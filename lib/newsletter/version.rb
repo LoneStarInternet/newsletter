@@ -1,3 +1,3 @@
 module Newsletter
-  VERSION = "3.0.2"
+  VERSION = "3.2.1"
 end

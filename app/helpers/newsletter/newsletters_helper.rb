@@ -16,7 +16,10 @@ module Newsletter
       options.each_pair do |key,value|
         options_text << %Q| #{key}="#{ERB::Util.html_escape value}"|
       end
-      %Q|<img src="#{ERB::Util.html_escape @newsletter.image_uri(image_filename)}"#{options_text}/>|.html_safe
+      %Q|<img src="#{ERB::Util.html_escape ::Newsletter.site_url + 
+        ::Newsletter.site_path +
+        @newsletter.image_uri(image_filename).gsub(%r#^/#,'')
+        }"#{options_text}/>|.html_safe
     end
 
     protected 

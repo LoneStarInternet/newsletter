@@ -5,7 +5,7 @@
        <%= f.label :description %>
        <%= f.text_field :description %><br />
     <% unless @element.name.blank? %>
-    	<label>Design Filename</label>
+    	<label>Element Filename</label>
     	     <div style="padding-top: 7px";><%= @element.file_path.gsub(/^#{::Newsletter.designs_path}/,'') %></div><br />
   	<% end %>
        <%= f.label :html_text %>

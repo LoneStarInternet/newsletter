@@ -3,7 +3,8 @@ ENV["Rails.env"] ||= "development"
 require "#{Rails.root}/config/environment"
 
 namespace :newsletter do 
-  desc "Upgrade tasks" do
+  desc "Upgrade tasks"
+  task :upgrade do
     Rake::Task['newsletter:import_migrations'].invoke
     Rake::Task['db:migrate'].invoke
   end

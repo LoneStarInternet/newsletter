@@ -7,12 +7,12 @@ require "newsletter/version"
 Gem::Specification.new do |gem|
   gem.name          = "newsletter"
   gem.version       = Newsletter::VERSION
-  gem.authors       = ["Lone Star Internet"]
-  gem.email         = ["biz@lone-star.net"]
+  gem.authors       = ["Lone Star Internet", "Christopher Hauboldt"]
+  gem.email         = ["biz@lone-star.net",'chauboldt@lone-star.net']
   gem.licenses      = ['MIT']
   gem.description   = %q{Newsletter templating and management system.}
   gem.summary       = %q{Newsletter templating and management system which allows a designer to create templates that are email-friendly and allows a user to create newsletters with little html/css knowhow.}
-  gem.homepage      = "http://ireach.com"
+  gem.homepage      = "http://ireachnews.com"
 
   gem.add_dependency "rails", "~>3.2"
   gem.add_dependency "jquery-rails", "~>3.1"

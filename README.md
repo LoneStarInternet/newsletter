@@ -1,6 +1,12 @@
 Newsletter
 ==========
-Put some boilerplate here
+Newsletters will be created from newsletter designs, which will allow users to add data to predefined elements such as articles and images where they have no need to know html or use a wysiwyg editor. The design defines what elements exist and where they can be placed in a layout.
+Elements will be sortable/draggable within an area. There will be an archive page and newsletters can be published or hidden from this view as well as sorted. If the Mailing List Manager is also installed, published newsletters will be available as mailable objects when creating a mailing. Currently only an html design can be defined, and a plain text version is available by converting the html of the newsletter.
+
+Online Documentation
+--------------------
+* [Homepage](http://ireachnews.com)
+* [Github Wiki](https://github.com/LoneStarInternet/newsletter/wiki)
 
 Requirements
 ------------

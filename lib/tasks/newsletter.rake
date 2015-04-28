@@ -3,6 +3,10 @@ ENV["Rails.env"] ||= "development"
 require "#{Rails.root}/config/environment"
 
 namespace :newsletter do 
+  desc "Upgrade tasks" do
+    Rake::Task['newsletter:import_migrations'].invoke
+    Rake::Task['db:migrate'].invoke
+  end
   desc "Import Example Newsletter Design"
   task :import_example_design, :design_name do |t,args|    
     Rails.logger.warn "Importing Example Newsletter Design with name: #{args.design_name}"

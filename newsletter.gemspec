@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Lone Star Internet", "Christopher Hauboldt"]
   gem.email         = ["biz@lone-star.net",'chauboldt@lone-star.net']
   gem.licenses      = ['MIT']
-  gem.description   = %q{Email newsletter templating and management system which allows a designer to develop templates and elements that are email-friendly and allows a user to create newsletters without html/css knowledge utilizing a wysiwyg interface.}
+  gem.description   = %q{Email newsletter templating and management system which allows a designer to develop templates and elements that are email-friendly and allows a user to create newsletters without html/css knowledge utilizing a wysiwyg interface. Also available with the mail manager (including contact and mailing list management, double opt-in mailing list sign up, mailer, and bounce processing) and user access as the iReach gem.}
   gem.summary       = %q{Newsletter templating and management system.}
   gem.homepage      = "http://ireachnews.com"
 

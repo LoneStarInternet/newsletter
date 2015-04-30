@@ -10,8 +10,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Lone Star Internet", "Christopher Hauboldt"]
   gem.email         = ["biz@lone-star.net",'chauboldt@lone-star.net']
   gem.licenses      = ['MIT']
-  gem.description   = %q{Newsletter templating and management system.}
-  gem.summary       = %q{Newsletter templating and management system which allows a designer to create templates that are email-friendly and allows a user to create newsletters with little html/css knowhow.}
+  gem.description   = %q{Email newsletter templating and management system which allows a designer to develop templates and elements that are email-friendly and allows a user to create newsletters without html/css knowledge utilizing a wysiwyg interface.}
+  gem.summary       = %q{Newsletter templating and management system.}
   gem.homepage      = "http://ireachnews.com"
 
   gem.add_dependency "rails", "~>3.2"

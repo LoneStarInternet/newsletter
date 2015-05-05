@@ -1,0 +1,12 @@
+--- 
+common:
+  site_url: http://newsletter.dev
+  table_prefix: 
+  designs_path: <%= "#{Rails.root}/" %>
+  use_show_for_resources: false
+  asset_path: newsletter_assets
+  site_path: /
+  layout: newsletter/application
+test:
+  site_url: http://newsletter.lvh.me:4447
+  designs_path: <%= "#{Rails.root}/tmp" %>

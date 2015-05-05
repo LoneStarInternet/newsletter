@@ -125,7 +125,11 @@ module Newsletter
   # initializes the configuration options pulled from config/newsletter.yml and 
   # overrides with config/newsletter.local.yml if it exists
   def self.initialize_with_config(conf)
-    ::Newsletter.table_prefix ||= conf.table_prefix || 'newsletter_' rescue 'newsletter_'
+    if conf.params.has_key?('table_prefix')
+      ::Newsletter.table_prefix ||= conf.table_prefix.to_s # allow empty
+    else
+      ::Newsletter.table_prefix ||= 'newsletter_'
+    end
     ::Newsletter.designs_path ||= conf.designs_path || "#{Rails.root}/designs" rescue "#{Rails.root}/designs"
     default_url_options = ActionController::Base.default_url_options
     default_site_url = "#{default_url_options[:protocol]||'http'}://#{default_url_options[:domain]}" 

@@ -1,7 +1,11 @@
 Newsletter
 ==========
-Newsletters will be created from newsletter designs, which will allow users to add data to predefined elements such as articles and images where they have no need to know html or use a wysiwyg editor. The design defines what elements exist and where they can be placed in a layout.
-Elements will be sortable/draggable within an area. There will be an archive page and newsletters can be published or hidden from this view as well as sorted. If the Mailing List Manager is also installed, published newsletters will be available as mailable objects when creating a mailing. Currently only an html design can be defined, and a plain text version is available by converting the html of the newsletter.
+Email newsletter templating and management system which allows a designer to develop templates, areas, and elements that are email-friendly and allows a user to create newsletters without html/css knowledge utilizing a wysiwyg interface.
+The newsletter design and areas define what elements exist and where they can be placed in a layout.
+Elements are sortable/draggable within an area. There is an archive page and newsletters can be published or hidden from this view as well as sorted.
+Also available as a stand alone application called [iReach](https://github.com/LoneStarInternet/iReach/releases) including mailing list and contact management, double opt-in mailing list sign up, a mailer, bounce processing, and user access management. There is also the i_reach gem that ties mail_manager and newsletter together into one gem.
+
+If the Mailing List Manager is also installed, published newsletters will be available as mailable objects when creating a mailing. Currently only an html design can be defined, and a plain text version is available by converting the html of the newsletter.
 
 Online Documentation
 --------------------

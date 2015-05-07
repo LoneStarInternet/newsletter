@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131222171230) do
+ActiveRecord::Schema.define(:version => 20150507154748) do
 
   create_table "news_areas", :force => true do |t|
     t.string   "name",        :null => false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20131222171230) do
   create_table "news_assets", :force => true do |t|
     t.integer  "field_id"
     t.integer  "piece_id"
-    t.string   "filename"
+    t.string   "image"
     t.string   "content_type"
     t.integer  "size"
     t.integer  "width"

@@ -13,6 +13,7 @@ en:
         name: "Name"
         description: "Description"
         html_text: "HTML code"
+        stylesheet_text: "Style Sheet"
       newsletter/element:
         html_text: "HTML code"
 

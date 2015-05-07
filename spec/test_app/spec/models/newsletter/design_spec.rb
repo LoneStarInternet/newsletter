@@ -9,6 +9,12 @@ RSpec.describe Newsletter::Design do
     expect(@design.name).to eq("My Design")
   end
 
+  context "has an associated stylesheet" do
+    it "that is accessible" do
+      expect{@design.stylesheet_text}.not_to raise_error
+    end
+  end
+
   context "whether it exports and imports correctly" do
     it "doesn't blow up" do
       reimported_design = nil
@@ -20,11 +26,14 @@ RSpec.describe Newsletter::Design do
         )
       end
       and_it "has the same elements" do
-        expect(@design.elements.pluck(:name).sort).to eq reimported_design.elements.
-          pluck(:name).sort
+        expect(reimported_design.elements.pluck(:name).sort).to eq @design.
+          elements.pluck(:name).sort
       end
       and_it "knows its images" do
-        expect(@design.images).to include("newsletter_header.png")
+        expect(reimported_design.images).to include("newsletter_header.png")
+      end
+      and_it "knows its stylesheet" do
+        expect(reimported_design.stylesheet_text).to eq @design.stylesheet_text
       end
     end
     

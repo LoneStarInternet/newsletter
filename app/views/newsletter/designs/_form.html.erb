@@ -8,6 +8,8 @@
     	<label>Design Filename</label>
     	     <div style="padding-top: 9px;"><%= @design.view_path.gsub(/^#{::Newsletter.designs_path}/,'') %></div><br />
   	<% end %>
+       <%= f.label :stylesheet_text %>
+            <%= f.text_area :stylesheet_text %><br />
        <%= f.label :html_text %>
             <%= f.text_area :html_text %><br />
       <div class='newsletter_parts_group'>

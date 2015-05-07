@@ -19,6 +19,7 @@ EOT
       fill_in "Name", with: "My Design"
       fill_in "Description", with: "This is an awesome design!"
       fill_in "HTML code", with: left_area_only_layout
+      fill_in "Style Sheet", with: ".bobos { background-color: blue; }"
       click_link "Add Area"
       find(:css, ".area input").set 'left_area'
       click_button "Submit"
@@ -41,6 +42,7 @@ EOT
         @right_area = @design.areas.detect{|a| a.name.eql?('right_area')}
         @left_area = @design.areas.detect{|a| a.name.eql?('left_area')}
         expect(remove_whitespace(@design.html_text)).to eq remove_whitespace(full_layout)
+        expect(@design.stylesheet_text).to eq ".bobos { background-color: blue; }"
       end
       and_it "when managing elements" do
         and_it "can create an element with a text area in the left area" do

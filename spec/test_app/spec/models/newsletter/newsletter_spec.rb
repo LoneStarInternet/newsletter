@@ -25,6 +25,10 @@ RSpec.describe Newsletter::Newsletter do
       expect(@newsletter.generate(:email)).not_to include('<script>')
     end
 
+    it "contains its stylesheet" do
+      expect(@newsletter.generate(:email)).to match %r|<style>\s+#{@design.stylesheet_text}\s+</style>|
+    end
+
     it "can generate an email_html" do
       email_html = @newsletter.email_html
       expect(email_html.strip).not_to eq ''
@@ -87,6 +91,18 @@ EOT
       @newsletter.unpublish
       expect(@newsletter.published_at).to be nil
     end
+  end
+
+  it "contains its stylesheet for public generation", js: true do
+    visit '/newsletters/archive'
+    expect(@newsletter.generate(:public)).to \
+      match %r|<style>\s+#{@design.stylesheet_text}\s+</style>|
+  end
+
+  it "contains its stylesheet for editor generation", js: true do
+    visit '/newsletters/archive'
+    expect(@newsletter.generate(:editor)).to \
+      match %r|<style>\s+#{@design.stylesheet_text}\s+</style>|
   end
 
   context "regarding its public url" do

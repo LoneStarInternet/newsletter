@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150507154748) do
+ActiveRecord::Schema.define(:version => 20150507195612) do
 
   create_table "news_areas", :force => true do |t|
     t.string   "name",        :null => false
@@ -45,13 +45,14 @@ ActiveRecord::Schema.define(:version => 20150507154748) do
   end
 
   create_table "news_designs", :force => true do |t|
-    t.string   "name",        :null => false
+    t.string   "name",            :null => false
     t.string   "description"
     t.text     "html_design"
     t.integer  "updated_by"
     t.datetime "deleted_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "stylesheet_text"
   end
 
   create_table "news_elements", :force => true do |t|

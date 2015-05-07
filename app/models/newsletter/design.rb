@@ -17,7 +17,8 @@ module ::Newsletter
   
     accepts_nested_attributes_for :areas
 
-    attr_accessible :name, :description, :html_text, :areas_attributes
+    attr_accessible :name, :description, :html_text, :areas_attributes,
+      :stylesheet_text
 
     scope :active, :conditions => {:deleted_at => nil}
   
@@ -35,6 +36,7 @@ module ::Newsletter
         YAML.dump( {
           :name => name,
           :html_text => html_text,
+          :stylesheet_text => stylesheet_text,
           :description => description,
           :areas => areas.collect{|area| area.export_fields}, 
           :elements => elements.collect{|element| element.export_fields},
@@ -55,7 +57,8 @@ module ::Newsletter
         data[:name] = design_name if design_name
         design = Design.create(:name => data[:name], 
           :html_text => data[:html_text],
-          :description => data[:description])
+          :description => data[:description],
+          :stylesheet_text => data[:stylesheet_text])
         data[:areas].each do |area_data|
           Area.import(design,area_data)
         end

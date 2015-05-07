@@ -13,7 +13,7 @@
 <% end %>
 
 <p><b>Newsletter Window Size: </b>
-<% [[640,480],[800,600],[1024,768],[1280,1024],[1600,1200]].each do |width,height| %>
+<% [[320,568],[640,480],[800,600],[1024,768],[1280,1024],[1600,1200]].each do |width,height| %>
 	<%= link_to_function "#{width}x#{height}","$('#preview').css({height: '#{height}px', width: '#{width}px'})" %>
 <% end %>
 </p>

@@ -52,7 +52,7 @@ module Newsletter
   
     # retrieves the html erb design from the file system
     def html_text
-      return @html_text if @html_text
+      return @html_text if @html_text.present?
       @html_text = read_design
     end
 

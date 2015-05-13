@@ -31,6 +31,11 @@ module Newsletter
     def headlines
       pieces.select{|piece| piece.respond_to?(:headline)}
     end
+    
+    # returns it's stylesheet
+    def stylesheet 
+      design.stylesheet_text.to_s
+    end
 
     # returns the newsletter's content as plain text
     def email_text

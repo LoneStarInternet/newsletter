@@ -1,7 +1,6 @@
 module Newsletter
   class NewslettersController < ::Newsletter::ApplicationController
     helper_method :newsletter
-
     def sort
       Newsletter.all.each do | newsletter |
         newsletter.sequence = params["newsletters"].index(newsletter.id.to_s)+1
@@ -13,6 +12,10 @@ module Newsletter
     def archive
       @newsletters = Newsletter.published
       render :layout => ::Newsletter.archive_layout
+    end
+
+    def stylesheet
+
     end
   
     def publish
@@ -39,7 +42,10 @@ module Newsletter
   
     def show
       return redirect_to(main_app.newsletter_archive_path) unless @newsletter.present?
-      render layout: false
+      respond_to do |format|
+        format.html { render layout: false }
+        format.css  { render layout: false, content_type: 'text/css' }
+      end
     end
 
     def editor

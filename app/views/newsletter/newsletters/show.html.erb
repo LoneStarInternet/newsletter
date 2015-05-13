@@ -5,14 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title><%= @newsletter.name %></title>
-  <!-- link to style stuff here -->
+  <link rel="stylesheet" type="text/css" media="screen" href="<%= "/newsletters/#{@newsletter.id}/stylesheet.css" %>"/>
   <%= render 'newsletter/newsletters/head' %>
-  <style>
-    <%= @newsletter.design.stylesheet_text %>
-  </style>
 </head>
 <body>
 <% else %>
+<!DOCTYPE html>
 <style>
   <%= @newsletter.design.stylesheet_text %>
 </style>

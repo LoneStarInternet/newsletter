@@ -10,12 +10,12 @@ credentials: &credentials
 
 development:
   <<: *credentials 
-  database: mail_manager_development
+  database: newsletter_development
  
 test:
   <<: *credentials 
-  database: mail_manager_test
+  database: newsletter_test
  
 production:
   <<: *credentials 
-  database: mail_manager
+  database: newsletter

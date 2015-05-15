@@ -1,45 +1,48 @@
 ---
 :name: My Design
-:html_text: ! "<style type=\"text/css\">\r\nh1{font-family: Arial Black, Arial, Helvetica,
-  sans-serif; color: #333333; font-size:22px; margin:0; padding: 0 0 10px 0; }\r\nh2{font-family:
-  Arial Black, Arial, Helvetica, sans-serif; color: #333333; font-size:17px; margin:0;
-  padding: 7px 0 0 0;}\r\nh3 {font-family: Arial Black, Arial, Helvetica, sans-serif;
-  color: #0068b3; font-size:9pt; margin:0; padding: 0;}\r\np {font-family: Arial,
-  Helvetica, sans-serif; color: #333333; font-size:8.5pt; margin-top:4px; margin-bottom:4px;}\r\np.right{font-family:
-  Arial, Helvetica, sans-serif; color: #333333; font-size:9.5pt; margin:0 0 15px 0;
-  padding: 0; line-height:1.2em;}\r\na{text-decoration:none; color: #0068b3;}\r\na:hover
-  {color: #7fc348;}\r\n.footer {font-size:7pt;}\r\np a {font-size: 6pt; font-weight:
-  bold;}\r\np.right a {font-size: 7pt;}\r\nhr{color: #7fc348; margin:5px 0; height:
-  1px; padding: 0;}\r\n.bullet {color: #7fc348; font-weight: bold; height: 5px;}\r\n
-  .wrappertable
-  {\r\n\twidth: 587px;\r\n\tmargin: 0 8px;\r\n  }\r\n   .leftcoltable {\r\n\twidth:
-  227px;\r\n  } \r\n  .rightcoltable {\r\n\twidth: 347px;\r\n  }\r\n  .left_col_img
-  {\r\n\twidth: 220px;\r\n  }\r\n  .right_col_img {\r\n\twidth: 320px;\r\n  }\r\n
-  \ .right_col_art_img {\r\n\twidth: 174px;\r\n  }\r\n@media only screen and (max-device-width:
-  600px) {\r\n  .wrappertable {\r\n\twidth: 95%;\r\n  }\r\n   .leftcoltable {\r\n\twidth:
-  100%;\r\n  }\r\n  .rightcoltable {\r\n\twidth: 100%;\r\n  }\r\n  .left_col_img {\r\n\twidth:
-  95%;\r\n  }\r\n  .right_col_img {\r\n\twidth: 95%;\r\n  }\r\n  .header_img {\r\n\twidth:
-  100%;\r\n  }\r\n}\r\n</style>\r\n<center>\r\n<table cellspacing=\"0\" cellpadding=\"0\"
-  class=\"wrappertable\" width=\"587\">\r\n<tr><td colspan=\"2\" align=\"center\"><%= design_image(\"newsletter_header.png\", width: \"587\", class: \"header_img\") %></td></tr>\r\n<tr
-  bgcolor=\"#0068b3\" cellpadding=\"2\" cellspacing=\"2\"><td style=\"font-family:arial,sans-serif;font-size:11px;color:#FFFFFF;\"cellpadding=\"2\"
-  cellspacing=\"2\">&nbsp;Your Tagline or Newsletter Description</td><td  align=\"right\"
-  style=\"font-family:arial,sans-serif;font-size:12px;color:#FFFFFF;\" cellpadding=\"2\"
-  cellspacing=\"2\"><%= @newsletter.name %>&nbsp;</td></tr>\r\n</table>\r\n\r\n<table
-  cellspacing=\"0\" cellpadding=\"0\" class=\"wrappertable\" width=\"587\">\r\n<tr
-  valign=\"top\">\r\n<td><table cellspacing=\"0\" cellpadding=\"0\" class=\"leftcoltable\"
-  align=\"left\"><tr><td>\r\n<h2>In This Issue</h2>\r\n<!-- Left Column -->\r\n<%=
-  render left_column %>\r\n<hr />\r\n<h3><%= link_to \"Newsletter Archives\", \"#{::Newsletter.site_url}/newsletters/archive\",
+:html_text: "<center>\r\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"wrapper
+  table\">\r\n<tr><td colspan=\"2\"><%= design_image(\"newsletter_header.png\", class:
+  \"header_img\", style: \"display: block;\") %></td></tr>\r\n<tr bgcolor=\"#0068b3\"><td
+  style=\"font-family:arial,sans-serif;font-size:11px;color:#FFFFFF;\">&nbsp;Your
+  Tagline or Newsletter Description</td><td  align=\"right\" style=\"font-family:arial,sans-serif;font-size:12px;color:#FFFFFF;\"><%=
+  @newsletter.name %>&nbsp;</td></tr>\r\n</table>\r\n\r\n<table cellspacing=\"0\"
+  cellpadding=\"0\" class=\"wrappertable\">\r\n<tr valign=\"top\">\r\n<td><table cellspacing=\"0\"
+  cellpadding=\"0\" class=\"leftcoltable\" align=\"left\"><tr><td>\r\n<h2>In This
+  Issue</h2>\r\n<!-- Left Column -->\r\n<%= render left_column %>\r\n</td></tr></table>\r\n<!--Right
+  Column-->\r\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"rightcoltable\"><tr><td>\r\n<%=
+  render right_column %>\r\n<hr />\r\n<h3><%= link_to \"Newsletter Archives\", \"#{::Newsletter.site_url}/newsletters/archive\",
   :target => '_blank' %></h3>\r\n<p>If you missed a previous release or simply want
   to review an article of interest, all our newsletters have been archived. <%= link_to
-  \"Read More\", \"#{::Newsletter.site_url}/newsletters/archive\" %></p>\r\n</td></tr></table>\r\n<!--Right
-  Column-->\r\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"rightcoltable\"
-  align=\"right\"><tr><td>\r\n<%= render right_column %>\r\n</td></tr></table></td>\r\n</tr>\r\n<%
+  \"Read More\", \"#{::Newsletter.site_url}/newsletters/archive\" %></p>\r\n</td></tr></table></td>\r\n</tr>\r\n<%
   if is_email? %>\r\n<tr><td><hr /><p class=\"footer\" align=\"center\"><font color=\"#aaaaaa\">To
   remove your address from this newsletter list, please click <%= link_to \"Here\",
   '#UNSUBSCRIBE_URL##' %>.</font></p></td></tr>\r\n<% end %>\r\n<tr><td><hr /><p class=\"footer\"
   align=\"center\"><font color=\"#555555\"><b>My Company, Inc.</b> <span class=\"bullet\">&#8226;</span>
   123 Test Road <span class=\"bullet\">&#8226;</span>  Austin, TX 78701 <span class=\"bullet\">&#8226;</span>
   p:512.555.1212</font></p></td></tr>\r\n</table>\r\n</center>"
+:stylesheet_text: "h1 {\r\n  font-family: Arial Black, Arial, Helvetica, sans-serif;\r\n
+  \ color: #333333;\r\n  font-size:22px;\r\n  margin:0;\r\n  padding: 0 0 10px 0;\r\n}\r\nh2
+  {\r\n  font-family: Arial Black, Arial, Helvetica, sans-serif;\r\n  color: #333333;\r\n
+  \ font-size:17px;\r\n  margin:0;\r\n  padding: 7px 0 0 0;\r\n}\r\nh3 {\r\n  font-family:
+  Arial Black, Arial, Helvetica, sans-serif;\r\n  color: #0068b3;\r\n  font-size:9pt;\r\n
+  \ margin:0;\r\n  padding: 0;\r\n}\r\np {\r\n  font-family: Arial, Helvetica, sans-serif;\r\n
+  \ color: #333333;\r\n  font-size:8.5pt;\r\n  margin-top:4px;\r\n  margin-bottom:4px;\r\n}\r\np.right
+  {\r\n  font-family: Arial, Helvetica, sans-serif;\r\n  color: #333333;\r\n  font-size:9.5pt;\r\n
+  \ margin:0 0 15px 0;\r\n  padding: 0;\r\n  line-height:1.2em;\r\n}\r\na {\r\n text-decoration:none;\r\n
+  \ color: #0068b3;\r\n}\r\na:hover {\r\n color: #7fc348;\r\n}\r\n.footer {\r\n font-size:7pt;\r\n}\r\np
+  a {\r\n  font-size: 6pt;\r\n  font-weight: bold;\r\n}\r\np.right a {\r\n  font-size:
+  7pt;\r\n}\r\nhr {\r\n  background-color: #7fc348;\r\n  color: #7fc348;\r\n  margin:5px
+  0;\r\n  height: 1px;\r\n  padding: 0;\r\n  border: none;\r\n}\r\n.bullet {\r\n  color:
+  #7fc348;\r\n  font-weight: bold;\r\n  height: 5px;\r\n}\r\n.wrappertable {\r\n  width:
+  587px;\r\n  margin: 0 8px;\r\n}\r\n.leftcoltable {\r\n  width: 227px;\r\n} \r\n.rightcoltable
+  {\r\n  width: 347px;\r\n  float: right;\r\n}\r\n.left_col_img {\r\n  width: 220px;\r\n}\r\n
+  \ .left_col_art_img {\r\n  width: 110px;\r\n  float: left;\r\n}\r\n.right_col_img
+  {\r\n  width: 320px;\r\n}\r\n  .right_col_art_img {\r\n  width: 174px;\r\n  float:
+  left;\r\n}\r\n@media screen and (max-width: 600px) {\r\n  .wrappertable {\r\n\twidth:
+  95%;\r\n  }\r\n   .leftcoltable {\r\n\twidth: 100%;\r\n  }\r\n  .rightcoltable {\r\n\twidth:
+  100%;\r\n\tfloat: none;\r\n  }\r\n  .left_col_img {\r\n\twidth: 95%;\r\n  }\r\n
+  \ .right_col_img {\r\n\twidth: 95%;\r\n  }\r\n  .header_img {\r\n\twidth: 100%;\r\n
+  \ }\r\n}"
 :description: This is the simple newsletter template.
 :areas:
 - :name: left_column
@@ -48,28 +51,12 @@
   :description: This will house the elements of the 'right_column'
 :elements:
 - :name: Left Column Article
-  :description: Article with a heading, an excerpt, and a Read More link
-  :html_text: ! '<hr />
-
-    <h3>
-
-    <% unless link.url.blank? %>
-
-    <%= link_to headline, link.url %>
-
-    <% else %>
-
-    <%=h headline %>
-
-    <% end %>
-
-    </h3>
-
-
-    <p><%= filter(article_excerpt) %> <nobr><%= link_to(''Read More'', link.url) unless
-    link.url.blank? %></nobr></p>
-
-'
+  :description: Article with a heading, an excerpt, an image, and a Read More link
+  :html_text: "<hr />\r\n<h3>\r\n<% unless link.url.blank? %>\r\n<%= link_to headline,
+    link.url %>\r\n<% else %>\r\n<%=h headline %>\r\n<% end %>\r\n</h3>\r\n<%= image_tag(image.url,
+    {:width=>\"110\", :vspace=>\"5\", :hspace=>\"10\", :align=>\"left\", :alt => image.text,
+    :class=>\"left_col_art_img\"} ) unless image.url.blank? %>\r\n<p><%= filter(article_excerpt)
+    %> <nobr><%= link_to('Read More', link.url) unless link.url.blank? %></nobr></p>"
   :areas:
   - :name: left_column
     :description: This will house the elements of the 'left_column'
@@ -82,19 +69,25 @@
     :type: Newsletter::Field::Text
   - :name: article_excerpt
     :label: Article Excerpt
-    :sequence: 1
+    :sequence: 2
     :is_required: 
     :description: ''
     :type: Newsletter::Field::TextArea
+  - :name: image
+    :label: Image
+    :sequence: 3
+    :is_required: 
+    :description: Should be 110 px wide.
+    :type: Newsletter::Field::InlineAsset
   - :name: link
     :label: Read More Link
-    :sequence: 1
+    :sequence: 5
     :is_required: 
     :description: ''
     :type: Newsletter::Field::InlineAsset
 - :name: Left Column Image
   :description: Image that is formatted for the left column
-  :html_text: ! "<hr />\r\n<p><%= image_tag image.url, {:width=>\"220\", :alt=>image.text,
+  :html_text: "<hr />\r\n<p><%= image_tag image.url, {:width=>\"220\", :alt=>image.text,
     :class=>\"left_col_img\" } %></p>\r\n"
   :areas:
   - :name: left_column
@@ -108,7 +101,7 @@
     :type: Newsletter::Field::InlineAsset
 - :name: Right Column Article
   :description: Includes a headline, excerpt, image, and read more link
-  :html_text: ! "<h1><%= headline %></h1>\r\n<p class=\"right\">\r\n<%= image_tag(image.url,
+  :html_text: "<h1><%= headline %></h1>\r\n<p class=\"right\">\r\n<%= image_tag(image.url,
     {:width=>\"174\", :vspace=>\"5\", :hspace=>\"10\", :align=>\"left\", :alt => image.text,
     :class=>\"right_col_art_img\"} ) unless image.url.blank? %>\r\n<%= filter(article_excerpt)
     %>\r\n<nobr><%= link_to('Read More', link.url) unless link.url.blank? %></nobr></p>"
@@ -124,25 +117,25 @@
     :type: Newsletter::Field::Text
   - :name: article_excerpt
     :label: Article Excerpt
-    :sequence: 1
+    :sequence: 2
     :is_required: 
     :description: ''
     :type: Newsletter::Field::TextArea
   - :name: image
     :label: Image
-    :sequence: 1
+    :sequence: 3
     :is_required: 
     :description: Should be 174 px wide
     :type: Newsletter::Field::InlineAsset
   - :name: link
     :label: Read More Link
-    :sequence: 2
+    :sequence: 4
     :is_required: 
     :description: ''
     :type: Newsletter::Field::InlineAsset
 - :name: Right Column Headline
   :description: ''
-  :html_text: <h1><%= headline %></h1>
+  :html_text: "<h1><%= headline %></h1>"
   :areas:
   - :name: right_column
     :description: This will house the elements of the 'right_column'
@@ -155,7 +148,7 @@
     :type: Newsletter::Field::Text
 - :name: Right Column Image
   :description: ''
-  :html_text: ! '<%= image_tag image.url,  {:width=>"320", :alt=>image.text, :style=>"margin:0;
+  :html_text: '<%= image_tag image.url,  {:width=>"320", :alt=>image.text, :style=>"margin:0;
     padding: 15px 0 0 0;", :class=>"right_col_img"} %>'
   :areas:
   - :name: right_column
@@ -169,8 +162,8 @@
     :type: Newsletter::Field::InlineAsset
 - :name: Right Column Paragraph
   :description: Paragraph with read more link.
-  :html_text: ! "<p class=\"right\">\n\t<%= filter(body) %> <%= link_to 'Read More',
-    link.url unless link.url.blank? %>\n</p>"
+  :html_text: "<p class=\"right\">\r\n\t<%= filter(body) %> <%= link_to 'Read More',
+    link.url unless link.url.blank? %>\r\n</p>"
   :areas:
   - :name: right_column
     :description: This will house the elements of the 'right_column'
@@ -183,410 +176,210 @@
     :type: Newsletter::Field::TextArea
   - :name: link
     :label: Read More Link
-    :sequence: 1
+    :sequence: 2
     :is_required: 
     :description: ''
     :type: Newsletter::Field::InlineAsset
 :images:
 - :name: newsletter_header.png
-  :data: ! 'iVBORw0KGgoAAAANSUhEUgAAAksAAABeCAIAAAC8W8dUAAAAGXRFWHRTb2Z0
-
+  :data: |
+    iVBORw0KGgoAAAANSUhEUgAAAksAAABeCAIAAAC8W8dUAAAAGXRFWHRTb2Z0
     d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9i
-
     ZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2Vo
-
     aUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6
-
     bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2
-
     LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpS
-
     REYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJk
-
     Zi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIg
-
     eG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8i
-
     IHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5
-
     cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5j
-
     b20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRp
-
     ZDowMjgwMTE3NDA3MjA2ODExODA4M0NEQ0E2N0Y3QUVBMiIgeG1wTU06RG9j
-
     dW1lbnRJRD0ieG1wLmRpZDo4NjczRDZEREMxM0MxMUU0ODhBOUI4OUM2MUEw
-
     QzNFRCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NjczRDZEQ0MxM0Mx
-
     MUU0ODhBOUI4OUM2MUEwQzNFRCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQ
-
     aG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9t
-
     IHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDM4MDExNzQwNzIwNjgxMTgw
-
     ODNDRENBNjdGN0FFQTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDI4
-
     MDExNzQwNzIwNjgxMTgwODNDRENBNjdGN0FFQTIiLz4gPC9yZGY6RGVzY3Jp
-
     cHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9
-
     InIiPz5DleZ0AAAfOElEQVR42uxdC2wUR5p22Nmzje0Yv2bsMR7jYfwifiY2
-
     5mFhyNrLYRzgQLtcUEJE7jabRIm0nHJ3OmmVKKfTLnfill3pBFn2BJITmYsS
-
     SHjEiIUDDOZpFmPwBoMN2GP8msHGNnbw3CJxf9xkdrarurv6MT3dw/8pikxP
-
     T3VVTVd99dX/1/8/8/jx4wgEAoFAIMIOzyDDIRAIBAIZDoFAIBAIZDgEAoFA
-
     IJDhEAgEAoFAhkMgEAgEIqQM1zvWKX5DRny2cXph3DcyNjUsckN8VNKzkYn4
-
     uiAQCMTTznBAbx+1vSl+z8t5/1ZgXWiQXvj42r923G8SuSEvoerVwvefhhei
-
     t7e3p6eHvJ6amupyubR6SnNzM3kxMzMzIyMDx2QYY3h4eHJygncxKSk5JiYG
-
     OwcRDFhC9eBj3bsMwnDAx+L09lQB6K2xsZG8DnPQe++9FxkZqclTqI+ora1F
-
     hgtv9PXdvX//PvXtCo8G+qbx7LPPalWg1+tNSUnBN0cxZoTqwd6p2+2ec0bo
-
     gpPuPfgeSGJycvL06dPYDwiECBvt3r37yy+/1Ios6+vrt23bhh1rSobjZBwK
-
     OBPh+PHj4+Pj2A8IBIlLly4BG7ndbm3mpd7erVu3dnR0YMeamOFAxp1xH0AB
-
     ZyKcOnUKOwGBIMXWvn37NFv6Hzu2Y8eOyclJ7Fv1sIT28U13Py6z10RaolHA
-
     mQJnz54tLi5GaxkC4RdbQG9asZHX6927d69WQhARYg0HmHw0cqn/KAo4E+HE
-
     iRPYCQgER0jaiq2dO3civYUVw3EyzvfoIQo4s6CjowPWrdgPCMTU1JTGK37c
-
     mQw/hguVjGvznMSfXxk+//xz7AQEAoEMZ1AZN+4bOTfwP/jzK4PX621vb8d+
-
     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
-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
-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
-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
-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
-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
-
     gbqTxNjYmM83xTvFbLFYYmJiYX0Df5ioIZOTE48ePQq8GB8/Kz4+Hn9l8dGR
-
     mppqtVp1Hh1er/fGjRvc31FRUTk5ORpWQNe3FmTcno6fS8q4IEWq1EfAAaDy
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     ZD0RAA28fv361att7C0NNhQ0BG6Gr8AXI54aAJ1s376dhd4Cv7Jr165Dhw4F
-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
-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
-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
-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
-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
-
     5shZsxJYvjs8PKyG3jgAvwLJhZzeyH1aWYCvhz3J9fb2ghRTMzpg4agtyQHj
-
     MqYvV7lHGhqG01/G6S/g2FsK1KuVjINyeDbOGEtigXWhto1atmyZEEmQJnEd
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     bnVRKwY1GRkZ1t+18sYNwR8d+gEakpSURLaip6dbaAkCDSwqKmZ59IoVK/zb
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     cD+lP1tbWZwqqaQC86/4dyW9USRvUGyEE1pHM94pJPV8vindhtLQ0CCVfXNz
-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
-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
-
     wLtyeVpojmD5OvVUnIgIY1EJ4ue+1ZyEUw+yvdSty6CubChr5YwMWR68QG9U
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     q9VKE9OTKsNUUpeVYctw2so4wwo4DpLONSDjjt75hKUoMhUc0Kf+LeXieNHZ
-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
-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
-
     DBglMz1L4A+WECdGFnBP+IAhYhljMBfS93Jh+uqQNErnOF79/f3Uga1YMlKP
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     MV/znOEdEihJqTMIl4cwjldoQVLFgwcPArclSbsab2eSjGwSSIrUTU7FLuB+
-
     Yi4qKgaeU7ZpGTHt5WHMcwUIxJOdEqNVSJlTpekE3BM+sNc03f2YR1c8HOve
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     q9U2b95zCxYszMrKEskDJ5n0Vav6UBUkshe5w0FeDPtTjCZjOHYZZ2oBxwEo
-
     yhFXKn4PF475Qn8j7zpLL4UEa9asobP1dBwvlYU7nRTVyxiqI3ggKQfmX25/
-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
-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
-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
-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
-
     hx9+GDEdTCgxMRHUVWZmJpCo3KKETHHf+56FUZFQty5B/4mfpWMEJyiBD6am
-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
-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
-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
-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
-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
-
     8y9+8QtT9MYMI1eO0RpndgHnl3ElKTKOtTniSg11SIAKkTheKlFaSrFcXrhw
-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
-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
-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
-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
-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
-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
-
     Lk79sWjN46+Oj4/L/UpxMT1P5P79+9mXAvDcpia63SQnJwcZTm8ZZ3YB528F
-
     S2PLU18yUaNqamqCoQ6FfDV37tzJOIyB3qh0CJTscrkU1ArUFXmmjQdQISIb
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     cbyo4ZjVoKamRujIHVxsbGxsamoCqccdcYOJb3R0FAa2eIrw1atXqzHGSDKc
-
     pFOGuERTE46SE0BUooJ5v7Oz886dO1A+qEyoJEz33OG50dH7IuEf4X4NA0Az
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     wj9XfBbGW7La96HP5/F4enp6RkdHR0b+3JNOpxPmWZvNpuc5ZeMD2HRsbGz6
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
     rsO3AAAAAElFTkSuQmCC
-
-'

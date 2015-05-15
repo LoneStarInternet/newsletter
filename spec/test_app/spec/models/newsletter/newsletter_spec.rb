@@ -96,13 +96,18 @@ EOT
   it "contains its stylesheet for public generation", js: true do
     visit '/newsletters/archive'
     expect(@newsletter.generate(:public)).to \
-      match %r|<style>\s+#{@design.stylesheet_text}\s+</style>|
+      match %r|<link.*/newsletters/#{@newsletter.id}/stylesheet.css|
+  end
+
+  it "returns its stylesheet from the public url: /newsletters/:id/stylesheet.css" do
+    visit "/newsletters/#{@newsletter.id}/stylesheet.css"
+    expect(page.body.strip).to eq @newsletter.design.stylesheet_text.strip
   end
 
   it "contains its stylesheet for editor generation", js: true do
     visit '/newsletters/archive'
     expect(@newsletter.generate(:editor)).to \
-      match %r|<style>\s+#{@design.stylesheet_text}\s+</style>|
+      match %r|<link.*/newsletters/#{@newsletter.id}/stylesheet.css|
   end
 
   context "regarding its public url" do

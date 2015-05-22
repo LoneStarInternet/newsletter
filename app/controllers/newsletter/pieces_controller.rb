@@ -4,6 +4,8 @@ module Newsletter
     before_filter :find_element
     before_filter :find_area
 
+    skip_before_filter :verify_authenticity_token, only: [:destroy]
+
     def new
       @piece = Piece.new({
         :area_id => @area.id,

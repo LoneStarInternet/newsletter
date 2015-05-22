@@ -9,6 +9,21 @@ RSpec.describe Newsletter::Design do
     expect(@design.name).to eq("My Design")
   end
 
+  context "when name changed/moved" do
+    it "moves its images" do
+      old_images_path = @design.images_path
+      old_name = @design.name
+      expect(@design.images_path).to include("public/images/#{@design.name_as_path(@design.name)}")
+      expect(File.exist?(@design.images_path)).to be true
+      new_name = @design.name + " NEW!"
+      expect{@design.update_attributes(name: new_name)}.not_to raise_error
+      expect(@design.name).to eq new_name
+      expect(@design.images_path).to include("public/images/#{@design.name_as_path(new_name)}")
+      expect(File.exist?(old_images_path)).to be false
+      expect(File.exist?(@design.images_path)).to be true
+    end
+  end
+
   context "has an associated stylesheet" do
     it "that is accessible" do
       expect{@design.stylesheet_text}.not_to raise_error

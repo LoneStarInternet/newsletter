@@ -17,7 +17,7 @@ Newsletter::Engine.routes.draw do
   end
   resources :elements, :only => [:edit,:create,:update,:destroy]
 
-  match "/:newsletter_id/areas/:id/sort" => "newsletter/areas#sort", :method => :get, as: 'sort_area'
+  match "/:newsletter_id/areas/:id/sort" => "areas#sort", :method => :get, as: 'sort_area'
   match '/newsletters/:id/:mode' => 'newsletters#show', :method => :get, :as => :public_newsletter_mode
   match '/newsletters/:id/public' => 'newsletters#show', :method => :get, :as => :public_newsletter
   match '/newsletters/:id' => 'newsletters#show', :method => :get, :as => :newsletter

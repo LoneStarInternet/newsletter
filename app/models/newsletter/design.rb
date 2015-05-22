@@ -105,9 +105,11 @@ module ::Newsletter
     end
 
     # move a design's images on name change
-    def move_images
-      return unless @old_name && @old_name != name
-      FileUtils.mv(images_path(@old_name),images_path)
+    def move_images(old_name=nil, new_name=nil)
+      old_name ||= @old_name
+      name ||= new_name
+      return unless old_name && old_name != name
+      FileUtils.mv(images_path(old_name),images_path)
     end
 
     # imports images from array of base64 encoded images

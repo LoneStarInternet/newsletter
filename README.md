@@ -11,6 +11,7 @@ Online Documentation
 --------------------
 * [Homepage](http://ireachnews.com)
 * [Github Wiki](https://github.com/LoneStarInternet/newsletter/wiki)
+* [Changelog](http://www.ireachnews.com/index.html#changelog)
 
 Requirements
 ------------

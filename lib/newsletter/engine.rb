@@ -93,6 +93,8 @@ module Newsletter
           ::Newsletter::Area,
           ::Newsletter::Field
         ]
+        can :sort, ::Newsletter::Area
+        can [:sort,:publish,:unpublish], ::Newsletter::Newsletter
       end
       if ::Newsletter.authorized?(user, ::Newsletter::Newsletter)
         can :manage, [

@@ -8,10 +8,19 @@ body {
 }
 
 #top {
-  background-image: url('/assets/newsletter/topMid.gif');
+  background-image: url('/assets/i_reach/topMid.gif');
   height: 85px;
   min-width: 766px;
 }
+
+.menu_expand {
+  cursor: pointer;
+}
+
+span.menu_expand:hover {
+  color: #fc6;
+}
+
 /*
 img {
    display: block;
@@ -46,7 +55,7 @@ h2.list_group {
 
 #page_content {
   overflow: hidden;
-  background-image: url('/assets/newsletter/MidRight.gif');
+  background-image: url('/assets/i_reach/MidRight.gif');
   background-repeat: repeat-y;
   background-position: right;
   padding: 10px 40px 10px 10px;
@@ -129,7 +138,9 @@ table.list tr.even {
 	background: #e2e8d9;
 }
 
-
+.mailing_buttons {
+	width: 310px;
+}
 /* form labels have different alignment*/
 label {font-size: 11pt;
    font-family: helvetica, arial, sans-serif;
@@ -142,6 +153,10 @@ label {font-size: 11pt;
    text-align: right;
    padding: 7px 7px 0 0;
 }       
+
+.field {
+  clear: both;
+}
 
 input, select, textarea {
         margin: 6px 0;
@@ -173,7 +188,7 @@ input.button {
     font-size: 11pt;
     font-weight: bold;
     color: #555;
-    margin-right: 10px;
+    margin-right: 5px;
     cursor: pointer; 
 }
 
@@ -210,7 +225,7 @@ a.button:link, a.button:visited {
     font-size: 11pt;
     font-weight: bold;
     color: #555;
-    margin-right: 10px;
+    margin-right: 5px;
     /* do I need this? */
     cursor: pointer; 
 }

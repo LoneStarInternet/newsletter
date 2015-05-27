@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Newsletter::Design do
   before(:each) do 
+    FileUtils.rm_rf(File.join(Rails.root, 'public', 'images', 'My_Design'))
     @design = import_design(nil,"My Design")
   end
 
@@ -16,6 +17,10 @@ RSpec.describe Newsletter::Design do
       expect(@design.images_path).to include("public/images/#{@design.name_as_path(@design.name)}")
       expect(File.exist?(@design.images_path)).to be true
       new_name = @design.name + " NEW!"
+      FileUtils.rm_rf(File.join(Newsletter.designs_path,'designs',
+        'My_Design_NEW_'))
+      FileUtils.rm_rf(File.join(Rails.root, 'public', 'images', 
+        'My_Design_NEW_'))
       expect{@design.update_attributes(name: new_name)}.not_to raise_error
       expect(@design.name).to eq new_name
       expect(@design.images_path).to include("public/images/#{@design.name_as_path(new_name)}")

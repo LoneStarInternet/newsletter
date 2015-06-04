@@ -6,6 +6,6 @@
     <%= f.select :design_id, @designs.collect {|design| [ design.name, design.id ] } %><br />
   <% end %>
     <%= f.label :name %>
-    <%= f.text_field :name, :style=> 'float: left; margin-right: 10px;' %>
+    <%= f.text_field :name, :style=> 'float: left; margin-right: 10px;', :size => '50' %>
     <%= f.submit "Save", :class => "button" %><div style="clear: both;"></div>
 <% end %>

@@ -1,2 +1,3 @@
 <%= label_tag 'piece[field_values_attributes]['+field.id.to_s+'][text]', "#{field.label}:" %>
-<%= text_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][text]', field.value_for_piece(piece,false), :style=>'width: 620px;' %><br />
+<%= text_field_tag 'piece[field_values_attributes]['+field.id.to_s+'][text]', field.value_for_piece(piece,false), :style=>'width: 620px;' %>
+<div style="clear: left;"></div>

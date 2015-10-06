@@ -8,7 +8,8 @@
       <%= hidden_field_tag 'area_id', area.id %>
       <%= label_tag "area_#{area.id}_element_id", "Area: #{area.name.humanize}" %>
       <%= select_tag 'element_id',  options_from_collection_for_select(area.elements, 'id', 'name'), :style=>'margin-right: 10px;', :id => "area_#{area.id}_element_id" %>
-      <%= submit_tag 'Add Element', :class => 'button', :id => "add_element_#{area.id}" %><br />
+      <%= submit_tag 'Add Element', :class => 'button', :id => "add_element_#{area.id}" %>
+      <div style="clear: left;"></div>
    <% end %>
 <% end %>
 

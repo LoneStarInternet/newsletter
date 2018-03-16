@@ -2,7 +2,6 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "newsletter/version"
-
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |gem|
   gem.name          = "newsletter"
@@ -26,6 +25,7 @@ Gem::Specification.new do |gem|
   EOT
 
   gem.add_dependency "rails", "~>3.2"
+  gem.add_dependency 'rack-protection', '=2.0.1'
   gem.add_dependency "jquery-rails", "~>3.1"
   gem.add_dependency "jquery-ui-rails", "~>5.0"
   gem.add_dependency "mini_magick", "~>4.1"

@@ -16,7 +16,7 @@ gem 'jquery-ui-rails'
 # your gem to rubygems.org.
 
 gem "devise"
-gem 'mysql2'
+gem 'mysql2', '~>0.3'
 gem "factory_girl_rails", "~>4.3"
 gem "faker"
 gem "sqlite3"

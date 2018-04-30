@@ -15,7 +15,8 @@ gem 'jquery-ui-rails'
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem "devise"
+#gem "devise"
+#removed since it's not needed in Gem
 gem 'mysql2', '~>0.3'
 gem "factory_girl_rails", "~>4.3"
 gem "faker"
@@ -37,4 +38,6 @@ group :test do
   gem "rspec-rails", "~>3.2"
   gem "rspec-activemodel-mocks"
   gem "cucumber-rails", require: false
+  gem 'brakeman'
+  gem 'bundler-audit'
 end

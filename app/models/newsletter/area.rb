@@ -16,7 +16,7 @@ module Newsletter
     has_many  :pieces, :order => 'sequence', :class_name => "Newsletter::Piece"
     belongs_to :updated_by, :class_name => 'User'
   
-    attr_accessor :should_destroy
+    attr_accessor :_destroy
 
     attr_protected :id
   

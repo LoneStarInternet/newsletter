@@ -15,6 +15,8 @@ module Newsletter
       has_many :field_values, :class_name => 'Newsletter::FieldValue'
       belongs_to :updated_by, :class_name => 'User'
 
+      attr_accessor :_destroy
+
       acts_as_list :scope => :element, :column => :sequence
 
       validates_presence_of :name
@@ -28,7 +30,7 @@ module Newsletter
         field.id]).nil? }
 =end
       attr_accessible :name, :type, :element_id, :label, :sequence, :is_required, 
-        :description, :updated_by
+        :description, :updated_by, :_destroy
       
       include Deleteable
 

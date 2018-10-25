@@ -11,6 +11,14 @@ module Deleteable
     !deleted_at.nil?
   end
 
+  def destroy(hard_delete=false)
+    if !hard_delete && self.class.column_names.include?('deleted_at')
+      delete
+    else
+      super
+    end
+  end
+
   def delete
     update_attribute(:deleted_at,Time.now)
   end

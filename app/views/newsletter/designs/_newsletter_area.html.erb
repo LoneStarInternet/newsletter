@@ -1,17 +1,6 @@
 <% div_for area do %>
   <% fields_for 'design[area_attributes][]', area do |naf| %>
 		<%= naf.text_field :name, :index => nil %> 
-		<% if area.new_record? %>
-			<%= link_to_function "Remove", "$(this).up('.area').remove()", :class => 'button' %><br/>
-		<% else %>
-			<%= link_to_function "Remove", "$(this).next('.should_destroy').value = 1; $(this).hide();"+
-			    "$('area_restore_#{area.id}').show()", :class => 'button', 
-			    :id =>  "area_remove_#{area.id}" %>
-			<%= link_to_function "Restore", "$(this).next('.should_destroy').value = 0; $(this).hide();"+
-			    "$('area_remove_#{area.id}').show()", :class => 'button', 
-			    :id =>  "area_restore_#{area.id}", :style => 'display:none' %><br/>
-			<%= naf.hidden_field :id, :index => nil %>
-			<%= naf.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
-		<% end %>
+	  <%= naff.link_to_remove "Remove", {class: 'button', style: 'margin-left: 130px;'} %>
 	<% end %>
 <% end %>

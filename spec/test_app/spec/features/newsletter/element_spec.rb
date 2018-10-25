@@ -35,6 +35,27 @@ RSpec.describe 'Element management', type: :feature do
     end
   end
 
+  it "removes a field from an element", js: true do
+    visit "/newsletter/designs/#{@design.id}/edit"
+    Debugging::wait_until_success do
+      click_link "Manage Elements", match: :first
+    end
+    element = @design.elements.first
+    Debugging::wait_until_success do
+      within(:css, "#element_#{element.id}") do
+        click_link "Edit"
+      end
+    end
+    field = element.fields.first
+    field_id = "field_#{field.type.split(/:+/).last.downcase}_#{field.id}"
+    find(:css, "##{field_id} a").click() # click Remove for the field
+    click_button "Submit"
+    Debugging::wait_until_success do
+      Newsletter::Field.deleted.find_by_id(field.id).present?
+      Newsletter::Field.find_by_id(field.id).blank?
+    end
+  end
+
   it "has javascript on the editor" do
     visit "/newsletters/#{@newsletter.id}/editor" 
     expect(page.body).to include('<script')

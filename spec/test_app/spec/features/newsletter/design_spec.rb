@@ -147,6 +147,15 @@ EOT
           expect(@nice_image_field.label).to eq "Nice Image"
           click_link "Back to Design"
         end
+        and_it "can delete an area" do
+          area = @design.areas.first
+          within(:css, "#area_#{area.id}") do
+            click_link "Remove"
+          end
+          click_button "Submit"
+          expect(Newsletter::Area.find_by_id(area.id)).to be_nil
+          expect(Newsletter::Area.deleted.find_by_id(area.id)).not_to be_nil
+        end
         and_it "soft deletes designs" do
           click_link "View All"
           click_link "Delete"

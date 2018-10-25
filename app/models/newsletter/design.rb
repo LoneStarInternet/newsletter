@@ -15,7 +15,7 @@ module ::Newsletter
     belongs_to :updated_by, :class_name => 'User'
     after_create :write_design
   
-    accepts_nested_attributes_for :areas
+    accepts_nested_attributes_for :areas, allow_destroy: true
 
     attr_accessible :name, :description, :html_text, :areas_attributes,
       :stylesheet_text

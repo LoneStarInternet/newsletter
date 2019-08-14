@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rack-protection', '=2.0.1'
   gem.add_dependency "jquery-rails", "~>3.1"
   gem.add_dependency "jquery-ui-rails", "~>5.0"
-  gem.add_dependency "mini_magick", "~>4.1"
+  gem.add_dependency "mini_magick", "=4.9.4"
   gem.add_dependency "will_paginate", "~>3.0"
   gem.add_dependency 'carrierwave', "~>0.10" 
   gem.add_dependency "dynamic_form", "~>1.1"

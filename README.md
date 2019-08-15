@@ -16,7 +16,7 @@ Online Documentation
 Requirements
 ------------
 
-* Rails 3.2.x (currently tested against rails 3.2.21)
+* Rails 3.2.x (currently tested against rails 3.2.25)
 * Ruby 2.1.5 (currently tested against 2.1.5, we have also tested against 1.9.3 - but it is no longer supported by ruby devs)
 * [Bundler](http://bundler.io)
 
